@@ -68,6 +68,16 @@
     outline-offset: 3px;
   }
 
+  /* ---------- SCROLL PROGRESS ---------- */
+  .scroll-progress{
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green), var(--amber));
+    z-index: 60;
+  }
+
   /* ---------- NAV ---------- */
   nav{
     position: fixed;
@@ -100,6 +110,7 @@
     margin: 0; padding: 0;
   }
   .nav-links a{
+    position: relative;
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-decoration: none;
@@ -107,6 +118,17 @@
     transition: color 0.15s ease;
   }
   .nav-links a:hover{ color: var(--green-deep); }
+  .nav-links a:not(.nav-cta)::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -4px;
+    height: 1px;
+    background: var(--green-deep);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.25s ease;
+  }
+  .nav-links a:not(.nav-cta):hover::after{ transform: scaleX(1); transform-origin: left; }
   .nav-cta{
     background: var(--green);
     color: var(--paper) !important;
@@ -168,7 +190,9 @@
     content: "";
     width: 18px; height: 1px;
     background: var(--amber);
+    transition: width 0.6s ease 0.15s;
   }
+  .section-head:not(.in) .eyebrow::before{ width: 0; }
   .section-head{
     max-width: 640px;
     margin-bottom: var(--space-4);
@@ -191,6 +215,9 @@
   @media (prefers-reduced-motion: reduce){
     .reveal{ opacity: 1; transform: none; transition: none; }
     html{ scroll-behavior: auto; }
+    .hero-topo{ animation: none; }
+    .hero .eyebrow, .hero h1, .hero .lede, .hero-ctas, .arc-wrap{ animation: none; opacity: 1; transform: none; }
+    .card:hover, .eng-block:hover, .stat:hover, .btn:hover{ transform: none; }
   }
 
   /* ---------- HERO ---------- */
@@ -214,23 +241,35 @@
       repeating-radial-gradient(circle at 15% 20%, transparent 0, transparent 38px, var(--line) 39px, transparent 40px),
       repeating-radial-gradient(circle at 85% 75%, transparent 0, transparent 46px, var(--line) 47px, transparent 48px);
     mask-image: linear-gradient(to bottom, black, transparent 92%);
+    animation: drift 24s linear infinite alternate;
   }
-  .hero p.eyebrow{ margin-bottom: 1.25rem; }
+  @keyframes drift{
+    0%{ background-position: 0 0, 0 0; }
+    100%{ background-position: 70px 50px, -60px 35px; }
+  }
+  @keyframes fadeUp{
+    from{ opacity: 0; transform: translateY(18px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  .hero .eyebrow{ margin-bottom: 1.25rem; animation: fadeUp 0.7s ease both; }
   .hero h1{
     font-size: clamp(2.3rem, 5.2vw, 3.6rem);
     max-width: 16ch;
+    animation: fadeUp 0.8s ease both 0.12s;
   }
   .hero .lede{
     margin-top: 1.4rem;
     color: var(--ink-soft);
     max-width: 46ch;
     font-size: 1.05rem;
+    animation: fadeUp 0.8s ease both 0.24s;
   }
   .hero-ctas{
     margin-top: 2rem;
     display: flex;
     gap: 0.9rem;
     flex-wrap: wrap;
+    animation: fadeUp 0.8s ease both 0.36s;
   }
   .btn{
     display: inline-flex;
@@ -244,12 +283,12 @@
     transition: transform 0.15s ease, background 0.15s ease;
   }
   .btn-primary{ background: var(--green); color: var(--paper); }
-  .btn-primary:hover{ background: var(--green-deep); transform: translateY(-1px); }
+  .btn-primary:hover{ background: var(--green-deep); transform: translateY(-2px) scale(1.03); box-shadow: 0 12px 22px -10px rgba(18,59,42,0.55); }
   .btn-ghost{ border: 1px solid var(--line); color: var(--ink); }
-  .btn-ghost:hover{ border-color: var(--green); color: var(--green-deep); }
+  .btn-ghost:hover{ border-color: var(--green); color: var(--green-deep); transform: translateY(-2px); }
 
   /* Trajectory arc graphic */
-  .arc-wrap{ position: relative; }
+  .arc-wrap{ position: relative; animation: fadeUp 1s ease both 0.2s; }
   .arc-wrap svg{ width: 100%; height: auto; overflow: visible; }
   .arc-path{
     fill: none;
@@ -262,6 +301,7 @@
   }
   .arc-marker circle{ fill: var(--ink); }
   .arc-flag{ fill: var(--amber); }
+  .arc-ball{ fill: var(--green); }
   .arc-label{
     font-family: 'IBM Plex Mono', monospace;
     font-size: 9px;
@@ -281,10 +321,12 @@
   /* ---------- WORK ---------- */
   .work-grid{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
   }
   .card{
+    position: relative;
+    overflow: hidden;
     background: var(--paper-alt);
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -292,7 +334,23 @@
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
+  .card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 16px 28px -18px rgba(18,59,42,0.4);
+    border-color: var(--green);
+  }
+  .card::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+    transform: translateX(-140%);
+    transition: transform 0.8s ease;
+    pointer-events: none;
+  }
+  .card:hover::after{ transform: translateX(140%); }
   .card-top{
     display:flex;
     align-items:flex-start;
@@ -325,7 +383,7 @@
     border-radius: 999px;
     padding: 0.25rem 0.65rem;
   }
-  @media (max-width: 720px){ .work-grid{ grid-template-columns: 1fr; } }
+  @media (max-width: 860px){ .work-grid{ grid-template-columns: 1fr; } }
 
   /* ---------- ENGINEERING ---------- */
   .eng-grid{
@@ -333,6 +391,8 @@
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
+  .eng-block{ transition: transform 0.3s ease; }
+  .eng-block:hover{ transform: translateY(-4px); }
   .eng-block h3{
     font-size: 1.15rem;
     margin-bottom: 0.6rem;
@@ -366,6 +426,12 @@
     border-radius: var(--radius);
     padding: 0.85rem 1rem;
     background: var(--paper-alt);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .stat:hover{
+    transform: translateY(-3px) scale(1.02);
+    border-color: var(--green);
+    box-shadow: 0 10px 20px -14px rgba(18,59,42,0.35);
   }
   .stat .mono{
     font-size: 0.95rem;
@@ -391,12 +457,14 @@
     align-items: flex-start;
   }
   .contact-links a{
+    display: inline-block;
     text-decoration: none;
     font-size: 0.95rem;
     border-bottom: 1px solid var(--line);
     padding-bottom: 2px;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
-  .contact-links a:hover{ border-color: var(--green-deep); color: var(--green-deep); }
+  .contact-links a:hover{ border-color: var(--green-deep); color: var(--green-deep); transform: translateX(4px); }
 
   footer{
     padding: 1.75rem 0 2.5rem;
@@ -411,6 +479,7 @@
 </head>
 <body>
 
+<div class="scroll-progress" id="scrollProgress"></div>
 <nav>
   <div class="nav-inner">
     <a href="#top" class="wordmark mono">GRIFFIN<span>·</span>BRODIE</a>
@@ -443,7 +512,7 @@
         <path class="arc-flag" d="M366,150 L366,118 L386,126 L366,134 Z M364,150 L368,150 L368,118 L364,118 Z"/>
         <text class="arc-label" x="60" y="112">GOLFTRADR</text>
         <text class="arc-label" x="178" y="34">GRIPFITR</text>
-        <text class="arc-label" x="272" y="112">FAIRWAY</text>
+        <text class="arc-label" x="272" y="112">SHORELINE</text>
       </svg>
     </div>
   </div>
@@ -482,18 +551,6 @@
           <span class="tag">JavaScript</span>
           <span class="tag">Deterministic Engine</span>
           <span class="tag">Vercel</span>
-        </div>
-      </div>
-
-      <div class="card reveal">
-        <div class="card-top">
-          <h3>FAIRWAY</h3>
-        </div>
-        <p>A full 3D golf simulator built for the browser, with six play modes, AI opponents, swing-meter mechanics, and an XP/unlock progression system, built solo on Three.js.</p>
-        <div class="tags mono">
-          <span class="tag">Three.js</span>
-          <span class="tag">WebGL</span>
-          <span class="tag">Browser 3D</span>
         </div>
       </div>
 
@@ -543,11 +600,11 @@
         <p>I'm a competitive golfer: CT state champion, 5 handicap, playing CTPGA and Hurricane Junior Golf Tour events, shooting consistently in the 70s. Most of what I build starts there: a problem I ran into on the course or in a pro shop that nobody had built a proper tool for yet.</p>
         <p>I'm headed toward a degree in Aerospace Engineering with a minor in Entrepreneurship, which is really just a more formal version of what I'm already doing: building systems, then figuring out how to get people to use them.</p>
       </div>
-      <div class="stat-strip reveal">
-        <div class="stat"><span class="mono">5 HDCP</span></div>
-        <div class="stat"><span class="mono">CT STATE CHAMPION</span></div>
-        <div class="stat"><span class="mono">ROBOTICS CAPTAIN</span></div>
-        <div class="stat"><span class="mono">3 SHIPPED PROJECTS</span></div>
+      <div class="stat-strip">
+        <div class="stat reveal"><span class="mono">5 HDCP</span></div>
+        <div class="stat reveal"><span class="mono">CT STATE CHAMPION</span></div>
+        <div class="stat reveal"><span class="mono">ROBOTICS CAPTAIN</span></div>
+        <div class="stat reveal"><span class="mono">3 SHIPPED PROJECTS</span></div>
       </div>
     </div>
   </div>
@@ -556,10 +613,10 @@
 <section class="contact" id="contact">
   <div class="container">
     <div class="contact-inner reveal">
-      <h2>Building something? Let's talk.</h2>
+      <h2>See more of what I build.</h2>
       <div class="contact-links mono">
-        <a href="mailto:griffinbrodie@gmail.com">griffinbrodie@gmail.com</a>
-        <a href="https://github.com/GBrodie6" target="_blank" rel="noopener">github.com/GBrodie6</a>
+        <a href="https://golftradr.com" target="_blank" rel="noopener">golftradr.com ↗</a>
+        <a href="https://gripfitr.com" target="_blank" rel="noopener">gripfitr.com ↗</a>
       </div>
     </div>
   </div>
@@ -586,7 +643,12 @@
     navToggle.setAttribute('aria-expanded', 'false');
   }));
 
-  // Scroll reveal
+  // Scroll reveal, staggered within grouped sections
+  document.querySelectorAll('.work-grid, .eng-grid, .stat-strip').forEach(group => {
+    group.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i * 90) + 'ms';
+    });
+  });
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if(e.isIntersecting){
@@ -596,6 +658,40 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Scroll progress bar
+  const progressBar = document.getElementById('scrollProgress');
+  function updateProgress(){
+    const el = document.documentElement;
+    const max = el.scrollHeight - el.clientHeight;
+    const pct = max > 0 ? (el.scrollTop / max) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // Golf ball tracing the hero trajectory arc, looping
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const arcPath = document.querySelector('.arc-path');
+  if(arcPath && !reduceMotion){
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const ball = document.createElementNS(svgNS, 'circle');
+    ball.setAttribute('r', '4');
+    ball.setAttribute('class', 'arc-ball');
+    arcPath.parentNode.appendChild(ball);
+    const len = arcPath.getTotalLength();
+    const duration = 2600;
+    let startTime = null;
+    function traceBall(ts){
+      if(!startTime) startTime = ts;
+      const t = ((ts - startTime) % duration) / duration;
+      const p = arcPath.getPointAtLength(t * len);
+      ball.setAttribute('cx', p.x);
+      ball.setAttribute('cy', p.y);
+      requestAnimationFrame(traceBall);
+    }
+    setTimeout(() => requestAnimationFrame(traceBall), 1900);
+  }
 </script>
 
 </body>
