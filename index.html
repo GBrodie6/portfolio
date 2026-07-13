@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Griffin Brodie | Builder and Engineer</title>
+<meta name="description" content="Griffin Brodie, solo founder of GolfTradr and GripFitr, robotics team captain, aerospace engineering bound. Software, systems, and golf.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%B3%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F2F5EE;
+    --paper-alt: #E7EBE1;
+    --ink: #16201A;
+    --ink-soft: #4B5648;
+    --green: #1F5D42;
+    --green-deep: #123B2A;
+    --amber: #C97A2B;
+    --blue: #33607F;
+    --line: #CBD2C1;
+    --max: 1120px;
+    --radius: 10px;
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.75rem;
+    --space-4: 3rem;
+    --space-5: 5rem;
+    --space-6: 8rem;
+  }
+
+  *,*::before,*::after{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+
+  h1,h2,h3{
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.05;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .mono{
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  a{ color: inherit; }
+
+  .container{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: rgba(242,245,238,0.82);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .wordmark{
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .wordmark span{ color: var(--green); }
+  .nav-links{
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .nav-links a{
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--ink-soft);
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover{ color: var(--green-deep); }
+  .nav-cta{
+    background: var(--green);
+    color: var(--paper) !important;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.72rem !important;
+  }
+  .nav-cta:hover{ background: var(--green-deep); color: var(--paper) !important; }
+  .nav-toggle{
+    display: none;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 720px){
+    .nav-links{
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.1rem;
+      padding: 1.25rem clamp(1.25rem, 4vw, 2.5rem) 1.75rem;
+      transform: translateY(-8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .nav-links.open{
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .nav-toggle{ display: inline-block; }
+  }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{
+    padding: var(--space-6) 0;
+    scroll-margin-top: 72px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--green-deep);
+    margin-bottom: 1rem;
+  }
+  .eyebrow::before{
+    content: "";
+    width: 18px; height: 1px;
+    background: var(--amber);
+  }
+  .section-head{
+    max-width: 640px;
+    margin-bottom: var(--space-4);
+  }
+  .section-head h2{
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+  }
+  .section-head p{
+    color: var(--ink-soft);
+    margin-top: 0.9rem;
+    max-width: 52ch;
+  }
+
+  .reveal{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity: 1; transform: none; transition: none; }
+    html{ scroll-behavior: auto; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding-top: calc(var(--space-6) + 56px);
+    overflow: hidden;
+  }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  .hero-topo{
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.5;
+    background-image:
+      repeating-radial-gradient(circle at 15% 20%, transparent 0, transparent 38px, var(--line) 39px, transparent 40px),
+      repeating-radial-gradient(circle at 85% 75%, transparent 0, transparent 46px, var(--line) 47px, transparent 48px);
+    mask-image: linear-gradient(to bottom, black, transparent 92%);
+  }
+  .hero p.eyebrow{ margin-bottom: 1.25rem; }
+  .hero h1{
+    font-size: clamp(2.3rem, 5.2vw, 3.6rem);
+    max-width: 16ch;
+  }
+  .hero .lede{
+    margin-top: 1.4rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    font-size: 1.05rem;
+  }
+  .hero-ctas{
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.3rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary{ background: var(--green); color: var(--paper); }
+  .btn-primary:hover{ background: var(--green-deep); transform: translateY(-1px); }
+  .btn-ghost{ border: 1px solid var(--line); color: var(--ink); }
+  .btn-ghost:hover{ border-color: var(--green); color: var(--green-deep); }
+
+  /* Trajectory arc graphic */
+  .arc-wrap{ position: relative; }
+  .arc-wrap svg{ width: 100%; height: auto; overflow: visible; }
+  .arc-path{
+    fill: none;
+    stroke: var(--green);
+    stroke-width: 2;
+    stroke-dasharray: 6 7;
+    stroke-linecap: round;
+    stroke-dashoffset: 480;
+    animation: draw 1.6s ease forwards 0.3s;
+  }
+  .arc-marker circle{ fill: var(--ink); }
+  .arc-flag{ fill: var(--amber); }
+  .arc-label{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    fill: var(--ink-soft);
+    letter-spacing: 0.06em;
+  }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce){
+    .arc-path{ animation: none; stroke-dashoffset: 0; }
+  }
+
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .arc-wrap{ order: -1; max-width: 340px; margin: 0 auto 1rem; }
+  }
+
+  /* ---------- WORK ---------- */
+  .work-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  .card{
+    background: var(--paper-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .card h3{ font-size: 1.25rem; }
+  .card .visit{
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    color: var(--green-deep);
+    text-decoration: none;
+    border-bottom: 1px solid var(--green-deep);
+    padding-bottom: 1px;
+  }
+  .card p{ color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
+  .tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  .tag{
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.25rem 0.65rem;
+  }
+  @media (max-width: 720px){ .work-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- ENGINEERING ---------- */
+  .eng-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .eng-block h3{
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+  }
+  .eng-block p{ color: var(--ink-soft); }
+  .eng-block + .eng-block{
+    border-left: 1px solid var(--line);
+    padding-left: 2rem;
+  }
+  @media (max-width: 720px){
+    .eng-grid{ grid-template-columns: 1fr; gap: 2.25rem; }
+    .eng-block + .eng-block{ border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 1.75rem; }
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-wrap{
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: var(--space-4);
+    align-items: start;
+  }
+  .about-wrap p{ color: var(--ink-soft); max-width: 58ch; }
+  .about-wrap p + p{ margin-top: 1rem; }
+  .stat-strip{
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .stat{
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    background: var(--paper-alt);
+  }
+  .stat .mono{
+    font-size: 0.95rem;
+    color: var(--green-deep);
+    letter-spacing: 0.02em;
+  }
+  @media (max-width: 720px){ .about-wrap{ grid-template-columns: 1fr; } }
+
+  /* ---------- CONTACT ---------- */
+  .contact{ border-bottom: none; }
+  .contact-inner{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .contact h2{ font-size: clamp(1.9rem, 4.5vw, 2.8rem); max-width: 14ch; }
+  .contact-links{
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
+  .contact-links a{
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  .contact-links a:hover{ border-color: var(--green-deep); color: var(--green-deep); }
+
+  footer{
+    padding: 1.75rem 0 2.5rem;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="wordmark mono">GRIFFIN<span>·</span>BRODIE</a>
+    <button class="nav-toggle mono" id="navToggle" aria-expanded="false" aria-controls="navLinks">MENU</button>
+    <ul class="nav-links mono" id="navLinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#engineering">Engineering</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-topo"></div>
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow mono">MADISON, CT · JUNIOR, AEROSPACE ENGINEERING BOUND</p>
+      <h1>I build the infrastructure golf doesn't have yet.</h1>
+      <p class="lede">Founder of GolfTradr and GripFitr, captain of my school's robotics team, and a 5-handicap who got tired of bad trade-in offers and worse grip fittings, so I built the tools myself.</p>
+      <div class="hero-ctas">
+        <a href="#work" class="btn btn-primary">See the work</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <div class="arc-wrap">
+      <svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trajectory diagram linking three shipped projects">
+        <path class="arc-path" d="M30,150 Q200,10 370,150"/>
+        <g class="arc-marker"><circle cx="30" cy="150" r="4"/></g>
+        <path class="arc-flag" d="M366,150 L366,118 L386,126 L366,134 Z M364,150 L368,150 L368,118 L364,118 Z"/>
+        <text class="arc-label" x="60" y="112">GOLFTRADR</text>
+        <text class="arc-label" x="178" y="34">GRIPFITR</text>
+        <text class="arc-label" x="272" y="112">FAIRWAY</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section id="work">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow mono">SELECTED WORK</p>
+      <h2>Software &amp; products</h2>
+      <p>Four things I've designed, built, and shipped end to end, from database schema to the copy on the button.</p>
+    </div>
+    <div class="work-grid">
+
+      <div class="card reveal">
+        <div class="card-top">
+          <h3>GolfTradr</h3>
+          <a class="visit mono" href="https://golftradr.com" target="_blank" rel="noopener">VISIT ↗</a>
+        </div>
+        <p>A peer-to-peer marketplace for trading golf equipment: trade proposals, digital agreements, shipping tracking, and seller verification, built as GolfTradr LLC with ~15 active beta testers.</p>
+        <div class="tags mono">
+          <span class="tag">React</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">Stripe</span>
+          <span class="tag">Firebase</span>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top">
+          <h3>GripFitr</h3>
+          <a class="visit mono" href="https://gripfitr.com" target="_blank" rel="noopener">VISIT ↗</a>
+        </div>
+        <p>A live grip-fitting tool built on a deterministic recommendation engine, not a guess, spanning seven major grip brands. Built as a standalone sister product to GolfTradr.</p>
+        <div class="tags mono">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Deterministic Engine</span>
+          <span class="tag">Vercel</span>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top">
+          <h3>FAIRWAY</h3>
+        </div>
+        <p>A full 3D golf simulator built for the browser, with six play modes, AI opponents, swing-meter mechanics, and an XP/unlock progression system, built solo on Three.js.</p>
+        <div class="tags mono">
+          <span class="tag">Three.js</span>
+          <span class="tag">WebGL</span>
+          <span class="tag">Browser 3D</span>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-top">
+          <h3>Shoreline Golf</h3>
+        </div>
+        <p>A website for the golf shop I work at. Designed, built, and shipped independently as a self-contained site.</p>
+        <div class="tags mono">
+          <span class="tag">HTML / CSS / JS</span>
+          <span class="tag">Single-file build</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="engineering">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow mono">ENGINEERING</p>
+      <h2>How I actually build</h2>
+      <p>The parts of the work that don't show up in a screenshot.</p>
+    </div>
+    <div class="eng-grid">
+      <div class="eng-block reveal">
+        <h3>Robotics</h3>
+        <p>I'm captain and lead engineer of my high school's robotics team, running the design process end to end, from CAD and prototyping through to competition day. It's where I learned to treat a build like a system, not a one-off.</p>
+      </div>
+      <div class="eng-block reveal">
+        <h3>Systems, not just screens</h3>
+        <p>Once a platform touches real payments, the interesting engineering stops being visible. Building GolfTradr meant adding advisory-lock payment idempotency to prevent double-charges, SSRF protection around outbound requests, 3D Secure enforcement, and a Cloudflare WAF layer with bot-fight mode and rate limiting to keep the platform standing under abuse. None of it makes a good screenshot. All of it is the actual engineering.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow mono">ABOUT</p>
+      <h2>Golf first, then everything it taught me to build</h2>
+    </div>
+    <div class="about-wrap">
+      <div class="reveal">
+        <p>I'm a competitive golfer: CT state champion, 5 handicap, playing CTPGA and Hurricane Junior Golf Tour events, shooting consistently in the 70s. Most of what I build starts there: a problem I ran into on the course or in a pro shop that nobody had built a proper tool for yet.</p>
+        <p>I'm headed toward a degree in Aerospace Engineering with a minor in Entrepreneurship, which is really just a more formal version of what I'm already doing: building systems, then figuring out how to get people to use them.</p>
+      </div>
+      <div class="stat-strip reveal">
+        <div class="stat"><span class="mono">5 HDCP</span></div>
+        <div class="stat"><span class="mono">CT STATE CHAMPION</span></div>
+        <div class="stat"><span class="mono">ROBOTICS CAPTAIN</span></div>
+        <div class="stat"><span class="mono">3 SHIPPED PROJECTS</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+      <h2>Building something? Let's talk.</h2>
+      <div class="contact-links mono">
+        <a href="mailto:griffinbrodie@gmail.com">griffinbrodie@gmail.com</a>
+        <a href="https://github.com/GBrodie6" target="_blank" rel="noopener">github.com/GBrodie6</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="container mono">
+  <span>© <span id="year"></span> Griffin Brodie</span>
+  <span>Built from scratch. No template.</span>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
