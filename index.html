@@ -5,7 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Griffin Brodie | Builder and Engineer</title>
 <meta name="description" content="Griffin Brodie, solo founder of GolfTradr and GripFitr, robotics team captain, aerospace engineering bound. Software, systems, and golf.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%B3%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Griffin Brodie | Builder and Engineer">
+<meta property="og:description" content="Founder of GolfTradr and GripFitr, robotics team captain, aerospace engineering bound. Software, systems, and golf.">
+<meta property="og:url" content="https://griffinbrodie.vercel.app">
+<meta property="og:image" content="https://griffinbrodie.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Griffin Brodie | Builder and Engineer">
+<meta name="twitter:description" content="Founder of GolfTradr and GripFitr, robotics team captain, aerospace engineering bound. Software, systems, and golf.">
+<meta name="twitter:image" content="https://griffinbrodie.vercel.app/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%231F5D42%22/%3E%3Crect%20x%3D%2219%22%20y%3D%2214%22%20width%3D%223%22%20height%3D%2234%22%20rx%3D%221.5%22%20fill%3D%22%23F2F5EE%22/%3E%3Cpath%20d%3D%22M22%2016%20L42%2022%20L22%2028%20Z%22%20fill%3D%22%23F2F5EE%22/%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2250%22%20r%3D%225%22%20fill%3D%22%23C97A2B%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -475,11 +486,116 @@
     flex-wrap: wrap;
     gap: 0.5rem;
   }
+
+  /* ============ MOTION LAYER — golf + aerospace ============ */
+  .cursor-dot, .cursor-ring{
+    position: fixed; top: 0; left: 0; z-index: 70; pointer-events: none;
+    transform: translate(-50%,-50%); opacity: 0; will-change: transform;
+  }
+  .cursor-dot{ width: 6px; height: 6px; border-radius: 999px; background: var(--green-deep); transition: opacity 0.3s ease; }
+  .cursor-ring{ width: 34px; height: 34px; transition: opacity 0.3s ease, width 0.25s ease, height 0.25s ease; }
+  .cursor-ring svg{ width: 100%; height: 100%; display: block; overflow: visible; animation: rcspin 9s linear infinite; }
+  .cursor-ring .rc-ring{ fill: none; stroke: rgba(31,93,66,0.5); stroke-width: 1.5; transition: stroke 0.25s ease; }
+  .cursor-ring .rc-tick{ stroke: rgba(31,93,66,0.5); stroke-width: 1.5; transition: stroke 0.25s ease; }
+  .cursor-ring.is-hot{ width: 56px; height: 56px; }
+  .cursor-ring.is-hot .rc-ring, .cursor-ring.is-hot .rc-tick{ stroke: var(--amber); }
+  .cursor-active .cursor-dot, .cursor-active .cursor-ring{ opacity: 1; }
+  @keyframes rcspin{ to{ transform: rotate(360deg); } }
+  @media (hover: none), (pointer: coarse){ .cursor-dot, .cursor-ring{ display: none; } }
+
+  .fx-stars{ position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+  .fx-aurora{ position: fixed; inset: -25vmax; z-index: -2; pointer-events: none; overflow: hidden; filter: blur(70px); }
+  .fx-aurora span{ position: absolute; width: 44vmax; height: 44vmax; border-radius: 999px; opacity: 0.13; mix-blend-mode: multiply; }
+  .fx-aurora span:nth-child(1){ background: radial-gradient(circle, var(--green), transparent 60%); top: -4vmax; left: -4vmax; animation: aur1 28s ease-in-out infinite alternate; }
+  .fx-aurora span:nth-child(2){ background: radial-gradient(circle, var(--amber), transparent 60%); bottom: -8vmax; right: -2vmax; animation: aur2 34s ease-in-out infinite alternate; }
+  .fx-aurora span:nth-child(3){ background: radial-gradient(circle, var(--blue), transparent 62%); top: 26%; left: 44%; animation: aur3 40s ease-in-out infinite alternate; }
+  @keyframes aur1{ to{ transform: translate(12vmax, 9vmax) scale(1.2); } }
+  @keyframes aur2{ to{ transform: translate(-11vmax, -7vmax) scale(1.18); } }
+  @keyframes aur3{ to{ transform: translate(-9vmax, 11vmax) scale(1.25); } }
+
+  .hero h1 .h1-word{ display: inline-block; }
+  .hero h1.split .h1-word{ opacity: 0; transform: translateY(0.9em) rotate(3deg); filter: blur(6px); animation: wordIn 0.8s cubic-bezier(0.2,0.75,0.2,1) forwards; }
+  @keyframes wordIn{ to{ opacity: 1; transform: none; filter: blur(0); } }
+
+  .magnetic{ transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1); }
+
+  .work-grid{ perspective: 1100px; }
+  .card{ transform-style: preserve-3d; }
+  .card::before{
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit;
+    background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(31,93,66,0.16), transparent 60%);
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .card:hover::before{ opacity: 1; }
+  .card::after{ z-index: 2; }
+  .card > *{ position: relative; z-index: 1; }
+  .arw{ display: inline-block; transition: transform 0.25s ease; }
+  .card:hover .arw{ transform: translate(3px, -3px); }
+
+  .arc-wrap svg{ transition: transform 0.25s ease; }
+  .arc-flag{ transform-box: fill-box; transform-origin: left center; animation: flagWave 2.8s ease-in-out infinite; }
+  @keyframes flagWave{ 0%,100%{ transform: skewY(0deg) scaleY(1); } 25%{ transform: skewY(-5deg) scaleY(1.04); } 50%{ transform: skewY(3deg) scaleY(0.97); } 75%{ transform: skewY(-2deg) scaleY(1.02); } }
+
+  nav{ transition: transform 0.35s ease, box-shadow 0.25s ease, background 0.25s ease; }
+  nav.nav-hidden{ transform: translateY(-100%); }
+  nav.scrolled{ box-shadow: 0 10px 30px -18px rgba(18,59,42,0.5); background: rgba(242,245,238,0.92); }
+  .nav-links a.active{ color: var(--green-deep); }
+  .nav-links a.active:not(.nav-cta)::after{ transform: scaleX(1); transform-origin: left; }
+
+  .to-top{
+    position: fixed; right: clamp(1rem, 3vw, 2rem); bottom: clamp(1rem, 3vw, 2rem);
+    width: 50px; height: 50px; z-index: 55; border: none; cursor: pointer; padding: 0;
+    background: var(--paper); border-radius: 999px; display: grid; place-items: center;
+    box-shadow: 0 8px 22px -10px rgba(18,59,42,0.55);
+    opacity: 0; transform: translateY(16px) scale(0.8); pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2,0.8,0.2,1), background 0.2s ease;
+  }
+  .to-top.show{ opacity: 1; transform: none; pointer-events: auto; }
+  .to-top:hover{ background: var(--paper-alt); }
+  .to-top svg{ position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+  .to-top-track{ fill: none; stroke: var(--line); stroke-width: 2.5; }
+  .to-top-prog{ fill: none; stroke: var(--green); stroke-width: 2.5; stroke-linecap: round; }
+  .to-top-arrow{ font-family: 'IBM Plex Mono', monospace; color: var(--green-deep); font-size: 1.15rem; line-height: 1; }
+
+  .btn{ position: relative; overflow: hidden; }
+  .ripple{ position: absolute; border-radius: 999px; transform: translate(-50%,-50%) scale(0); pointer-events: none; background: rgba(255,255,255,0.5); animation: ripple 0.6s ease-out forwards; }
+  .btn-ghost .ripple{ background: rgba(31,93,66,0.18); }
+  @keyframes ripple{ to{ transform: translate(-50%,-50%) scale(1); opacity: 0; } }
+
+  .tee-ball{ position: fixed; top: 0; left: 0; z-index: 65; width: 12px; height: 12px; border-radius: 999px; background: radial-gradient(circle at 35% 30%, #fff, #d3dcc9); box-shadow: 0 1px 3px rgba(0,0,0,0.25); pointer-events: none; }
+
+  @media (prefers-reduced-motion: reduce){
+    .fx-stars, .fx-aurora, .cursor-dot, .cursor-ring{ display: none; }
+    .hero h1.split .h1-word{ animation: none; opacity: 1; transform: none; filter: none; }
+    .arc-flag{ animation: none; }
+    .cursor-ring svg{ animation: none; }
+    nav{ transition: none; }
+    .card::before{ display: none; }
+  }
 </style>
 </head>
 <body>
 
 <div class="scroll-progress" id="scrollProgress"></div>
+<canvas class="fx-stars" id="fxStars" aria-hidden="true"></canvas>
+<div class="fx-aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true">
+  <svg viewBox="0 0 40 40">
+    <circle class="rc-ring" cx="20" cy="20" r="16"></circle>
+    <line class="rc-tick" x1="20" y1="1" x2="20" y2="7"></line>
+    <line class="rc-tick" x1="20" y1="33" x2="20" y2="39"></line>
+    <line class="rc-tick" x1="1" y1="20" x2="7" y2="20"></line>
+    <line class="rc-tick" x1="33" y1="20" x2="39" y2="20"></line>
+  </svg>
+</div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 36 36" aria-hidden="true">
+    <circle class="to-top-track" cx="18" cy="18" r="16"></circle>
+    <circle class="to-top-prog" id="toTopProg" cx="18" cy="18" r="16"></circle>
+  </svg>
+  <span class="to-top-arrow" aria-hidden="true">↑</span>
+</button>
 <nav>
   <div class="nav-inner">
     <a href="#top" class="wordmark mono">GRIFFIN<span>·</span>BRODIE</a>
@@ -557,6 +673,7 @@
       <div class="card reveal">
         <div class="card-top">
           <h3>Shoreline Golf</h3>
+          <a class="visit mono" href="https://shoreline-golf.com" target="_blank" rel="noopener">VISIT ↗</a>
         </div>
         <p>A website for the golf shop I work at. Designed, built, and shipped independently as a self-contained site.</p>
         <div class="tags mono">
@@ -601,7 +718,7 @@
         <p>I'm headed toward a degree in Aerospace Engineering with a minor in Entrepreneurship, which is really just a more formal version of what I'm already doing: building systems, then figuring out how to get people to use them.</p>
       </div>
       <div class="stat-strip">
-        <div class="stat reveal"><span class="mono">5 HDCP</span></div>
+        <div class="stat reveal"><span class="mono">6.0 HDCP</span></div>
         <div class="stat reveal"><span class="mono">CT STATE CHAMPION</span></div>
         <div class="stat reveal"><span class="mono">ROBOTICS CAPTAIN</span></div>
         <div class="stat reveal"><span class="mono">3 SHIPPED PROJECTS</span></div>
@@ -692,7 +809,219 @@
     }
     setTimeout(() => requestAnimationFrame(traceBall), 1900);
   }
+
+  /* ============ MOTION LAYER — golf + aerospace ============ */
+  (function(){
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const NS = 'http://www.w3.org/2000/svg';
+
+    /* Hero heading: liftoff, word by word */
+    try{
+      const h1 = document.querySelector('.hero h1');
+      if(h1 && !reduce){
+        const words = h1.textContent.trim().split(/\s+/);
+        h1.textContent = '';
+        h1.classList.add('split');
+        h1.style.animation = 'none';
+        words.forEach((word, i) => {
+          const s = document.createElement('span');
+          s.className = 'h1-word'; s.textContent = word;
+          s.style.animationDelay = (0.15 + i * 0.075) + 's';
+          h1.appendChild(s); h1.appendChild(document.createTextNode(' '));
+        });
+      }
+    }catch(e){}
+
+    /* Telemetry readout: scramble + count-up */
+    const GLYPHS = '01<>-_/\\[]{}=+*#%';
+    function scramble(el, finalText, dur){
+      if(reduce){ el.textContent = finalText; return; }
+      const chars = finalText.split(''); const total = Math.max(1, Math.round((dur || 850) / 16)); let f = 0;
+      (function tick(){
+        const reveal = (f / total) * chars.length; let out = '';
+        for(let i = 0; i < chars.length; i++){
+          if(chars[i] === ' '){ out += ' '; continue; }
+          out += i < reveal ? chars[i] : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        }
+        el.textContent = out;
+        if(f++ < total){ requestAnimationFrame(tick); } else { el.textContent = finalText; }
+      })();
+    }
+    function countUp(el, finalText){
+      const m = finalText.match(/^(\d+(?:\.\d+)?)([\s\S]*)$/);
+      if(!m || reduce){ el.textContent = finalText; return; }
+      const numStr = m[1], suffix = m[2];
+      const dec = numStr.indexOf('.') >= 0 ? numStr.split('.')[1].length : 0;
+      const target = parseFloat(numStr); let start = null; const dur = 1200;
+      function tick(now){
+        if(start === null) start = now;
+        const t = Math.min(1, (now - start) / dur); const e = 1 - Math.pow(1 - t, 3);
+        el.textContent = (e * target).toFixed(dec) + suffix;
+        if(t < 1){ requestAnimationFrame(tick); } else { el.textContent = finalText; }
+      }
+      requestAnimationFrame(tick);
+    }
+    const decodeEls = [];
+    document.querySelectorAll('.eyebrow').forEach(el => { el.dataset.final = el.textContent.trim(); el.dataset.mode = 'scramble'; decodeEls.push(el); });
+    document.querySelectorAll('.stat .mono').forEach(el => { const t = el.textContent.trim(); el.dataset.final = t; el.dataset.mode = /^\d/.test(t) ? 'count' : 'scramble'; decodeEls.push(el); });
+    if(decodeEls.length){
+      const dIO = new IntersectionObserver((ents) => {
+        ents.forEach(en => { if(!en.isIntersecting) return; const el = en.target; dIO.unobserve(el);
+          if(el.dataset.mode === 'count'){ countUp(el, el.dataset.final); } else { scramble(el, el.dataset.final, 800); }
+        });
+      }, { threshold: 0.5 });
+      decodeEls.forEach(el => dIO.observe(el));
+    }
+
+    /* Targeting-reticle cursor */
+    if(fine && !reduce){
+      const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
+      if(dot && ring){
+        let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, active = false;
+        const place = (el, x, y) => { el.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%)'; };
+        place(dot, mx, my); place(ring, rx, ry);
+        addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; if(!active){ active = true; document.body.classList.add('cursor-active'); } place(dot, mx, my); }, { passive: true });
+        (function loop(){ rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2; place(ring, rx, ry); requestAnimationFrame(loop); })();
+        const hot = 'a, button, .card, .stat';
+        addEventListener('mouseover', e => { if(e.target.closest && e.target.closest(hot)) ring.classList.add('is-hot'); }, { passive: true });
+        addEventListener('mouseout', e => { if(e.target.closest && e.target.closest(hot)) ring.classList.remove('is-hot'); }, { passive: true });
+      }
+    }
+
+    /* Magnetic controls */
+    if(fine && !reduce){
+      document.querySelectorAll('.btn, .nav-cta, .to-top').forEach(el => {
+        el.classList.add('magnetic');
+        const k = el.classList.contains('to-top') ? 0.45 : 0.35;
+        el.addEventListener('mousemove', e => { const r = el.getBoundingClientRect(); el.style.transform = 'translate(' + ((e.clientX - (r.left + r.width / 2)) * k) + 'px,' + ((e.clientY - (r.top + r.height / 2)) * k) + 'px)'; });
+        el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+      });
+    }
+
+    /* Card 3D tilt + spotlight */
+    if(fine && !reduce){
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mousemove', e => { const r = card.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+          card.style.transform = 'translateY(-5px) rotateX(' + ((0.5 - py) * 8) + 'deg) rotateY(' + ((px - 0.5) * 10) + 'deg)';
+          card.style.setProperty('--mx', (px * 100) + '%'); card.style.setProperty('--my', (py * 100) + '%'); });
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      });
+    }
+
+    /* Slide the VISIT arrows */
+    document.querySelectorAll('.card .visit').forEach(a => { a.innerHTML = a.innerHTML.replace('↗', '<span class="arw">↗</span>'); });
+
+    /* Hero graphic parallax to cursor */
+    if(fine && !reduce){
+      const hero = document.querySelector('.hero'), svg = document.querySelector('.arc-wrap svg');
+      if(hero && svg){
+        hero.addEventListener('mousemove', e => { const r = hero.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5; svg.style.transform = 'translate(' + (x * 18) + 'px,' + (y * 14) + 'px)'; });
+        hero.addEventListener('mouseleave', () => { svg.style.transform = ''; });
+      }
+    }
+
+    /* Nav hide/show, scroll-spy, back-to-top altimeter, parallax */
+    const nav = document.querySelector('nav'), menu = document.getElementById('navLinks');
+    let lastY = window.scrollY;
+    const navMap = {};
+    document.querySelectorAll('.nav-links a').forEach(a => { const h = a.getAttribute('href') || ''; if(h.charAt(0) === '#') navMap[h.slice(1)] = a; });
+    const spy = new IntersectionObserver((ents) => { ents.forEach(en => { if(en.isIntersecting){ for(const k in navMap){ navMap[k].classList.remove('active'); } if(navMap[en.target.id]){ navMap[en.target.id].classList.add('active'); } } }); }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    ['work','engineering','about','contact'].forEach(id => { const s = document.getElementById(id); if(s) spy.observe(s); });
+    const toTop = document.getElementById('toTop'), prog = document.getElementById('toTopProg'), CIRC = 2 * Math.PI * 16;
+    if(prog){ prog.style.strokeDasharray = CIRC; prog.style.strokeDashoffset = CIRC; }
+    const topo = document.querySelector('.hero-topo'), arcWrap = document.querySelector('.arc-wrap');
+    function onScroll(){
+      const doc = document.documentElement, y = window.scrollY || doc.scrollTop, max = doc.scrollHeight - doc.clientHeight, pct = max > 0 ? y / max : 0;
+      if(nav){ nav.classList.toggle('scrolled', y > 12); const open = menu && menu.classList.contains('open'); if(y > lastY && y > 220 && !open){ nav.classList.add('nav-hidden'); } else { nav.classList.remove('nav-hidden'); } }
+      lastY = y;
+      if(toTop){ toTop.classList.toggle('show', y > 520); }
+      if(prog){ prog.style.strokeDashoffset = CIRC * (1 - pct); }
+      if(!reduce && y < innerHeight){ if(topo){ topo.style.transform = 'translateY(' + (y * 0.25) + 'px)'; } if(arcWrap){ arcWrap.style.transform = 'translateY(' + (y * -0.06) + 'px)'; } }
+    }
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    if(toTop){ toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })); }
+
+    /* Button ripple */
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', e => { if(reduce) return; const r = btn.getBoundingClientRect(); const s = document.createElement('span'); s.className = 'ripple'; const sz = Math.max(r.width, r.height) * 1.25; s.style.width = s.style.height = sz + 'px'; s.style.left = (e.clientX - r.left) + 'px'; s.style.top = (e.clientY - r.top) + 'px'; btn.appendChild(s); s.addEventListener('animationend', () => s.remove()); });
+    });
+
+    /* Golf-ball tee-shot burst on wordmark click */
+    const wordmark = document.querySelector('.wordmark');
+    if(wordmark && !reduce){
+      wordmark.addEventListener('click', () => { const r = wordmark.getBoundingClientRect(); const ox = r.left + r.width / 2, oy = r.top + r.height / 2;
+        for(let i = 0; i < 16; i++){ const ball = document.createElement('div'); ball.className = 'tee-ball'; document.body.appendChild(ball);
+          const ang = (-Math.PI / 2) + (Math.random() - 0.5) * 1.7, sp = 6 + Math.random() * 8; let vx = Math.cos(ang) * sp, vy = Math.sin(ang) * sp, x = ox, y = oy, life = 0;
+          (function fly(){ vy += 0.35; x += vx; y += vy; life++; ball.style.transform = 'translate(' + x + 'px,' + y + 'px)'; ball.style.opacity = String(Math.max(0, 1 - life / 72)); if(life < 72 && y < innerHeight + 60){ requestAnimationFrame(fly); } else { ball.remove(); } })();
+        }
+      });
+    }
+
+    /* Contrail behind the arc ball (trajectory trail) */
+    if(!reduce){
+      const arcBall = document.querySelector('.arc-ball'), arcPath = document.querySelector('.arc-path');
+      if(arcBall && arcPath){
+        const svg = arcPath.ownerSVGElement, N = 14, trail = [], hist = [];
+        for(let i = 0; i < N; i++){ const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', '3'); c.setAttribute('fill', '#1F5D42'); c.setAttribute('opacity', '0'); svg.insertBefore(c, arcBall); trail.push(c); }
+        (function loop(){ const cx = parseFloat(arcBall.getAttribute('cx')), cy = parseFloat(arcBall.getAttribute('cy'));
+          if(!isNaN(cx) && !isNaN(cy)){ hist.unshift({ x: cx, y: cy }); if(hist.length > N){ hist.pop(); }
+            for(let i = 0; i < hist.length; i++){ const c = trail[i]; c.setAttribute('cx', hist[i].x); c.setAttribute('cy', hist[i].y); c.setAttribute('r', String(3 * (1 - i / N))); c.setAttribute('opacity', String(0.45 * (1 - i / N))); } }
+          requestAnimationFrame(loop);
+        })();
+      }
+    }
+
+    /* Launch-on-click: fire a shot along the arc that holes out */
+    if(!reduce){
+      const svg = document.querySelector('.arc-wrap svg'), arcPath = document.querySelector('.arc-path');
+      if(svg && arcPath){
+        svg.style.cursor = 'pointer';
+        let firing = false;
+        function burst(x, y){
+          for(let i = 0; i < 12; i++){ const s = document.createElementNS(NS, 'circle'); s.setAttribute('r', '2.5'); s.setAttribute('fill', i % 2 ? '#1F5D42' : '#C97A2B'); svg.appendChild(s);
+            const ang = Math.random() * Math.PI * 2, sp = 1.5 + Math.random() * 2.5; let vx = Math.cos(ang) * sp, vy = Math.sin(ang) * sp - 1.5, px = x, py = y, life = 0;
+            (function p(){ vy += 0.12; px += vx; py += vy; life++; s.setAttribute('cx', px); s.setAttribute('cy', py); s.setAttribute('opacity', String(Math.max(0, 1 - life / 40))); if(life < 40){ requestAnimationFrame(p); } else { s.remove(); } })();
+          }
+        }
+        function launch(){ if(firing) return; firing = true; const len = arcPath.getTotalLength(); const shot = document.createElementNS(NS, 'circle'); shot.setAttribute('r', '5'); shot.setAttribute('fill', '#C97A2B'); svg.appendChild(shot);
+          let start = null; const dur = 850;
+          (function fly(now){ if(start === null) start = now; const t = Math.min(1, (now - start) / dur); const pt = arcPath.getPointAtLength(t * len); shot.setAttribute('cx', pt.x); shot.setAttribute('cy', pt.y); if(t < 1){ requestAnimationFrame(fly); } else { shot.remove(); burst(pt.x, pt.y); firing = false; } })();
+        }
+        svg.addEventListener('click', launch);
+      }
+    }
+
+    /* Ambient telemetry constellation */
+    if(!reduce){
+      const canvas = document.getElementById('fxStars');
+      if(canvas && canvas.getContext){
+        const ctx = canvas.getContext('2d'); let w = 0, h = 0, dpr = 1, parts = [], running = true; const mouse = { x: -9999, y: -9999 };
+        function resize(){ dpr = Math.min(2, window.devicePixelRatio || 1); w = canvas.width = Math.floor(innerWidth * dpr); h = canvas.height = Math.floor(innerHeight * dpr); canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+          const count = Math.max(28, Math.min(70, Math.floor(innerWidth / 24))); parts = [];
+          for(let i = 0; i < count; i++){ parts.push({ x: Math.random() * w, y: Math.random() * h, r: (Math.random() * 1.5 + 0.6) * dpr, vx: (Math.random() - 0.5) * 0.16 * dpr, vy: (Math.random() - 0.5) * 0.16 * dpr, a: Math.random() * 0.4 + 0.14 }); }
+        }
+        resize(); addEventListener('resize', resize);
+        addEventListener('mousemove', e => { mouse.x = e.clientX * dpr; mouse.y = e.clientY * dpr; }, { passive: true });
+        document.addEventListener('visibilitychange', () => { running = !document.hidden; if(running){ requestAnimationFrame(draw); } });
+        const LINK = 118, PULL = 140;
+        function draw(){ if(!running) return; ctx.clearRect(0, 0, w, h);
+          for(let i = 0; i < parts.length; i++){ const p = parts[i]; p.x += p.vx; p.y += p.vy;
+            if(p.x < 0){ p.x = w; } else if(p.x > w){ p.x = 0; } if(p.y < 0){ p.y = h; } else if(p.y > h){ p.y = 0; }
+            const dx = mouse.x - p.x, dy = mouse.y - p.y, d2 = dx * dx + dy * dy, pr = PULL * dpr;
+            if(d2 < pr * pr){ const d = Math.max(30, Math.sqrt(d2)); p.x += dx / d * 0.6; p.y += dy / d * 0.6; }
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(31,93,66,' + p.a + ')'; ctx.fill(); }
+          const lr = LINK * dpr;
+          for(let i = 0; i < parts.length; i++){ for(let j = i + 1; j < parts.length; j++){ const a = parts[i], b = parts[j]; const dx = a.x - b.x, dy = a.y - b.y, d = Math.sqrt(dx * dx + dy * dy);
+            if(d < lr){ ctx.strokeStyle = 'rgba(75,86,72,' + (0.1 * (1 - d / lr)) + ')'; ctx.lineWidth = dpr * 0.6; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); } } }
+          requestAnimationFrame(draw);
+        }
+        draw();
+      }
+    }
+  })();
 </script>
 
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
