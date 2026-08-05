@@ -451,6 +451,43 @@
   }
   @media (max-width: 720px){ .about-wrap{ grid-template-columns: 1fr; } }
 
+  /* recent results */
+  .results{ margin-top: 1.75rem; }
+  .results .eyebrow{ margin-bottom: 0.7rem; }
+  .result{
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    padding: 0.6rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .result:last-child{ border-bottom: 1px solid var(--line); }
+  .result-pos{ flex: none; min-width: 5rem; font-size: 0.7rem; letter-spacing: 0.06em; color: var(--green-deep); }
+  .result-event{ flex: 1; color: var(--ink); font-size: 0.95rem; }
+  .result-score{ flex: none; font-size: 0.78rem; letter-spacing: 0.04em; color: var(--ink-soft); white-space: nowrap; }
+  .result-score b{ color: var(--green-deep); font-weight: 500; }
+
+  /* swing-data telemetry strip */
+  .swing-data{
+    margin-top: var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-alt);
+    overflow: hidden;
+  }
+  .swing-data .eyebrow{ margin: 0; padding: 0.85rem 1.1rem 0.2rem; }
+  .readout-row{ display: grid; grid-template-columns: repeat(3, 1fr); }
+  .readout{ padding: 0.7rem 1.1rem 1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  .readout + .readout{ border-left: 1px solid var(--line); }
+  .readout-val{ font-size: 1.7rem; color: var(--green-deep); line-height: 1; letter-spacing: -0.01em; }
+  .readout-unit{ font-size: 0.8rem; color: var(--ink-soft); letter-spacing: 0.02em; }
+  .readout-approx{ color: var(--ink-soft); }
+  .readout-label{ font-size: 0.62rem; letter-spacing: 0.1em; color: var(--ink-soft); }
+  @media (max-width: 560px){
+    .readout-row{ grid-template-columns: 1fr; }
+    .readout + .readout{ border-left: none; border-top: 1px solid var(--line); }
+  }
+
   /* ---------- CONTACT ---------- */
   .contact{ border-bottom: none; }
   .contact-inner{
@@ -585,7 +622,7 @@
     <div>
       <p class="eyebrow mono">MADISON, CT · JUNIOR, AEROSPACE ENGINEERING BOUND</p>
       <h1>I build the infrastructure golf doesn't have yet.</h1>
-      <p class="lede">Founder of GolfTradr and GripFitr, captain of my school's robotics team, and a 5-handicap who got tired of bad trade-in offers and worse grip fittings, so I built the tools myself.</p>
+      <p class="lede">Founder of GolfTradr and GripFitr, captain of my school's robotics team, and a 4.9-handicap who got tired of bad trade-in offers and worse grip fittings, so I built the tools myself.</p>
       <div class="hero-ctas">
         <a href="#work" class="btn btn-primary">See the work</a>
         <a href="#contact" class="btn btn-ghost">Get in touch</a>
@@ -684,14 +721,44 @@
     </div>
     <div class="about-wrap">
       <div class="reveal">
-        <p>I'm a competitive golfer: CT state champion, 5 handicap, playing CTPGA and Hurricane Junior Golf Tour events, shooting consistently in the 70s. Most of what I build starts there: a problem I ran into on the course or in a pro shop that nobody had built a proper tool for yet.</p>
+        <p>I'm a competitive golfer: a 4.9 GHIN index, playing CTPGA and Hurricane Junior Golf Tour events, shooting consistently in the 70s. Most of what I build starts there: a problem I ran into on the course or in a pro shop that nobody had built a proper tool for yet.</p>
         <p>I'm headed toward a degree in Aerospace Engineering with a minor in Entrepreneurship, which is really just a more formal version of what I'm already doing: building systems, then figuring out how to get people to use them.</p>
+        <div class="results">
+          <p class="eyebrow mono">RECENT RESULTS</p>
+          <div class="result">
+            <span class="result-pos mono">T1</span>
+            <span class="result-event">DeNicolo Memorial Junior Open</span>
+            <span class="result-score mono"><b>69</b></span>
+          </div>
+          <div class="result">
+            <span class="result-pos mono">TEAM · 1ST</span>
+            <span class="result-event">CT State Championship</span>
+            <span class="result-score mono"><b>73</b> · 4th ind.</span>
+          </div>
+        </div>
       </div>
       <div class="stat-strip">
-        <div class="stat reveal"><span class="mono">6.0 HDCP</span></div>
-        <div class="stat reveal"><span class="mono">CT STATE CHAMPION</span></div>
+        <div class="stat reveal"><span class="mono">4.9 HDCP</span></div>
+        <div class="stat reveal"><span class="mono">STATE CHAMPS · TEAM</span></div>
         <div class="stat reveal"><span class="mono">ROBOTICS CAPTAIN</span></div>
         <div class="stat reveal"><span class="mono">3 SHIPPED PROJECTS</span></div>
+      </div>
+    </div>
+    <div class="swing-data reveal">
+      <p class="eyebrow mono">SWING DATA · DRIVER</p>
+      <div class="readout-row">
+        <div class="readout">
+          <span class="readout-val mono"><span class="readout-num">118</span> <span class="readout-unit">mph</span></span>
+          <span class="readout-label mono">CLUBHEAD SPEED</span>
+        </div>
+        <div class="readout">
+          <span class="readout-val mono"><span class="readout-num">169</span> <span class="readout-unit">mph</span></span>
+          <span class="readout-label mono">BALL SPEED</span>
+        </div>
+        <div class="readout">
+          <span class="readout-val mono"><span class="readout-approx">~</span><span class="readout-num">2600</span> <span class="readout-unit">rpm</span></span>
+          <span class="readout-label mono">SPIN RATE</span>
+        </div>
       </div>
     </div>
   </div>
@@ -705,6 +772,7 @@
         <a href="https://golftradr.com" target="_blank" rel="noopener">golftradr.com ↗</a>
         <a href="https://gripfitr.com" target="_blank" rel="noopener">gripfitr.com ↗</a>
         <a href="https://shoreline-golf.com" target="_blank" rel="noopener">shoreline-golf.com ↗</a>
+        <a href="https://youtube.com/@griffin_brodie" target="_blank" rel="noopener">youtube.com/@griffin_brodie ↗</a>
       </div>
     </div>
   </div>
@@ -836,6 +904,7 @@
     const decodeEls = [];
     document.querySelectorAll('.eyebrow').forEach(el => { el.dataset.final = el.textContent.trim(); el.dataset.mode = 'scramble'; decodeEls.push(el); });
     document.querySelectorAll('.stat .mono').forEach(el => { const t = el.textContent.trim(); el.dataset.final = t; el.dataset.mode = /^\d/.test(t) ? 'count' : 'scramble'; decodeEls.push(el); });
+    document.querySelectorAll('.readout-num').forEach(el => { el.dataset.final = el.textContent.trim(); el.dataset.mode = 'count'; decodeEls.push(el); });
     if(decodeEls.length){
       const dIO = new IntersectionObserver((ents) => {
         ents.forEach(en => { if(!en.isIntersecting) return; const el = en.target; dIO.unobserve(el);
