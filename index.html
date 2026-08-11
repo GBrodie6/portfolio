@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Griffin Brodie | Builder and Engineer</title>
-<meta name="description" content="Griffin Brodie, solo founder of GolfTradr and GripFitr, robotics team captain, aerospace engineering bound. Software, systems, and golf.">
+<meta name="description" content="Griffin Brodie, solo founder of GolfTradr and GripFitr, robotics team captain, civil engineering bound. Software, systems, and golf.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Griffin Brodie | Builder and Engineer">
-<meta property="og:description" content="Founder of GolfTradr and GripFitr, robotics team captain, aerospace engineering bound. Software, systems, and golf.">
+<meta property="og:description" content="Founder of GolfTradr and GripFitr, robotics team captain, civil engineering bound. Software, systems, and golf.">
 <meta property="og:url" content="https://griffinbrodie.vercel.app">
 <meta property="og:image" content="https://griffinbrodie.vercel.app/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Griffin Brodie | Builder and Engineer">
-<meta name="twitter:description" content="Founder of GolfTradr and GripFitr, robotics team captain, aerospace engineering bound. Software, systems, and golf.">
+<meta name="twitter:description" content="Founder of GolfTradr and GripFitr, robotics team captain, civil engineering bound. Software, systems, and golf.">
 <meta name="twitter:image" content="https://griffinbrodie.vercel.app/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%231F5D42%22/%3E%3Crect%20x%3D%2219%22%20y%3D%2214%22%20width%3D%223%22%20height%3D%2234%22%20rx%3D%221.5%22%20fill%3D%22%23F2F5EE%22/%3E%3Cpath%20d%3D%22M22%2016%20L42%2022%20L22%2028%20Z%22%20fill%3D%22%23F2F5EE%22/%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2250%22%20r%3D%225%22%20fill%3D%22%23C97A2B%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -298,30 +298,42 @@
   .btn-ghost{ border: 1px solid var(--line); color: var(--ink); }
   .btn-ghost:hover{ border-color: var(--green); color: var(--green-deep); transform: translateY(-2px); }
 
-  /* Trajectory arc graphic */
+  /* Schematic graphic (Civil · Robotics · Software) */
   .arc-wrap{ position: relative; animation: fadeUp 1s ease both 0.2s; }
   .arc-wrap svg{ width: 100%; height: auto; overflow: visible; }
-  .arc-path{
+  .sch-line{
     fill: none;
     stroke: var(--green);
     stroke-width: 2;
-    stroke-dasharray: 6 7;
+    stroke-dasharray: 4 6;
     stroke-linecap: round;
-    stroke-dashoffset: 480;
-    animation: draw 1.6s ease forwards 0.3s;
+    stroke-dashoffset: 300;
+    animation: draw 1.5s ease forwards;
   }
-  .arc-marker circle{ fill: var(--ink); }
-  .arc-flag{ fill: var(--amber); }
-  .arc-ball{ fill: var(--green); }
-  .arc-label{
+  .sch-line:nth-of-type(1){ animation-delay: 0.35s; }
+  .sch-line:nth-of-type(2){ animation-delay: 0.55s; }
+  .sch-line:nth-of-type(3){ animation-delay: 0.75s; }
+  .sch-node{ fill: var(--ink); opacity: 0; animation: schFade 0.5s ease forwards; }
+  .sch-node:nth-of-type(1){ animation-delay: 1s; }
+  .sch-node:nth-of-type(2){ animation-delay: 1.12s; }
+  .sch-node:nth-of-type(3){ animation-delay: 1.24s; }
+  .sch-node.accent{ fill: var(--amber); }
+  .sch-label{
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px;
+    font-size: 10px;
     fill: var(--ink-soft);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
+    opacity: 0;
+    animation: schFade 0.6s ease forwards;
   }
+  .sch-label:nth-of-type(1){ animation-delay: 1.05s; }
+  .sch-label:nth-of-type(2){ animation-delay: 1.17s; }
+  .sch-label:nth-of-type(3){ animation-delay: 1.29s; }
   @keyframes draw{ to{ stroke-dashoffset: 0; } }
+  @keyframes schFade{ to{ opacity: 1; } }
   @media (prefers-reduced-motion: reduce){
-    .arc-path{ animation: none; stroke-dashoffset: 0; }
+    .sch-line{ animation: none; stroke-dashoffset: 0; }
+    .sch-node, .sch-label{ animation: none; opacity: 1; }
   }
 
   @media (max-width: 900px){
@@ -399,24 +411,37 @@
   /* ---------- ENGINEERING ---------- */
   .eng-grid{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
-  .eng-block{ transition: transform 0.3s ease; }
+  .eng-block{ transition: transform 0.3s ease; padding-top: 1.2rem; border-top: 1px solid var(--line); }
   .eng-block:hover{ transform: translateY(-4px); }
   .eng-block h3{
     font-size: 1.15rem;
     margin-bottom: 0.6rem;
   }
   .eng-block p{ color: var(--ink-soft); }
-  .eng-block + .eng-block{
-    border-left: 1px solid var(--line);
-    padding-left: 2rem;
-  }
-  @media (max-width: 720px){
+  @media (max-width: 860px){
     .eng-grid{ grid-template-columns: 1fr; gap: 2.25rem; }
-    .eng-block + .eng-block{ border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 1.75rem; }
   }
+
+  /* engineering blueprint grid */
+  #engineering{ position: relative; overflow: hidden; }
+  #engineering .container{ position: relative; z-index: 1; }
+  .blueprint{
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 46px 46px;
+    opacity: 0;
+    -webkit-mask-image: linear-gradient(#000, #000);
+    mask-image: linear-gradient(#000, #000);
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 0%; mask-size: 100% 0%;
+    transition: opacity 0.9s ease, -webkit-mask-size 1.3s ease, mask-size 1.3s ease;
+  }
+  #engineering.grid-in .blueprint{ opacity: 0.5; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
 
   /* ---------- ABOUT ---------- */
   .about-wrap{
@@ -524,7 +549,7 @@
     gap: 0.5rem;
   }
 
-  /* ============ MOTION LAYER — golf + aerospace ============ */
+  /* ============ MOTION LAYER ============ */
   .fx-aurora{ position: fixed; inset: -25vmax; z-index: -2; pointer-events: none; overflow: hidden; filter: blur(70px); }
   .fx-aurora span{ position: absolute; width: 44vmax; height: 44vmax; border-radius: 999px; opacity: 0.13; mix-blend-mode: multiply; }
   .fx-aurora span:nth-child(1){ background: radial-gradient(circle, var(--green), transparent 60%); top: -4vmax; left: -4vmax; animation: aur1 28s ease-in-out infinite alternate; }
@@ -554,8 +579,6 @@
   .card:hover .arw{ transform: translate(3px, -3px); }
 
   .arc-wrap svg{ transition: transform 0.25s ease; }
-  .arc-flag{ transform-box: fill-box; transform-origin: left center; animation: flagWave 2.8s ease-in-out infinite; }
-  @keyframes flagWave{ 0%,100%{ transform: skewY(0deg) scaleY(1); } 25%{ transform: skewY(-5deg) scaleY(1.04); } 50%{ transform: skewY(3deg) scaleY(0.97); } 75%{ transform: skewY(-2deg) scaleY(1.02); } }
 
   nav{ transition: transform 0.35s ease, box-shadow 0.25s ease, background 0.25s ease; }
   nav.nav-hidden{ transform: translateY(-100%); }
@@ -586,9 +609,9 @@
   @media (prefers-reduced-motion: reduce){
     .fx-aurora{ display: none; }
     .hero h1.split .h1-word{ animation: none; opacity: 1; transform: none; filter: none; }
-    .arc-flag{ animation: none; }
     nav{ transition: none; }
     .card::before{ display: none; }
+    .blueprint{ transition: none; }
   }
 </style>
 </head>
@@ -608,8 +631,8 @@
     <a href="#top" class="wordmark mono">GRIFFIN<span>·</span>BRODIE</a>
     <button class="nav-toggle mono" id="navToggle" aria-expanded="false" aria-controls="navLinks">MENU</button>
     <ul class="nav-links mono" id="navLinks">
-      <li><a href="#work">Work</a></li>
       <li><a href="#engineering">Engineering</a></li>
+      <li><a href="#work">Work</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact" class="nav-cta">Get in touch</a></li>
     </ul>
@@ -620,26 +643,54 @@
   <div class="hero-topo"></div>
   <div class="container hero-grid">
     <div>
-      <p class="eyebrow mono">MADISON, CT · JUNIOR, AEROSPACE ENGINEERING BOUND</p>
-      <h1>I build the infrastructure golf doesn't have yet.</h1>
-      <p class="lede">Founder of GolfTradr and GripFitr, captain of my school's robotics team, and a 4.9-handicap who got tired of bad trade-in offers and worse grip fittings, so I built the tools myself.</p>
+      <p class="eyebrow mono">MADISON, CT · JUNIOR, CIVIL ENGINEERING BOUND</p>
+      <h1>I build things that have to actually work, on paper, in code, and in the real world.</h1>
+      <p class="lede">Captain of my school's robotics team, 99% set on studying Civil Engineering, and the solo founder behind two shipped software products. I like problems that need something built, whether that's a structure, a robot, or an app people actually use.</p>
       <div class="hero-ctas">
         <a href="#work" class="btn btn-primary">See the work</a>
         <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
     </div>
     <div class="arc-wrap">
-      <svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trajectory diagram linking three shipped projects">
-        <path class="arc-path" d="M30,150 Q200,10 370,150"/>
-        <g class="arc-marker"><circle cx="30" cy="150" r="4"/></g>
-        <path class="arc-flag" d="M366,150 L366,118 L386,126 L366,134 Z M364,150 L368,150 L368,118 L364,118 Z"/>
-        <text class="arc-label" x="60" y="112">GOLFTRADR</text>
-        <text class="arc-label" x="178" y="34">GRIPFITR</text>
-        <text class="arc-label" x="272" y="112">SHORELINE</text>
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic linking civil engineering, robotics, and software">
+        <path class="sch-line" d="M200,48 L62,152"/>
+        <path class="sch-line" d="M62,152 L338,152"/>
+        <path class="sch-line" d="M338,152 L200,48"/>
+        <circle class="sch-node accent" cx="200" cy="48" r="5"/>
+        <circle class="sch-node" cx="62" cy="152" r="5"/>
+        <circle class="sch-node" cx="338" cy="152" r="5"/>
+        <text class="sch-label" x="200" y="32" text-anchor="middle">CIVIL</text>
+        <text class="sch-label" x="62" y="174" text-anchor="middle">ROBOTICS</text>
+        <text class="sch-label" x="338" y="174" text-anchor="middle">SOFTWARE</text>
       </svg>
     </div>
   </div>
 </header>
+
+<section id="engineering">
+  <div class="blueprint" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow mono">ENGINEERING</p>
+      <h2>How I actually build</h2>
+      <p>The parts of the work that don't show up in a screenshot.</p>
+    </div>
+    <div class="eng-grid">
+      <div class="eng-block reveal">
+        <h3>Civil Engineering</h3>
+        <p>I'm 99% committed to studying Civil Engineering. In an Architectural Design course I designed and built a house from the ground up — floor plan, structure, and all. That project is what pulled me toward wanting to build things that have to physically hold up, not just run in a browser.</p>
+      </div>
+      <div class="eng-block reveal">
+        <h3>Robotics</h3>
+        <p>I'm captain and lead engineer of my high school's robotics team, running the design process end to end, from CAD and prototyping through to competition day. It's where I learned to treat a build like a system, not a one-off.</p>
+      </div>
+      <div class="eng-block reveal">
+        <h3>Systems, not just screens</h3>
+        <p>Once a platform touches real payments, the interesting engineering stops being visible. Building GolfTradr meant adding advisory-lock payment idempotency to prevent double-charges, SSRF protection around outbound requests, 3D Secure enforcement, and a Cloudflare WAF layer with bot-fight mode and rate limiting to keep the platform standing under abuse. None of it makes a good screenshot. All of it is the actual engineering.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="work">
   <div class="container">
@@ -693,36 +744,16 @@
   </div>
 </section>
 
-<section id="engineering">
-  <div class="container">
-    <div class="section-head reveal">
-      <p class="eyebrow mono">ENGINEERING</p>
-      <h2>How I actually build</h2>
-      <p>The parts of the work that don't show up in a screenshot.</p>
-    </div>
-    <div class="eng-grid">
-      <div class="eng-block reveal">
-        <h3>Robotics</h3>
-        <p>I'm captain and lead engineer of my high school's robotics team, running the design process end to end, from CAD and prototyping through to competition day. It's where I learned to treat a build like a system, not a one-off.</p>
-      </div>
-      <div class="eng-block reveal">
-        <h3>Systems, not just screens</h3>
-        <p>Once a platform touches real payments, the interesting engineering stops being visible. Building GolfTradr meant adding advisory-lock payment idempotency to prevent double-charges, SSRF protection around outbound requests, 3D Secure enforcement, and a Cloudflare WAF layer with bot-fight mode and rate limiting to keep the platform standing under abuse. None of it makes a good screenshot. All of it is the actual engineering.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="about">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow mono">ABOUT</p>
-      <h2>Golf first, then everything it taught me to build</h2>
+      <h2>On paper, in code, and on the course.</h2>
     </div>
     <div class="about-wrap">
       <div class="reveal">
-        <p>I'm a competitive golfer: a 4.9 GHIN index, playing CTPGA and Hurricane Junior Golf Tour events, shooting consistently in the 70s. Most of what I build starts there: a problem I ran into on the course or in a pro shop that nobody had built a proper tool for yet.</p>
-        <p>I'm headed toward a degree in Aerospace Engineering with a minor in Entrepreneurship, which is really just a more formal version of what I'm already doing: building systems, then figuring out how to get people to use them.</p>
+        <p>I'm 99% set on a degree in Civil Engineering, with a minor in Entrepreneurship. It's the same instinct behind everything else I've built: I like problems that need something real, whether that's a structure, a robot, or a piece of software people actually use.</p>
+        <p>I'm also a competitive golfer — I shot 73 to finish 4th individually at the CT State Championship, helping lead Daniel Hand to the team title. GolfTradr and GripFitr both started as problems I ran into on the course or in a pro shop.</p>
         <div class="results">
           <p class="eyebrow mono">RECENT RESULTS</p>
           <div class="result">
@@ -826,34 +857,10 @@
   document.addEventListener('scroll', updateProgress, { passive: true });
   updateProgress();
 
-  // Golf ball tracing the hero trajectory arc, looping
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const arcPath = document.querySelector('.arc-path');
-  if(arcPath && !reduceMotion){
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const ball = document.createElementNS(svgNS, 'circle');
-    ball.setAttribute('r', '4');
-    ball.setAttribute('class', 'arc-ball');
-    arcPath.parentNode.appendChild(ball);
-    const len = arcPath.getTotalLength();
-    const duration = 2600;
-    let startTime = null;
-    function traceBall(ts){
-      if(!startTime) startTime = ts;
-      const t = ((ts - startTime) % duration) / duration;
-      const p = arcPath.getPointAtLength(t * len);
-      ball.setAttribute('cx', p.x);
-      ball.setAttribute('cy', p.y);
-      requestAnimationFrame(traceBall);
-    }
-    setTimeout(() => requestAnimationFrame(traceBall), 1900);
-  }
-
-  /* ============ MOTION LAYER — golf + aerospace ============ */
+  /* ============ MOTION LAYER ============ */
   (function(){
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const NS = 'http://www.w3.org/2000/svg';
 
     /* Hero heading: liftoff, word by word */
     try{
@@ -972,20 +979,12 @@
       btn.addEventListener('click', e => { if(reduce) return; const r = btn.getBoundingClientRect(); const s = document.createElement('span'); s.className = 'ripple'; const sz = Math.max(r.width, r.height) * 1.25; s.style.width = s.style.height = sz + 'px'; s.style.left = (e.clientX - r.left) + 'px'; s.style.top = (e.clientY - r.top) + 'px'; btn.appendChild(s); s.addEventListener('animationend', () => s.remove()); });
     });
 
-    /* Contrail behind the arc ball (trajectory trail) */
-    if(!reduce){
-      const arcBall = document.querySelector('.arc-ball'), arcPath = document.querySelector('.arc-path');
-      if(arcBall && arcPath){
-        const svg = arcPath.ownerSVGElement, N = 14, trail = [], hist = [];
-        for(let i = 0; i < N; i++){ const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', '3'); c.setAttribute('fill', '#1F5D42'); c.setAttribute('opacity', '0'); svg.insertBefore(c, arcBall); trail.push(c); }
-        (function loop(){ const cx = parseFloat(arcBall.getAttribute('cx')), cy = parseFloat(arcBall.getAttribute('cy'));
-          if(!isNaN(cx) && !isNaN(cy)){ hist.unshift({ x: cx, y: cy }); if(hist.length > N){ hist.pop(); }
-            for(let i = 0; i < hist.length; i++){ const c = trail[i]; c.setAttribute('cx', hist[i].x); c.setAttribute('cy', hist[i].y); c.setAttribute('r', String(3 * (1 - i / N))); c.setAttribute('opacity', String(0.45 * (1 - i / N))); } }
-          requestAnimationFrame(loop);
-        })();
-      }
+    /* Engineering blueprint grid: draw in on scroll into view */
+    const engSection = document.getElementById('engineering');
+    if(engSection){
+      const gio = new IntersectionObserver((ents) => { ents.forEach(en => { if(en.isIntersecting){ engSection.classList.add('grid-in'); gio.unobserve(en.target); } }); }, { threshold: 0.2 });
+      gio.observe(engSection);
     }
-
   })();
 </script>
 
