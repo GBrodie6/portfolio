@@ -1,29 +1,26 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { WORK } from "@/lib/content";
 import { REDUCED, FINE_POINTER } from "@/lib/env";
-import { staggerIn } from "@/components/anim";
+import { revealGroup } from "@/components/anim";
 
 export default function Work() {
   const scope = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      if (REDUCED) return;
-      const el = scope.current;
-      if (!el) return;
-      const head = el.querySelector(".section-head");
-      const grid = el.querySelector(".work-grid");
-      if (head) staggerIn(head.querySelectorAll("[data-reveal]"), head);
-      if (grid) staggerIn(grid.querySelectorAll("[data-reveal]"), grid);
+  useEffect(() => {
+    if (REDUCED) return;
+    const el = scope.current;
+    if (!el) return;
+    const cleanups: Array<() => void> = [];
+    const head = el.querySelector(".section-head");
+    const grid = el.querySelector(".work-grid");
+    if (head) cleanups.push(revealGroup(head));
+    if (grid) cleanups.push(revealGroup(grid));
 
-      if (!FINE_POINTER || !grid) return;
-      const cards = grid.querySelectorAll<HTMLElement>(".card");
-      const cleanups: Array<() => void> = [];
-      cards.forEach((card) => {
+    if (FINE_POINTER && grid) {
+      grid.querySelectorAll<HTMLElement>(".card").forEach((card) => {
         const rx = gsap.quickTo(card, "rotationX", { duration: 0.4, ease: "power3" });
         const ry = gsap.quickTo(card, "rotationY", { duration: 0.4, ease: "power3" });
         const move = (e: PointerEvent) => {
@@ -46,10 +43,9 @@ export default function Work() {
           card.removeEventListener("pointerleave", leave);
         });
       });
-      return () => cleanups.forEach((c) => c());
-    },
-    { scope }
-  );
+    }
+    return () => cleanups.forEach((c) => c());
+  }, []);
 
   return (
     <section

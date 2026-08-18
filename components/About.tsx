@@ -1,45 +1,44 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ABOUT, STATS } from "@/lib/content";
 import { REDUCED } from "@/lib/env";
-import { staggerIn } from "@/components/anim";
+import { revealGroup, observeOnce } from "@/components/anim";
 
 export default function About() {
   const scope = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      if (REDUCED) return;
-      gsap.registerPlugin(ScrollTrigger);
-      const el = scope.current;
-      if (!el) return;
-      const head = el.querySelector(".section-head");
-      const body = el.querySelector(".about-body");
-      if (head) staggerIn(head.querySelectorAll("[data-reveal]"), head);
-      if (body) staggerIn(body.querySelectorAll("[data-reveal]"), body);
+  useEffect(() => {
+    if (REDUCED) return;
+    const el = scope.current;
+    if (!el) return;
+    const cleanups: Array<() => void> = [];
+    const head = el.querySelector(".section-head");
+    const body = el.querySelector(".about-body");
+    if (head) cleanups.push(revealGroup(head));
+    if (body) cleanups.push(revealGroup(body));
 
-      el.querySelectorAll<HTMLElement>("[data-count]").forEach((n) => {
-        const to = parseFloat(n.dataset.count || "0");
-        const dec = parseInt(n.dataset.decimals || "0", 10);
-        const suffix = n.dataset.suffix || "";
-        const obj = { v: 0 };
-        gsap.to(obj, {
-          v: to,
-          duration: 1.2,
-          ease: "power2.out",
-          scrollTrigger: { trigger: n, start: "top 92%", once: true },
-          onUpdate: () => {
-            n.textContent = obj.v.toFixed(dec) + suffix;
-          },
-        });
-      });
-    },
-    { scope }
-  );
+    el.querySelectorAll<HTMLElement>("[data-count]").forEach((n) => {
+      cleanups.push(
+        observeOnce(n, () => {
+          const to = parseFloat(n.dataset.count || "0");
+          const dec = parseInt(n.dataset.decimals || "0", 10);
+          const suffix = n.dataset.suffix || "";
+          const obj = { v: 0 };
+          gsap.to(obj, {
+            v: to,
+            duration: 1.2,
+            ease: "power2.out",
+            onUpdate: () => {
+              n.textContent = obj.v.toFixed(dec) + suffix;
+            },
+          });
+        })
+      );
+    });
+    return () => cleanups.forEach((c) => c());
+  }, []);
 
   return (
     <section

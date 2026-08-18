@@ -1,25 +1,22 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
+import { useEffect, useRef } from "react";
 import { CONTACT } from "@/lib/content";
 import { REDUCED } from "@/lib/env";
-import { staggerIn } from "@/components/anim";
+import { revealGroup } from "@/components/anim";
 
 export default function Contact() {
   const scope = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      if (REDUCED) return;
-      const el = scope.current;
-      if (!el) return;
-      const inner = el.querySelector(".contact-inner");
-      if (inner) staggerIn(inner.querySelectorAll("[data-reveal]"), inner, "top 85%");
-    },
-    { scope }
-  );
+  useEffect(() => {
+    if (REDUCED) return;
+    const el = scope.current;
+    if (!el) return;
+    const inner = el.querySelector(".contact-inner");
+    if (!inner) return;
+    const cleanup = revealGroup(inner);
+    return () => cleanup();
+  }, []);
 
   return (
     <section ref={scope} id="contact" className="py-24 sm:py-28">

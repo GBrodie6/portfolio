@@ -1,37 +1,26 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 import { ENGINEERING } from "@/lib/content";
 import { REDUCED } from "@/lib/env";
-import { staggerIn } from "@/components/anim";
+import { revealGroup, observeOnce } from "@/components/anim";
 
 export default function Engineering() {
   const scope = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      if (REDUCED) return;
-      gsap.registerPlugin(ScrollTrigger);
-      const el = scope.current;
-      if (!el) return;
-      const head = el.querySelector(".section-head");
-      const grid = el.querySelector(".eng-grid");
-      if (head) staggerIn(head.querySelectorAll("[data-reveal]"), head);
-      if (grid) staggerIn(grid.querySelectorAll("[data-reveal]"), grid);
-
-      const bp = el.querySelector(".blueprint");
-      ScrollTrigger.create({
-        trigger: el,
-        start: "top 65%",
-        once: true,
-        onEnter: () => bp?.classList.add("in"),
-      });
-    },
-    { scope }
-  );
+  useEffect(() => {
+    if (REDUCED) return;
+    const el = scope.current;
+    if (!el) return;
+    const cleanups: Array<() => void> = [];
+    const head = el.querySelector(".section-head");
+    const grid = el.querySelector(".eng-grid");
+    if (head) cleanups.push(revealGroup(head));
+    if (grid) cleanups.push(revealGroup(grid));
+    const bp = el.querySelector(".blueprint");
+    if (bp) cleanups.push(observeOnce(el, () => bp.classList.add("in")));
+    return () => cleanups.forEach((c) => c());
+  }, []);
 
   return (
     <section
