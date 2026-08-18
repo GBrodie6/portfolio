@@ -49,8 +49,17 @@ export default function SmoothScroll() {
     gsap.ticker.lagSmoothing(0);
     document.addEventListener("click", onClick);
 
+    // Re-measure once web fonts have loaded (they shift layout), so scroll
+    // reveals for content that is already in view fire at correct positions.
+    const refresh = () => ScrollTrigger.refresh();
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(refresh);
+    }
+    window.addEventListener("load", refresh);
+
     return () => {
       document.removeEventListener("click", onClick);
+      window.removeEventListener("load", refresh);
       gsap.ticker.remove(raf);
       lenis?.destroy();
     };
