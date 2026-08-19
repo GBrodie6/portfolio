@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { REDUCED } from "@/lib/env";
 import { initGsap, EASE, observeOnce } from "@/components/anim";
@@ -37,10 +37,10 @@ export default function SplitHeading({
   return (
     <h2 ref={ref} className={className}>
       {words.map((w, i) => (
-        <span key={i} className="sh-word">
-          {w}
+        <Fragment key={i}>
+          <span className="sh-word">{w}</span>
           {i < words.length - 1 ? " " : ""}
-        </span>
+        </Fragment>
       ))}
     </h2>
   );

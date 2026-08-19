@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { HERO } from "@/lib/content";
@@ -60,10 +60,12 @@ export default function Hero() {
           </p>
           <h1 className="max-w-[18ch] font-display text-[clamp(2.3rem,5.4vw,3.7rem)] font-bold leading-[1.03] tracking-[-0.02em] text-ink">
             {WORDS.map((w, i) => (
-              <span key={i} className="hero-word inline-block" data-hero>
-                {w}
-                {i < WORDS.length - 1 ? " " : ""}
-              </span>
+              <Fragment key={i}>
+                <span className="hero-word inline-block" data-hero>
+                  {w}
+                </span>
+                {i < WORDS.length - 1 ? " " : ""}
+              </Fragment>
             ))}
           </h1>
           <p

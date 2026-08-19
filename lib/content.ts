@@ -8,24 +8,24 @@ export const HERO = {
   eyebrow: "MADISON, CT · JUNIOR, CIVIL ENGINEERING BOUND",
   headline: "I build things that actually have to hold up.",
   lede:
-    "I'm captain of my robotics team, I'm about to commit to Civil Engineering, and somewhere in between I built two golf software products that people actually use. I like building things more than I like talking about building them.",
+    "I'm captain of my robotics team, about to commit to Civil Engineering, and I've built two golf software products that people actually use.",
 };
 
 export const ENGINEERING = [
   {
     title: "Civil Engineering",
     body:
-      "I'm 99% set on studying Civil Engineering. I designed and built a house from scratch, floor plan, structure, all of it, in an Architectural Design class, and that project is honestly what got me hooked. Turns out I like things that have to physically hold up more than things that just run in a browser.",
+      "I'm 99% set on studying Civil Engineering. I designed and built a house from scratch, floor plan, structure, all of it, in an Architectural Design class.",
   },
   {
     title: "Robotics",
     body:
-      "I'm captain and lead engineer on my school's robotics team. I run the design process end to end, CAD, prototyping, all the way through competition day. It's where I learned to treat a build like a system instead of a one-off.",
+      "I'm captain and lead engineer on my school's robotics team. I run the design process end to end: CAD, prototyping, competition day.",
   },
   {
     title: "Systems, not just screens",
     body:
-      "Once a platform touches real money, the interesting engineering stops being visible. Building GolfTradr meant adding advisory-lock payment idempotency so trades can't double-charge, SSRF protection, 3D Secure enforcement, and a Cloudflare WAF layer with bot-fight mode and rate limiting. None of that shows up in a screenshot, but it's most of the actual work.",
+      "Once a platform touches real money, the interesting engineering stops being visible. Building GolfTradr meant adding advisory-lock payment idempotency so trades can't double-charge, SSRF protection, 3D Secure enforcement, and a Cloudflare WAF layer with bot-fight mode and rate limiting.",
   },
 ];
 
@@ -66,7 +66,7 @@ export const WORK: Project[] = [
     href: "https://triple-g-landscaping-khaki.vercel.app",
     shot: "/work/tripleg.webp",
     body:
-      "The first client I landed on my own, a landscaping company in town. Built and deployed the whole site: Next.js, Tailwind, live, still getting revised as the owner tells me what he actually wants changed.",
+      "The first client I landed on my own, a landscaping company in town. Built and deployed the whole site: Next.js, Tailwind, live, still getting revised as the owner tells me what he wants changed.",
     tags: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
   },
   {
@@ -74,7 +74,7 @@ export const WORK: Project[] = [
     href: "https://paigegrendi-babysitting.vercel.app",
     shot: "/work/paige.webp",
     body:
-      "A babysitting business site for my girlfriend, with way more animation than a babysitting site really needs. 3D hero elements, a full GSAP animation layer, built solo.",
+      "A babysitting business site for my girlfriend, with way more animation than a babysitting site needs. 3D hero elements, a full GSAP animation layer, built solo.",
     tags: ["Next.js", "GSAP", "3D/WebGL"],
   },
 ];
@@ -114,8 +114,8 @@ export const TECH = [
 export const ABOUT = {
   heading: "Mostly building. Also golf.",
   paragraphs: [
-    "I'm 99% set on Civil Engineering, with a minor in Entrepreneurship. That's not really a sudden turn, it's basically what I've already been doing: building things and figuring out how to get people to actually use them.",
-    "I also play competitively: T1 at the DeNicolo Memorial Junior Open this year, a 69, and I helped Daniel Hand win the CT State Championship as a team, I was 4th individually with a 73. I play CTPGA and Hurricane Junior Golf Tour events too. GolfTradr and GripFitr both started because of things that annoyed me on a golf course or in a pro shop.",
+    "I'm 99% set on Civil Engineering, with a minor in Entrepreneurship.",
+    "T1 at the DeNicolo Memorial Junior Open this year, shot 69. Helped lead Daniel Hand to the CT State Championship team title, 4th individually with a 73. I play CTPGA and Hurricane Junior Golf Tour events. GolfTradr and GripFitr both started because of things that annoyed me on a golf course or in a pro shop.",
   ],
 };
 

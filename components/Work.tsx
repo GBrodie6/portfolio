@@ -84,7 +84,7 @@ export default function Work() {
             SELECTED WORK
           </p>
           <SplitHeading
-            text="Five things I've built and actually shipped, front end to backend."
+            text="Five things I've shipped, front end to backend."
             className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-bold leading-[1.06] tracking-[-0.01em]"
           />
         </div>
