@@ -114,7 +114,7 @@ html.intro .loadin {
 /* ---- Blueprint grid behind Engineering ---- */
 .blueprint {
   position: absolute;
-  inset: 0;
+  inset: -60px;
   z-index: 0;
   pointer-events: none;
   opacity: 0;
@@ -303,4 +303,144 @@ html.intro .loadin {
   font-size: 10px;
   fill: var(--ink-soft);
   letter-spacing: 0.08em;
+}
+
+/* ---- Split heading (word-by-word reveal, matches hero) ---- */
+.sh-word {
+  display: inline-block;
+}
+html.js:not(.reduce) .sh-word {
+  opacity: 0;
+}
+
+/* ---- Screenshot on Work cards ---- */
+.card-shot {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  aspect-ratio: 16 / 10;
+  background: var(--paper);
+}
+.card-shot-inner {
+  position: absolute;
+  inset: -14px;
+}
+html.js:not(.reduce) .card-shot-inner {
+  clip-path: inset(0 100% 0 0);
+}
+
+/* ---- Contour rings ---- */
+.contours {
+  position: absolute;
+  inset: -80px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background-image: repeating-radial-gradient(
+    circle at var(--cx, 80%) var(--cy, 30%),
+    transparent 0,
+    transparent 44px,
+    var(--line) 45px,
+    transparent 46px
+  );
+  -webkit-mask-image: radial-gradient(
+    120% 120% at var(--cx, 80%) var(--cy, 30%),
+    black,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    120% 120% at var(--cx, 80%) var(--cy, 30%),
+    black,
+    transparent 72%
+  );
+}
+
+/* ---- Tech marquee ---- */
+.marquee {
+  overflow: hidden;
+}
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding-block: 0.85rem;
+  will-change: transform;
+  animation: marquee 40s linear infinite;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding-right: 1.6rem;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+.marquee-dot {
+  color: var(--amber);
+  font-size: 0.44rem;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* ---- Milestones timeline ---- */
+.ms-list {
+  position: relative;
+}
+.ms-line {
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  bottom: 14px;
+  width: 2px;
+}
+.ms-line-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--green);
+  transform-origin: top;
+}
+html.js:not(.reduce) .ms-line-fill {
+  transform: scaleY(0);
+}
+.ms-item {
+  position: relative;
+  padding: 0 0 1.9rem 2.2rem;
+}
+.ms-item:last-child {
+  padding-bottom: 0;
+}
+.ms-node {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 2px solid var(--green);
+}
+.ms-item:nth-last-child(-n + 2) .ms-node {
+  border-color: var(--amber);
+}
+.ms-year {
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--green-deep);
 }

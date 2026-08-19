@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { WORK } from "@/lib/content";
 import { REDUCED, FINE_POINTER } from "@/lib/env";
-import { revealGroup } from "@/components/anim";
+import { revealGroup, observeOnce, initGsap, EASE } from "@/components/anim";
+import SplitHeading from "@/components/SplitHeading";
 
 export default function Work() {
   const scope = useRef<HTMLElement>(null);
@@ -13,28 +15,54 @@ export default function Work() {
     if (REDUCED) return;
     const el = scope.current;
     if (!el) return;
+    initGsap();
     const cleanups: Array<() => void> = [];
     const head = el.querySelector(".section-head");
     const grid = el.querySelector(".work-grid");
     if (head) cleanups.push(revealGroup(head));
     if (grid) cleanups.push(revealGroup(grid));
 
+    // Clip-path wipe on each screenshot as its card scrolls into view.
+    el.querySelectorAll<HTMLElement>(".card-shot-inner").forEach((inner) => {
+      cleanups.push(
+        observeOnce(inner, () => {
+          gsap.fromTo(
+            inner,
+            { clipPath: "inset(0 100% 0 0)" },
+            { clipPath: "inset(0 0% 0 0)", duration: 0.9, ease: EASE }
+          );
+        })
+      );
+    });
+
+    // Subtle 3D tilt + a few px of image parallax on cursor.
     if (FINE_POINTER && grid) {
       grid.querySelectorAll<HTMLElement>(".card").forEach((card) => {
         const rx = gsap.quickTo(card, "rotationX", { duration: 0.4, ease: "power3" });
         const ry = gsap.quickTo(card, "rotationY", { duration: 0.4, ease: "power3" });
+        const inner = card.querySelector<HTMLElement>(".card-shot-inner");
+        const ix = inner ? gsap.quickTo(inner, "x", { duration: 0.5, ease: "power3" }) : null;
+        const iy = inner ? gsap.quickTo(inner, "y", { duration: 0.5, ease: "power3" }) : null;
         const move = (e: PointerEvent) => {
           const r = card.getBoundingClientRect();
           const px = (e.clientX - r.left) / r.width;
           const py = (e.clientY - r.top) / r.height;
-          rx((0.5 - py) * 6);
-          ry((px - 0.5) * 8);
+          rx((0.5 - py) * 5);
+          ry((px - 0.5) * 6);
+          if (ix && iy) {
+            ix((px - 0.5) * 10);
+            iy((py - 0.5) * 8);
+          }
           card.style.setProperty("--mx", `${px * 100}%`);
           card.style.setProperty("--my", `${py * 100}%`);
         };
         const leave = () => {
           rx(0);
           ry(0);
+          if (ix && iy) {
+            ix(0);
+            iy(0);
+          }
         };
         card.addEventListener("pointermove", move);
         card.addEventListener("pointerleave", leave);
@@ -58,12 +86,10 @@ export default function Work() {
           <p className="eyebrow mb-4" data-reveal>
             SELECTED WORK
           </p>
-          <h2
+          <SplitHeading
+            text="Five things I've built and actually shipped, front end to backend."
             className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-bold leading-[1.06] tracking-[-0.01em]"
-            data-reveal
-          >
-            Five things I&apos;ve built and actually shipped, front end to backend.
-          </h2>
+          />
         </div>
         <div
           className="work-grid grid gap-5 md:grid-cols-2 lg:grid-cols-3"
@@ -75,6 +101,19 @@ export default function Work() {
               className="card card-spot flex flex-col gap-3.5"
               data-reveal
             >
+              {p.shot && (
+                <div className="card-shot">
+                  <div className="card-shot-inner">
+                    <Image
+                      src={p.shot}
+                      alt={`${p.title} — screenshot of the live site`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 360px"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </div>
+              )}
               <div className="flex items-start justify-between gap-3">
                 <h3 className="font-display text-[1.25rem] font-semibold">
                   {p.title}

@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { HERO } from "@/lib/content";
 import { INTRO, REDUCED } from "@/lib/env";
 import { initGsap, EASE } from "@/components/anim";
+import Contours from "@/components/Contours";
 
 const WORDS = HERO.headline.split(" ");
 
@@ -51,7 +52,8 @@ export default function Hero() {
       id="top"
       className="relative overflow-hidden border-b border-line pt-32 sm:pt-40"
     >
-      <div className="wrap grid items-center gap-10 pb-20 sm:pb-28 lg:grid-cols-[1.1fr_0.9fr]">
+      <Contours cx="90%" cy="24%" parallax={-38} className="contours-hero" />
+      <div className="wrap relative z-[1] grid items-center gap-10 pb-20 sm:pb-28 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <p className="hero-eyebrow eyebrow mb-5" data-hero>
             {HERO.eyebrow}

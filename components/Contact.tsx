@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { CONTACT } from "@/lib/content";
 import { REDUCED } from "@/lib/env";
 import { revealGroup } from "@/components/anim";
+import SplitHeading from "@/components/SplitHeading";
 
 export default function Contact() {
   const scope = useRef<HTMLElement>(null);
@@ -22,12 +23,10 @@ export default function Contact() {
     <section ref={scope} id="contact" className="py-24 sm:py-28">
       <div className="wrap">
         <div className="contact-inner flex flex-wrap items-end justify-between gap-8">
-          <h2
+          <SplitHeading
+            text={CONTACT.heading}
             className="max-w-[14ch] font-display text-[clamp(1.9rem,4.5vw,2.8rem)] font-bold leading-[1.05] tracking-[-0.01em]"
-            data-reveal
-          >
-            {CONTACT.heading}
-          </h2>
+          />
           <div className="flex flex-col items-start gap-2.5 font-mono">
             {CONTACT.links.map((l) => (
               <a

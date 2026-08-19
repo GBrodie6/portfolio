@@ -34,12 +34,14 @@ export type Project = {
   href?: string;
   body: string;
   tags: string[];
+  shot?: string;
 };
 
 export const WORK: Project[] = [
   {
     title: "GolfTradr",
     href: "https://golftradr.com",
+    shot: "/work/golftradr.webp",
     body:
       "A peer-to-peer marketplace for trading golf equipment: trade proposals, digital agreements, shipping tracking, and seller verification, built as GolfTradr LLC with about 15 active beta testers.",
     tags: ["React", "Supabase", "Stripe", "Firebase"],
@@ -47,6 +49,7 @@ export const WORK: Project[] = [
   {
     title: "GripFitr",
     href: "https://gripfitr.com",
+    shot: "/work/gripfitr.webp",
     body:
       "A live grip-fitting tool built on a deterministic recommendation engine, not a guess, covering seven major grip brands.",
     tags: ["JavaScript", "Deterministic Engine", "Vercel"],
@@ -54,12 +57,14 @@ export const WORK: Project[] = [
   {
     title: "Shoreline Golf",
     href: "https://shoreline-golf.com",
+    shot: "/work/shoreline.webp",
     body: "A website for the golf shop I work at, built solo, no template.",
     tags: ["HTML/CSS/JS", "Single-file build"],
   },
   {
     title: "Triple G Landscaping",
     href: "https://triple-g-landscaping-khaki.vercel.app",
+    shot: "/work/tripleg.webp",
     body:
       "The first client I landed on my own, a landscaping company in town. Built and deployed the whole site: Next.js, Tailwind, live, still getting revised as the owner tells me what he actually wants changed.",
     tags: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
@@ -67,10 +72,43 @@ export const WORK: Project[] = [
   {
     title: "Paige's Babysitting Site",
     href: "https://paigegrendi-babysitting.vercel.app",
+    shot: "/work/paige.webp",
     body:
       "A babysitting business site for my girlfriend, with way more animation than a babysitting site really needs. 3D hero elements, a full GSAP animation layer, built solo.",
     tags: ["Next.js", "GSAP", "3D/WebGL"],
   },
+];
+
+export const MILESTONES_HEAD = {
+  eyebrow: "MILESTONES",
+  heading: "How I got here.",
+};
+
+export type Milestone = { text: string; year?: string };
+
+export const MILESTONES: Milestone[] = [
+  { text: "Took Architectural Design and designed and built a house from scratch" },
+  { text: "Became captain and lead engineer of the robotics team" },
+  { text: "Founded and shipped GolfTradr" },
+  { text: "Built and shipped GripFitr as a sister product" },
+  { text: "Landed Triple G Landscaping as my first freelance client" },
+  { text: "Built and shipped an animated site for Paige's babysitting business" },
+  { text: "T1 finish at the DeNicolo Memorial Junior Open, shot 69", year: "2026" },
+  { text: "Helped lead Daniel Hand to the CT State Championship team title", year: "2026" },
+];
+
+export const TECH = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Tailwind",
+  "Supabase",
+  "Stripe",
+  "Firebase",
+  "GSAP",
+  "Three.js",
+  "Lenis",
+  "Vercel",
 ];
 
 export const ABOUT = {

@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ABOUT, STATS } from "@/lib/content";
 import { REDUCED } from "@/lib/env";
 import { revealGroup, observeOnce } from "@/components/anim";
+import SplitHeading from "@/components/SplitHeading";
 
 export default function About() {
   const scope = useRef<HTMLElement>(null);
@@ -51,12 +52,10 @@ export default function About() {
           <p className="eyebrow mb-4" data-reveal>
             ABOUT
           </p>
-          <h2
+          <SplitHeading
+            text={ABOUT.heading}
             className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-bold leading-[1.05] tracking-[-0.01em]"
-            data-reveal
-          >
-            {ABOUT.heading}
-          </h2>
+          />
         </div>
         <div className="about-body grid gap-12 lg:grid-cols-[1.3fr_0.7fr] lg:items-start">
           <div>
