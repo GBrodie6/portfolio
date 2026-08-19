@@ -22,11 +22,14 @@ export default function Work() {
     if (head) cleanups.push(revealGroup(head));
     if (grid) cleanups.push(revealGroup(grid));
 
-    // Clip-path wipe on each screenshot as its card scrolls into view.
-    // Driven by a CSS transition + `.in` class (GSAP core does not reliably
-    // interpolate clip-path inset() values, which left the image fully clipped).
-    el.querySelectorAll<HTMLElement>(".card-shot-inner").forEach((inner) => {
-      cleanups.push(observeOnce(inner, () => inner.classList.add("in")));
+    // Clip-path wipe on each screenshot as its card scrolls into view, driven by
+    // a CSS transition + `.in` class. Observe the *unclipped* `.card-shot`: an
+    // element whose clip-path collapses it to zero area never reports as
+    // intersecting, so observing `.card-shot-inner` itself would never fire.
+    el.querySelectorAll<HTMLElement>(".card-shot").forEach((shot) => {
+      const inner = shot.querySelector<HTMLElement>(".card-shot-inner");
+      if (!inner) return;
+      cleanups.push(observeOnce(shot, () => inner.classList.add("in")));
     });
 
     // Subtle 3D tilt + a few px of image parallax on cursor.
