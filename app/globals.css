@@ -325,9 +325,13 @@ html.js:not(.reduce) .sh-word {
 .card-shot-inner {
   position: absolute;
   inset: -14px;
+  transition: clip-path 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 html.js:not(.reduce) .card-shot-inner {
   clip-path: inset(0 100% 0 0);
+}
+html.js:not(.reduce) .card-shot-inner.in {
+  clip-path: inset(0 0% 0 0);
 }
 
 /* ---- Contour rings ---- */

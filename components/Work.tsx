@@ -5,7 +5,7 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { WORK } from "@/lib/content";
 import { REDUCED, FINE_POINTER } from "@/lib/env";
-import { revealGroup, observeOnce, initGsap, EASE } from "@/components/anim";
+import { revealGroup, observeOnce, initGsap } from "@/components/anim";
 import SplitHeading from "@/components/SplitHeading";
 
 export default function Work() {
@@ -23,16 +23,10 @@ export default function Work() {
     if (grid) cleanups.push(revealGroup(grid));
 
     // Clip-path wipe on each screenshot as its card scrolls into view.
+    // Driven by a CSS transition + `.in` class (GSAP core does not reliably
+    // interpolate clip-path inset() values, which left the image fully clipped).
     el.querySelectorAll<HTMLElement>(".card-shot-inner").forEach((inner) => {
-      cleanups.push(
-        observeOnce(inner, () => {
-          gsap.fromTo(
-            inner,
-            { clipPath: "inset(0 100% 0 0)" },
-            { clipPath: "inset(0 0% 0 0)", duration: 0.9, ease: EASE }
-          );
-        })
-      );
+      cleanups.push(observeOnce(inner, () => inner.classList.add("in")));
     });
 
     // Subtle 3D tilt + a few px of image parallax on cursor.
