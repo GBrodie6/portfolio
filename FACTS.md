@@ -9,6 +9,8 @@ Sources:
   (saved in the old site's `lib/content.ts`, now `_old/lib/content.ts`).
 - **Repo**: the named GitHub repository (README, code, or CLAUDE.md).
 - **Live**: checked on the live site from this session.
+- **Notebook**: 1695A Notebook 2026-27 (Google Drive).
+- **Griffin**: supplied by Griffin.
 
 ## About you
 
@@ -25,30 +27,48 @@ Sources:
 
 ## Engineering
 
+### Robotics
+
 | Claim | Source | Status |
 | --- | --- | --- |
-| Robotics: captain of Daniel Hand's VEX V5 team, 1695A | Content brief | sourced |
-| Lead designer, builder, and driver | Content brief, Brief | sourced |
-| Team is state-qualifying | Content brief | sourced |
-| Ranked first in the school | Content brief | sourced |
-| Robot: six-motor drive | Content brief | sourced |
-| Robot: inertial sensor | Content brief | sourced |
-| Robot: lift with a pneumatic claw | Content brief | sourced |
-| Robot: programmed in C++ | Content brief | sourced |
-| In progress: record-and-playback autonomous | Content brief | sourced |
-| In progress: custom 3D-printed claw | Content brief | sourced |
-| Keeps the team's engineering notebook | Content brief | sourced |
-| Architectural Design course: designed and built a house | Brief | sourced |
-| Around age 8, Eli Whitney summer camp: built a bridge strong enough to stand on | Content brief | sourced |
+| Team 1695A, Daniel Hand Tigers A, nicknamed Autobots, 2026-27 season | Notebook | sourced |
+| Captain and lead designer, builder and driver | Griffin | sourced |
+| State-qualifying, ranked first in our school | Griffin | sourced |
+| Keeps the team's engineering notebook | Notebook | sourced |
+| Notebook first entries: 8/26/26 (brain port setup, controller port setup) and 10/14/26 (claw setup) | Notebook | sourced |
+| Six-motor drive: four 11W motors and two 5.5W center motors | Griffin | sourced |
+| 2.75 inch wheels | Griffin | sourced |
+| 36:60 gear ratio | Griffin | sourced |
+| Inertial sensor, no tracking wheels | Griffin | sourced |
+| A lift and a pneumatic claw | Griffin | sourced |
+| Port map: motors for left drive, right drive, lift, claw pitch and claw roll, plus an inertial sensor and the radio | Notebook | sourced |
+| Programmed in C++ in VEXcode V5 | Griffin | sourced |
+| In progress: record-and-playback autonomous that saves a driven run to an SD card and replays it | Griffin | sourced |
+| In progress: custom 3D-printed claw to replace the pneumatic one | Griffin | sourced |
+| Game: Pinnacle, with Match and Solo fields | Notebook | sourced |
+
+Robot systems diagram labels, and only these: drivetrain (six motors, 36:60,
+2.75 inch wheels), sensing (inertial sensor), lift, claw (pitch and roll). No
+motor counts for the lift or claw, no broken parts, no results beyond
+"state-qualifying" and "ranked first in our school".
+
+### Other engineering
+
+| Claim | Source | Status |
+| --- | --- | --- |
+| Around age 8, at Eli Whitney summer camp, built a bridge strong enough to stand on | Griffin | sourced |
+| In Architectural Design, designed a house | Griffin | sourced |
+| Senior year: AP Calculus BC and AP Physics C (Mechanics and E&M) | Griffin | sourced |
 
 ## Projects
 
 | Claim | Source | Status |
 | --- | --- | --- |
 | GolfTradr LLC, started and develops the site, golftradr.com | Content brief | sourced |
+| GolfTradr started junior year | Griffin | sourced |
 | GolfTradr: list golf equipment, propose trades, counter-offers, digital agreements, shipping tracking, identity-verified sellers | Content brief | sourced |
-| GolfTradr: about 15 beta testers | Content brief | sourced |
-| GolfTradr: real payments; payment idempotency with advisory locks, 3D Secure enforcement, SSRF protection, Cloudflare firewall with bot blocking and rate limiting; fixed a critical mass-assignment vulnerability | Content brief | sourced |
+| GolfTradr: about 15 beta testers | Griffin | sourced |
+| GolfTradr: payment idempotency with advisory locks, 3D Secure enforcement, SSRF protection, a Cloudflare firewall with bot blocking and rate limiting; fixed a critical mass-assignment vulnerability | Griffin | sourced |
 | GolfTradr stack: React, Supabase, Stripe, Firebase | Content brief | sourced |
 | GripFitr: grip fitting tool at gripfitr.com; a quiz feeds a deterministic recommendation engine covering seven major grip brands | Content brief | sourced |
 | SellDeck: pulls a seller's eBay inventory and orders into one dashboard and buys the shipping label in one click, writing tracking back to eBay | Repo `GBrodie6/selldeck` README | sourced |
@@ -65,13 +85,15 @@ Sources:
 
 | Claim | Source | Status |
 | --- | --- | --- |
-| Teeing Off Against Cancer: Head of Outreach; charity golf tournaments raised over $15,000 for Yale's Smilow Cancer Hospital in a few months | Content brief | sourced |
+| Teeing Off Against Cancer: Head of Outreach; the charity tournaments raised over $15,000 for Yale's Smilow Cancer Hospital | Griffin | sourced |
+| "In a few months" (time taken to raise it) | Content brief | sourced, not repeated in your latest list |
 | Supercell Club: co-founder; about 30 members at its peak | Content brief | sourced |
 | MYFS Peer Advocate (Madison Youth & Family Services), at Daniel Hand High School | Content brief | sourced |
 | Worked with Make-A-Wish to bring golf opportunities to kids | Content brief | sourced |
 | Kleins Golf Range: managed it from 9th to 11th grade | Content brief | sourced |
 | Shoreline Golf: head fitter and assistant manager | Content brief | sourced |
-| Fencing: Daniel Hand, foil, 9th and 10th grade, winning varsity record, helped younger fencers | Content brief | sourced |
+| Fencing: foil for Daniel Hand in 9th and 10th grade, winning varsity record | Griffin | sourced |
+| Fencing: helped younger fencers | Content brief | sourced |
 
 ## Golf (supporting detail)
 
@@ -88,16 +110,16 @@ Sources:
 
 ## Unsourced, left off the site (confirm to add)
 
-- Any photos of the robot, or the Architectural Design house drawings or
-  photos. None are in the repos, so the site uses a drawn systems diagram
-  for the robot and text only for the house.
-- House details: size, floor plan, materials, software used, what "built"
-  involved (model, full scale, or a structure).
-- Robot details beyond the list above: dimensions, weight, motor speeds, match
-  results, competition names, seasons, and the team's ranking at states.
-- Dates for SellDeck, Uphill Golf, and Paige's site within the timeline, so
-  they can be placed in the numbered sequence.
-- Number of SellDeck users, if any. It runs Shippo in test mode, so I describe
-  what it does, not who uses it.
+- **House wording.** Your master prompt says you "designed and built a house"
+  in Architectural Design; your latest list says you "designed a house". The
+  site uses "designed a house" until you confirm "built".
+- House drawings or photos, and any house details (size, plan, software,
+  what "built" involved).
+- Robot photos.
+- Robot details beyond the list above: dimensions, weight, lift and claw
+  motor counts, match results, scores, competition names, states ranking.
+- Dates for SellDeck, Uphill Golf and Paige's site, so they can be placed in
+  the numbered timeline.
+- Number of SellDeck users, if any (it runs Shippo in test mode).
 - Year of the CT state championship win.
 - Whether `selldeck.vercel.app` is the URL you want linked.

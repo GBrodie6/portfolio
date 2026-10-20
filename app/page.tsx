@@ -1,6 +1,7 @@
 import BridgeMark from "@/components/BridgeMark";
 import ChapterWipe from "@/components/ChapterWipe";
 import SplitHeading from "@/components/SplitHeading";
+import Engineering from "@/components/Engineering";
 
 // Hero checkpoint: hero, bridge scene, split heading reveal and the Engineering
 // color wipe across a page of full length. Sections below the hero hold only
@@ -36,11 +37,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="engineering" className="on-dark wrap min-h-[180vh] py-9">
-          <div className="panel">
-            <SplitHeading>Engineering</SplitHeading>
-          </div>
-        </section>
+        <Engineering />
 
         {SECTIONS.map((s) => (
           <section key={s.id} id={s.id} className="wrap min-h-[120vh] py-9">

@@ -174,8 +174,8 @@ html.reduce .layer-back {
    carries no color and works on Concrete and Graphite alike. */
 @media (min-width: 768px) {
   .scene-layers {
-    -webkit-mask-image: linear-gradient(90deg, var(--scene-mask-dim) 0%, var(--scene-mask-dim) 52%, #000 70%);
-    mask-image: linear-gradient(90deg, var(--scene-mask-dim) 0%, var(--scene-mask-dim) 52%, #000 70%);
+    -webkit-mask-image: linear-gradient(90deg, var(--scene-mask-dim) 0%, var(--scene-mask-dim) 58%, #000 74%);
+    mask-image: linear-gradient(90deg, var(--scene-mask-dim) 0%, var(--scene-mask-dim) 58%, #000 74%);
   }
 }
 
@@ -236,6 +236,172 @@ html:not(.js) .on-dark {
 .split-heading .sh-line-mask {
   padding-bottom: 0.14em;
   margin-bottom: -0.14em;
+}
+
+/* ==== Sections ==== */
+.section {
+  padding-block: var(--sp-9);
+}
+/* Text stays inside the left 56% on wider screens, where the bridge is dimmed. */
+@media (min-width: 768px) {
+  .col-text {
+    max-width: 56vw;
+  }
+}
+
+/* ==== Engineering ==== */
+.figures {
+  display: grid;
+  gap: var(--sp-5);
+}
+@media (min-width: 768px) {
+  .figures {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.figure {
+  border-top: var(--rule) solid var(--c-spillway);
+  padding-top: var(--sp-4);
+}
+.eng-grid {
+  display: grid;
+  gap: var(--sp-7);
+}
+@media (min-width: 1024px) {
+  .eng-grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
+}
+.spec-row {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: var(--sp-4);
+  padding-block: var(--sp-3);
+  border-top: var(--rule) solid color-mix(in srgb, var(--c-chalk) 22%, transparent);
+}
+.spec dt {
+  color: var(--c-chalk-muted);
+}
+.rows {
+  border-bottom: var(--rule) solid color-mix(in srgb, var(--c-chalk) 22%, transparent);
+}
+.row {
+  display: grid;
+  gap: var(--sp-2);
+  padding-block: var(--sp-4);
+  border-top: var(--rule) solid color-mix(in srgb, var(--c-chalk) 22%, transparent);
+}
+@media (min-width: 768px) {
+  .row {
+    grid-template-columns: 14rem 1fr;
+    gap: var(--sp-5);
+  }
+}
+
+/* Robot diagram: a Graphite plate so it reads over the bridge behind it. */
+.diagram-wrap {
+  background: var(--c-graphite);
+  border: var(--rule) solid color-mix(in srgb, var(--c-spillway) 40%, transparent);
+  padding: var(--sp-5);
+}
+.diagram svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  view-timeline: --diagram block;
+}
+.diagram .part {
+  fill: none;
+  stroke: var(--c-spillway);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.diagram .part .dim,
+.diagram .part .motion {
+  stroke-width: 1.25;
+  stroke-dasharray: 0.02 0.015;
+}
+.diagram .leader {
+  fill: none;
+  stroke: var(--c-chalk-muted);
+  stroke-width: 1;
+}
+.diagram .t-head {
+  fill: var(--c-chalk);
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: 22px;
+}
+.diagram .t-sub {
+  fill: var(--c-chalk-muted);
+  font-family: var(--font-text);
+  font-size: 18px;
+}
+.diagram .t-dim {
+  fill: var(--c-chalk-muted);
+  font-family: var(--font-text);
+  font-size: 18px;
+}
+/* Phones: the diagram is about 330px wide, so labels grow and the long
+   sub-labels drop (the spec list above carries them). */
+@media (max-width: 639px) {
+  .diagram .t-head {
+    font-size: 32px;
+  }
+  .diagram .t-dim {
+    font-size: 26px;
+  }
+  .diagram .t-sub {
+    display: none;
+  }
+}
+.figure-unit {
+  font-size: 0.42em;
+  margin-left: 0.12em;
+}
+.diagram figcaption {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-small);
+  color: var(--c-chalk-muted);
+}
+/* Draw each part, then show its label, as the diagram crosses the view. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    @keyframes draw {
+      from {
+        stroke-dashoffset: 1;
+      }
+    }
+    @keyframes label-in {
+      from {
+        opacity: 0;
+      }
+    }
+    .diagram .part > :not(.dim):not(.motion) {
+      stroke-dasharray: 1;
+    }
+    .diagram .part > * {
+      animation: draw linear both;
+      animation-timeline: --diagram;
+    }
+    .diagram .part > .dim,
+    .diagram .part > .motion {
+      animation-name: label-in;
+    }
+    .diagram .label {
+      animation: label-in linear both;
+      animation-timeline: --diagram;
+    }
+    .part-1 > * { animation-range: cover 6% cover 24%; }
+    .label-1 { animation-range: cover 22% cover 27%; }
+    .part-2 > * { animation-range: cover 24% cover 32%; }
+    .label-2 { animation-range: cover 31% cover 35%; }
+    .part-3 > * { animation-range: cover 32% cover 44%; }
+    .label-3 { animation-range: cover 43% cover 47%; }
+    .part-4 > * { animation-range: cover 44% cover 56%; }
+    .label-4 { animation-range: cover 55% cover 59%; }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
