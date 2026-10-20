@@ -25,6 +25,7 @@ export default function About() {
         observeOnce(n, () => {
           const to = parseFloat(n.dataset.count || "0");
           const dec = parseInt(n.dataset.decimals || "0", 10);
+          const prefix = n.dataset.prefix || "";
           const suffix = n.dataset.suffix || "";
           const obj = { v: 0 };
           gsap.to(obj, {
@@ -32,7 +33,13 @@ export default function About() {
             duration: 1.2,
             ease: "power2.out",
             onUpdate: () => {
-              n.textContent = obj.v.toFixed(dec) + suffix;
+              n.textContent =
+                prefix +
+                obj.v.toLocaleString("en-US", {
+                  minimumFractionDigits: dec,
+                  maximumFractionDigits: dec,
+                }) +
+                suffix;
             },
           });
         })
@@ -76,6 +83,7 @@ export default function About() {
                   className="font-mono text-[0.95rem] tracking-[0.02em] text-green-deep"
                   data-count={s.count?.to}
                   data-decimals={s.count?.decimals}
+                  data-prefix={s.count?.prefix}
                   data-suffix={s.count?.suffix}
                 >
                   {s.label}

@@ -437,10 +437,7 @@ html.js:not(.reduce) .ms-line-fill {
   background: var(--paper);
   border: 2px solid var(--green);
 }
-.ms-item:nth-last-child(-n + 2) .ms-node {
-  border-color: var(--amber);
-}
-.ms-year {
+.ms-label {
   display: inline-block;
   margin-bottom: 0.2rem;
   font-family: var(--font-plex-mono), ui-monospace, monospace;

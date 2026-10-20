@@ -28,26 +28,27 @@ const mono = IBM_Plex_Mono({
 });
 
 const DESCRIPTION =
-  "Griffin Brodie, civil engineering bound, robotics team captain, and the builder behind five shipped projects, GolfTradr, GripFitr, and more.";
-const TITLE = "Griffin Brodie | Builder and Engineer";
-const SITE = "https://griffinbrodie.vercel.app";
+  "Griffin Brodie, Madison, CT, class of 2027. Civil engineering applicant, robotics team captain, and founder of GolfTradr LLC.";
+const TITLE = "Griffin Brodie | Civil Engineering Portfolio";
+const SITE = "https://griffinbrodie.site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: TITLE,
   description: DESCRIPTION,
+  alternates: { canonical: SITE },
   openGraph: {
     type: "website",
     title: TITLE,
     description: DESCRIPTION,
     url: SITE,
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: `${SITE}/og-image.png`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/og-image.png"],
+    images: [`${SITE}/og-image.png`],
   },
 };
 

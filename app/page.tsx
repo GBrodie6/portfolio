@@ -4,6 +4,7 @@ import Marquee from "@/components/Marquee";
 import Engineering from "@/components/Engineering";
 import Milestones from "@/components/Milestones";
 import Work from "@/components/Work";
+import Leadership from "@/components/Leadership";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Parallax from "@/components/Parallax";
@@ -19,6 +20,7 @@ export default function Home() {
         <Engineering />
         <Milestones />
         <Work />
+        <Leadership />
         <About />
         <Contact />
       </main>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ENGINEERING } from "@/lib/content";
+import { ENGINEERING, ENGINEERING_HEAD } from "@/lib/content";
 import { REDUCED } from "@/lib/env";
 import { revealGroup, observeOnce } from "@/components/anim";
 import SplitHeading from "@/components/SplitHeading";
@@ -33,15 +33,12 @@ export default function Engineering() {
       <div className="wrap relative z-[1]">
         <div className="section-head mb-12 max-w-[640px] sm:mb-16">
           <p className="eyebrow mb-4" data-reveal>
-            ENGINEERING
+            {ENGINEERING_HEAD.eyebrow}
           </p>
           <SplitHeading
-            text="How I actually build"
+            text={ENGINEERING_HEAD.heading}
             className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-bold leading-[1.05] tracking-[-0.01em]"
           />
-          <p className="mt-4 max-w-[52ch] text-ink-soft" data-reveal>
-            The parts of the work that don&apos;t show up in a screenshot.
-          </p>
         </div>
         <div className="eng-grid grid gap-8 md:grid-cols-3">
           {ENGINEERING.map((b) => (

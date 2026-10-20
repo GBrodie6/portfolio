@@ -31,8 +31,8 @@ I should never have to run git or deploy commands myself. Take it end to end.
 - Copy lives in `lib/content.ts`. Sections are in `components/`.
 - OG image: `public/og-image.png` — regenerate to match copy/visual changes.
   Favicon: `app/icon.svg` (the pin-flag mark).
-- Vercel project: `GBrodie6/portfolio`, production `griffinbrodie.vercel.app`
-  (custom domain `griffinbrodie.site` pending DNS).
+- Vercel project: `GBrodie6/portfolio`, production `griffinbrodie.site` (canonical
+  in metadata; `griffinbrodie.vercel.app` also serves it).
 - Deliberately removed, keep removed: reticle/crosshair cursor, constellation /
   particle field, and click-triggered easter eggs. The current custom cursor is a
   single restrained dot only.

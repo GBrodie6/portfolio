@@ -1,31 +1,37 @@
 export const NAV = [
   { label: "Engineering", href: "#engineering" },
   { label: "Work", href: "#work" },
+  { label: "Leadership", href: "#leadership" },
   { label: "About", href: "#about" },
 ] as const;
 
 export const HERO = {
-  eyebrow: "MADISON, CT · JUNIOR, CIVIL ENGINEERING BOUND",
-  headline: "I build things that actually have to hold up.",
+  eyebrow: "MADISON, CT · CLASS OF 2027",
+  headline: "I'm applying to study civil engineering. This is what I've built.",
   lede:
-    "I'm captain of my robotics team, about to commit to Civil Engineering, and I've built two golf software products that people actually use.",
+    "I captain the Daniel Hand robotics team and started GolfTradr LLC. I also build websites for local businesses.",
+};
+
+export const ENGINEERING_HEAD = {
+  eyebrow: "ENGINEERING",
+  heading: "Engineering work",
 };
 
 export const ENGINEERING = [
   {
-    title: "Civil Engineering",
+    title: "Civil engineering",
     body:
-      "I'm 99% set on studying Civil Engineering. I designed and built a house from scratch, floor plan, structure, all of it, in an Architectural Design class.",
+      "Around age 8, at Eli Whitney summer camp, I built a bridge strong enough to stand on. In Architectural Design I designed a house. Senior year I'm taking AP Calculus BC and AP Physics C (Mechanics and E&M).",
   },
   {
     title: "Robotics",
     body:
-      "I'm captain and lead engineer on my school's robotics team. I run the design process end to end: CAD, prototyping, competition day.",
+      "Captain and lead designer, builder, and driver of Daniel Hand's VEX V5 team, 1695A. State-qualifying, ranked first in our school. The robot has a six-motor drive, an inertial sensor, and a lift with a pneumatic claw, programmed in C++. Current work: a record-and-playback autonomous and a custom 3D-printed claw. I keep the team's engineering notebook.",
   },
   {
-    title: "Systems, not just screens",
+    title: "Software and security",
     body:
-      "Once a platform touches real money, the interesting engineering stops being visible. Building GolfTradr meant adding advisory-lock payment idempotency so trades can't double-charge, SSRF protection, 3D Secure enforcement, and a Cloudflare WAF layer with bot-fight mode and rate limiting.",
+      "GolfTradr handles real payments, so I added payment idempotency with advisory locks to prevent duplicate charges, 3D Secure enforcement, and SSRF protection, and put the site behind a Cloudflare firewall with bot blocking and rate limiting. I also fixed a critical mass-assignment vulnerability.",
   },
 ];
 
@@ -37,70 +43,132 @@ export type Project = {
   shot?: string;
 };
 
+export const WORK_HEAD = {
+  eyebrow: "SELECTED WORK",
+  heading: "Projects",
+};
+
 export const WORK: Project[] = [
   {
     title: "GolfTradr",
     href: "https://golftradr.com",
     shot: "/work/golftradr.webp",
     body:
-      "A peer-to-peer marketplace for trading golf equipment: trade proposals, digital agreements, shipping tracking, and seller verification, built as GolfTradr LLC with about 15 active beta testers.",
+      "I started GolfTradr LLC and develop the site. People list golf equipment and propose trades to each other, with counter-offers, digital agreements, shipping tracking, and identity-verified sellers. About 15 beta testers.",
     tags: ["React", "Supabase", "Stripe", "Firebase"],
   },
   {
-    title: "GripFitr",
-    href: "https://gripfitr.com",
-    shot: "/work/gripfitr.webp",
-    body:
-      "A live grip-fitting tool built on a deterministic recommendation engine, not a guess, covering seven major grip brands.",
-    tags: ["JavaScript", "Deterministic Engine", "Vercel"],
-  },
-  {
-    title: "Shoreline Golf",
-    href: "https://shoreline-golf.com",
-    shot: "/work/shoreline.webp",
-    body: "A website for the golf shop I work at, built solo, no template.",
-    tags: ["HTML/CSS/JS", "Single-file build"],
-  },
-  {
     title: "Triple G Landscaping",
-    href: "https://triple-g-landscaping-khaki.vercel.app",
+    href: "https://triple-g-landscaping.com",
     shot: "/work/tripleg.webp",
     body:
-      "The first client I landed on my own, a landscaping company in town. Built and deployed the whole site: Next.js, Tailwind, live, still getting revised as the owner tells me what he wants changed.",
+      "A website for a local landscaping company, my first paying client. I built and deployed it and keep revising it with the owner.",
     tags: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
+  },
+  {
+    title: "WikiDash",
+    href: "https://wikidash3.higgsfield.app",
+    shot: "/work/wikidash.webp",
+    body:
+      "A multiplayer Wikipedia race game. Players race through real Wikipedia pages from a start article to a target, and the round ends when the first player arrives. The host sets the start and target and can turn off the back button, Ctrl+F, and leaving the tab.",
+    tags: ["Multiplayer", "Web"],
   },
   {
     title: "Paige's Babysitting Site",
     href: "https://paigegrendi-babysitting.vercel.app",
     shot: "/work/paige.webp",
     body:
-      "A babysitting business site for my girlfriend, with way more animation than a babysitting site needs. 3D hero elements, a full GSAP animation layer, built solo.",
+      "A website for a classmate's babysitting business, with 3D hero elements and a GSAP animation layer.",
     tags: ["Next.js", "GSAP", "3D/WebGL"],
+  },
+  {
+    title: "GripFitr",
+    href: "https://gripfitr.com",
+    shot: "/work/gripfitr.webp",
+    body:
+      "A grip fitting tool. A quiz feeds a deterministic recommendation engine that covers seven major grip brands.",
+    tags: ["JavaScript", "Deterministic Engine", "Vercel"],
+  },
+  {
+    title: "Shoreline Golf",
+    href: "https://shoreline-golf.com",
+    shot: "/work/shoreline.webp",
+    body:
+      "A website for the golf shop in Westbrook where I work as head fitter and assistant manager.",
+    tags: ["HTML/CSS/JS"],
   },
 ];
 
 export const MILESTONES_HEAD = {
-  eyebrow: "MILESTONES",
-  heading: "How I got here.",
+  eyebrow: "HIGHLIGHTS",
+  heading: "Highlights",
 };
 
-export type Milestone = { text: string; year?: string };
+export type Milestone = { text: string; label?: string };
 
 export const MILESTONES: Milestone[] = [
-  { text: "Took Architectural Design and designed and built a house from scratch" },
-  { text: "Became captain and lead engineer of the robotics team" },
-  { text: "Founded and shipped GolfTradr" },
-  { text: "Built and shipped GripFitr as a sister product" },
-  { text: "Landed Triple G Landscaping as my first freelance client" },
-  { text: "Built and shipped an animated site for Paige's babysitting business" },
-  { text: "T1 finish at the DeNicolo Memorial Junior Open, shot 69", year: "2026" },
-  { text: "Helped lead Daniel Hand to the CT State Championship team title", year: "2026" },
+  {
+    label: "Around age 8",
+    text: "Built a bridge at Eli Whitney summer camp strong enough to stand on.",
+  },
+  {
+    label: "9th and 10th grade",
+    text: "Fenced foil for Daniel Hand, with a winning varsity record.",
+  },
+  { text: "Designed a house in Architectural Design." },
+  { label: "Junior year", text: "Started GolfTradr." },
+  { text: "Built GripFitr, a grip fitting tool, and launched it at gripfitr.com." },
+  { text: "Became captain of robotics team 1695A." },
+  {
+    text: "Head of Outreach for Teeing Off Against Cancer. The charity tournaments raised over $15,000 for Yale's Smilow Cancer Hospital.",
+  },
+  { text: "Landed my first paying client, Triple G Landscaping." },
+  { text: "Built WikiDash, a multiplayer Wikipedia race game." },
+];
+
+export const LEADERSHIP_HEAD = {
+  eyebrow: "LEADERSHIP",
+  heading: "Leadership and service",
+};
+
+export const LEADERSHIP = [
+  {
+    title: "Teeing Off Against Cancer",
+    body:
+      "Head of Outreach. Charity golf tournaments raised over $15,000 for Yale's Smilow Cancer Hospital in a few months.",
+  },
+  {
+    title: "Supercell Club",
+    body:
+      "Co-founder. Students play video games together so underclassmen can make friends with upperclassmen. About 30 members at its peak.",
+  },
+  {
+    title: "MYFS Peer Advocate",
+    body: "Madison Youth & Family Services, at Daniel Hand High School.",
+  },
+  {
+    title: "Make-A-Wish",
+    body: "Worked with Make-A-Wish to bring golf opportunities to kids.",
+  },
+  { title: "Robotics team 1695A", body: "Captain." },
+  {
+    title: "Kleins Golf Range",
+    body: "Managed this local driving range from 9th to 11th grade.",
+  },
+  { title: "Shoreline Golf", body: "Head fitter and assistant manager." },
+  {
+    title: "Fencing",
+    body:
+      "Daniel Hand fencing team, foil, 9th and 10th grade. Winning varsity record. Helped younger fencers.",
+  },
+  { title: "National Honor Society", body: "Member." },
 ];
 
 export const TECH = [
   "React",
   "Next.js",
   "TypeScript",
+  "C++",
   "Tailwind",
   "Supabase",
   "Stripe",
@@ -112,23 +180,26 @@ export const TECH = [
 ];
 
 export const ABOUT = {
-  heading: "Mostly building. Also golf.",
+  heading: "About",
   paragraphs: [
-    "I'm 99% set on Civil Engineering, with a minor in Entrepreneurship.",
-    "T1 at the DeNicolo Memorial Junior Open this year, shot 69. Helped lead Daniel Hand to the CT State Championship team title, 4th individually with a 73. I play CTPGA and Hurricane Junior Golf Tour events. GolfTradr and GripFitr both started because of things that annoyed me on a golf course or in a pro shop.",
+    "I'm applying to study Civil Engineering with an Entrepreneurship minor. After college I want to combine engineering and entrepreneurship, with a focus on leadership and hands-on project management.",
+    "I play golf for Daniel Hand. Our team won the CT state championship, where I finished fourth individually with a 73. In July 2026 I shot a 69 at the DeNicolo Memorial Junior Open and finished runner-up.",
   ],
 };
 
 export type Stat = {
   label: string;
-  count?: { to: number; decimals: number; suffix: string };
+  count?: { to: number; decimals: number; prefix?: string; suffix: string };
 };
 
 export const STATS: Stat[] = [
-  { label: "4.9 HDCP", count: { to: 4.9, decimals: 1, suffix: " HDCP" } },
-  { label: "STATE CHAMPS · TEAM" },
-  { label: "ROBOTICS CAPTAIN" },
-  { label: "5 SHIPPED PROJECTS", count: { to: 5, decimals: 0, suffix: " SHIPPED PROJECTS" } },
+  { label: "ROBOTICS CAPTAIN · TEAM 1695A" },
+  { label: "FOUNDER · GOLFTRADR LLC" },
+  {
+    label: "$15,000+ RAISED BY CHARITY TOURNAMENTS",
+    count: { to: 15000, decimals: 0, prefix: "$", suffix: "+ RAISED BY CHARITY TOURNAMENTS" },
+  },
+  { label: "CO-FOUNDER · SUPERCELL CLUB" },
 ];
 
 export const CONTACT = {

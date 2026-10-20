@@ -1,7 +1,7 @@
 import { chromium } from "playwright";
 
 const OUT = process.argv[2] || "verify-work.png";
-const URL = "https://griffinbrodie.vercel.app";
+const URL = "https://griffinbrodie.site";
 
 const browser = await chromium.launch();
 const page = await browser.newPage({

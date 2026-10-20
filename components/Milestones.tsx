@@ -71,7 +71,7 @@ export default function Milestones() {
             <li key={i} className="ms-item" data-reveal>
               <span className="ms-node" aria-hidden="true" />
               <div>
-                {m.year && <span className="ms-year">{m.year}</span>}
+                {m.label && <span className="ms-label">{m.label}</span>}
                 <p className="text-[1.02rem] leading-snug text-ink">{m.text}</p>
               </div>
             </li>

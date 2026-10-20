@@ -25,7 +25,7 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
-    const ids = ["engineering", "work", "about", "contact"];
+    const ids = ["engineering", "work", "leadership", "about", "contact"];
     const io = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
