@@ -8,12 +8,36 @@ import { mkdir } from "node:fs/promises";
 const sites = [
   { name: "golftradr", url: "https://golftradr.com" },
   { name: "gripfitr", url: "https://gripfitr.com" },
-  { name: "shoreline", url: "https://shoreline-golf.com" },
-  { name: "tripleg", url: "https://triple-g-landscaping.com" },
+  // `blur`: regions (in the 1200x750 output) blurred so no phone number
+  // appears in any screenshot on the site.
+  {
+    name: "shoreline",
+    url: "https://shoreline-golf.com",
+    blur: [{ left: 1016, top: 22, width: 98, height: 24 }],
+  },
+  {
+    name: "tripleg",
+    url: "https://triple-g-landscaping.com",
+    blur: [
+      { left: 988, top: 20, width: 96, height: 26 },
+      { left: 316, top: 512, width: 108, height: 30 },
+    ],
+  },
   { name: "paige", url: "https://paigegrendi-babysitting.vercel.app" },
   { name: "wikidash", url: "https://wikidash3.higgsfield.app" },
 ];
 const only = process.argv.slice(2);
+
+/** Blurred patches of `img` for each region, ready for sharp.composite. */
+export async function blurred(img, regions) {
+  return Promise.all(
+    regions.map(async (r) => ({
+      input: await sharp(img).extract(r).blur(6).toBuffer(),
+      left: r.left,
+      top: r.top,
+    }))
+  );
+}
 
 await mkdir("public/work", { recursive: true });
 const browser = await chromium.launch(
@@ -33,8 +57,11 @@ for (const s of sites) {
     const buf = await page.screenshot({
       clip: { x: 0, y: 0, width: 1440, height: 900 },
     });
-    await sharp(buf)
+    const shot = await sharp(buf)
       .resize(1200, 750, { fit: "cover", position: "top" })
+      .toBuffer();
+    await sharp(shot)
+      .composite(await blurred(shot, s.blur || []))
       .webp({ quality: 80 })
       .toFile(`public/work/${s.name}.webp`);
     console.log("OK", s.name);
