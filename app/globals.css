@@ -1,0 +1,248 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==== Tokens (BRAND.md). Components and the bridge scene use only these. ==== */
+:root {
+  /* Palette */
+  --c-concrete: #e2e0da; /* Poured Concrete */
+  --c-graphite: #17191c; /* Graphite */
+  --c-blue: #1d5a9e; /* Water Main Blue */
+  --c-spillway: #7faee3; /* Spillway Blue (on Graphite only) */
+  --c-steel: #5b6168; /* Form Steel */
+  --c-chalk: #f5f4f0; /* Chalk */
+  /* Derived tones */
+  --c-chalk-muted: color-mix(in srgb, var(--c-chalk) 72%, var(--c-graphite));
+  --c-veil: color-mix(in srgb, var(--c-concrete) 92%, transparent);
+
+  /* Fonts */
+  --font-display: var(--font-big-shoulders), "Arial Narrow", sans-serif;
+  --font-text: var(--font-public-sans), system-ui, sans-serif;
+
+  /* Type scale */
+  --fs-mega: clamp(5.25rem, 19vw, 19rem);
+  --fs-display: clamp(4rem, 13vw, 12rem);
+  --fs-figure: clamp(3.5rem, 9vw, 8rem);
+  --fs-title: clamp(1.75rem, 3vw, 2.5rem);
+  --fs-lead: 1.25rem;
+  --fs-body: 1.0625rem;
+  --fs-small: 0.875rem;
+  --lh-display: 0.86;
+  --lh-title: 1.1;
+  --lh-body: 1.55;
+  --tr-display: -0.01em;
+
+  /* Spacing scale */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 36px;
+  --sp-7: 56px;
+  --sp-8: 88px;
+  --sp-9: 136px;
+  --sp-10: 208px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --measure: 62ch;
+  --nav-h: 64px;
+
+  /* Shape */
+  --rule: 1px;
+  --r-1: 4px;
+
+  /* Motion */
+  --dur-ui: 200ms;
+  --dur-move: 700ms;
+  --dur-page: 450ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Bridge scene (light state). The Engineering chapter swaps these. */
+  --scene-structure: var(--c-graphite);
+  --scene-cable: var(--c-blue);
+  --scene-terrain: var(--c-graphite);
+  --scene-water: var(--c-blue);
+  --scene-ground: var(--c-concrete);
+  /* Mask alpha for the scene under the desktop text column (12% visible). */
+  --scene-mask-dim: rgb(0 0 0 / 0.12);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--c-concrete);
+  color: var(--c-graphite);
+  font-family: var(--font-text);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible {
+  outline: 2px solid var(--c-blue);
+  outline-offset: 3px;
+}
+.on-dark :focus-visible {
+  outline-color: var(--c-spillway);
+}
+
+/* ==== Layout ==== */
+.wrap {
+  width: 100%;
+  padding-inline: var(--gutter);
+}
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+}
+@media (max-width: 767px) {
+  /* Text blocks sit on a Concrete surface on phones so the bridge never
+     touches their contrast. */
+  .panel {
+    background: var(--c-veil);
+    border-radius: var(--r-1);
+    padding: var(--sp-4);
+    margin-inline: calc(var(--sp-2) * -1);
+  }
+  .on-dark .panel {
+    background: color-mix(in srgb, var(--c-graphite) 92%, transparent);
+  }
+}
+
+/* ==== Bridge scene ==== */
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 1; /* above the chapter ground (0), below content (10) */
+  overflow: hidden;
+  pointer-events: none;
+}
+.scene .layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  will-change: transform;
+}
+.scene svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Hide only the unbuilt deck and cables until the timeline has set its start
+   state. Text is never hidden. */
+html.js:not(.reduce) .scene:not(.is-live) .scene-build {
+  visibility: hidden;
+}
+/* The tower stands up as the load sequence (CSS only, about 0.9 s). */
+.tower-rise {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tower-up 900ms var(--ease-out) 100ms both;
+}
+@keyframes tower-up {
+  from {
+    transform: scaleY(0);
+  }
+}
+/* Still image (no JS, or reduced motion): the finished bridge, whole, along
+   the bottom of the screen. */
+html:not(.js) .layer,
+html.reduce .layer {
+  transform-origin: 0 100%;
+}
+html:not(.js) .layer-front,
+html.reduce .layer-front {
+  transform: scale(0.4);
+}
+html:not(.js) .layer-mid,
+html.reduce .layer-mid {
+  transform: scale(0.5714);
+}
+html:not(.js) .layer-back,
+html.reduce .layer-back {
+  transform: scale(0.8163);
+}
+.scene-layers {
+  position: absolute;
+  inset: 0;
+}
+/* Desktop: fade the scene under the left text column with a mask, so the fade
+   carries no color and works on Concrete and Graphite alike. */
+@media (min-width: 768px) {
+  .scene-layers {
+    -webkit-mask-image: linear-gradient(90deg, var(--scene-mask-dim) 0%, var(--scene-mask-dim) 52%, #000 70%);
+    mask-image: linear-gradient(90deg, var(--scene-mask-dim) 0%, var(--scene-mask-dim) 52%, #000 70%);
+  }
+}
+
+/* ==== Chapter ground: Graphite wipe behind the Engineering chapter ==== */
+.chapter-ground {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--c-graphite);
+  clip-path: inset(100% 0 0 0);
+  pointer-events: none;
+}
+.on-dark {
+  color: var(--c-chalk);
+}
+html.reduce .on-dark,
+html:not(.js) .on-dark {
+  background: var(--c-graphite);
+}
+
+/* ==== Hero load sequence (CSS, done by about 1.1 s, readable from frame 1) ==== */
+.hero-name {
+  animation: settle 800ms var(--ease-out) both;
+}
+@keyframes settle {
+  from {
+    transform: translateY(0.06em);
+    letter-spacing: 0.01em;
+  }
+}
+.hero {
+  min-height: 100svh;
+}
+.mark {
+  width: 40px;
+  height: 20px;
+}
+.hero-rule {
+  display: block;
+  width: var(--sp-9);
+  height: 2px;
+  background: var(--c-blue);
+  transform-origin: 0 50%;
+  animation: rule-in 600ms var(--ease-out) 450ms both;
+}
+@keyframes rule-in {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* ==== Split heading: masks are made by SplitText; the start state is set in
+   JS only, so without JS the heading is plain and visible. ==== */
+.split-heading {
+  font-kerning: normal;
+}
+/* Line masks get room for descenders, offset so layout does not move. */
+.split-heading .sh-line-mask {
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
