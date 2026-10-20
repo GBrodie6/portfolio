@@ -1,54 +1,26 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import { ENGINEERING, ENGINEERING_HEAD } from "@/lib/content";
-import { REDUCED } from "@/lib/env";
-import { revealGroup, observeOnce } from "@/components/anim";
-import SplitHeading from "@/components/SplitHeading";
+import { ENGINEERING, ENGINEERING_HEAD, TECH } from "@/lib/content";
 
 export default function Engineering() {
-  const scope = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (REDUCED) return;
-    const el = scope.current;
-    if (!el) return;
-    const cleanups: Array<() => void> = [];
-    const head = el.querySelector(".section-head");
-    const grid = el.querySelector(".eng-grid");
-    if (head) cleanups.push(revealGroup(head));
-    if (grid) cleanups.push(revealGroup(grid));
-    const bp = el.querySelector(".blueprint");
-    if (bp) cleanups.push(observeOnce(el, () => bp.classList.add("in")));
-    return () => cleanups.forEach((c) => c());
-  }, []);
-
   return (
-    <section
-      ref={scope}
-      id="engineering"
-      className="relative overflow-hidden border-b border-line py-24 sm:py-32"
-    >
-      <div className="blueprint" aria-hidden="true" data-parallax="70" />
-      <div className="wrap relative z-[1]">
-        <div className="section-head mb-12 max-w-[640px] sm:mb-16">
-          <p className="eyebrow mb-4" data-reveal>
-            {ENGINEERING_HEAD.eyebrow}
-          </p>
-          <SplitHeading
-            text={ENGINEERING_HEAD.heading}
-            className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-bold leading-[1.05] tracking-[-0.01em]"
-          />
-        </div>
-        <div className="eng-grid grid gap-8 md:grid-cols-3">
-          {ENGINEERING.map((b) => (
-            <div key={b.title} className="border-t border-line pt-5" data-reveal>
-              <h3 className="mb-2.5 font-display text-[1.15rem] font-semibold">
-                {b.title}
-              </h3>
-              <p className="text-ink-soft">{b.body}</p>
-            </div>
-          ))}
+    <section id="engineering" className="py-20 sm:py-28">
+      <div className="wrap">
+        <div className="panel max-w-[640px]">
+          <h2 className="section-title">{ENGINEERING_HEAD.heading}</h2>
+          <div className="mt-10 flex flex-col gap-9">
+            {ENGINEERING.map((b) => (
+              <div key={b.title} className="border-t border-line pt-5">
+                <h3 className="mb-2.5 font-display text-[1.2rem] font-bold">{b.title}</h3>
+                <p className="text-ink-soft">{b.body}</p>
+              </div>
+            ))}
+          </div>
+          <ul className="mt-10 flex flex-wrap gap-1.5" aria-label="Technologies">
+            {TECH.map((t) => (
+              <li key={t} className="tag">
+                {t}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

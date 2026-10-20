@@ -1,29 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Overpass, IBM_Plex_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
-import Grain from "@/components/Grain";
-import Cursor from "@/components/Cursor";
-import LoadIn from "@/components/LoadIn";
+import Scene from "@/components/Scene";
 
-const display = Space_Grotesk({
+const display = Overpass({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-space-grotesk",
+  weight: ["700"],
+  variable: "--font-overpass",
   display: "swap",
 });
 const sans = IBM_Plex_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-plex-sans",
-  display: "swap",
-});
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
   display: "swap",
 });
 
@@ -56,13 +48,13 @@ export const viewport: Viewport = {
   themeColor: "#F2F5EE",
 };
 
-const PRE = `(function(){var d=document.documentElement;d.classList.add('js');var r=false;try{r=window.matchMedia('(prefers-reduced-motion:reduce)').matches;}catch(e){}if(r){d.classList.add('reduce');}else{try{if(!sessionStorage.getItem('gb_seen')){d.classList.add('intro');}}catch(e){}}})();`;
+const PRE = `(function(){var d=document.documentElement;d.classList.add('js');try{if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){d.classList.add('reduce');}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+      className={`${display.variable} ${sans.variable}`}
     >
       <body className="font-sans">
         <Script
@@ -71,9 +63,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           dangerouslySetInnerHTML={{ __html: PRE }}
         />
         <SmoothScroll />
-        <Grain />
-        <Cursor />
-        <LoadIn />
+        <Scene />
         {children}
       </body>
     </html>

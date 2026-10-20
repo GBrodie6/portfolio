@@ -1,13 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
 import { NAV } from "@/lib/content";
-import { REDUCED, FINE_POINTER } from "@/lib/env";
 
 export default function Nav() {
   const navRef = useRef<HTMLElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -42,40 +39,17 @@ export default function Nav() {
     };
   }, [open]);
 
-  useEffect(() => {
-    if (REDUCED || !FINE_POINTER) return;
-    const el = ctaRef.current;
-    if (!el) return;
-    const xTo = gsap.quickTo(el, "x", { duration: 0.4, ease: "power3" });
-    const yTo = gsap.quickTo(el, "y", { duration: 0.4, ease: "power3" });
-    const move = (e: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      xTo((e.clientX - (r.left + r.width / 2)) * 0.4);
-      yTo((e.clientY - (r.top + r.height / 2)) * 0.4);
-    };
-    const leave = () => {
-      xTo(0);
-      yTo(0);
-    };
-    el.addEventListener("pointermove", move);
-    el.addEventListener("pointerleave", leave);
-    return () => {
-      el.removeEventListener("pointermove", move);
-      el.removeEventListener("pointerleave", leave);
-    };
-  }, []);
-
   return (
     <header
       ref={navRef}
-      className="nav-bar fixed inset-x-0 top-0 z-50 border-b border-line bg-paper/80 backdrop-blur"
+      className="nav-bar fixed inset-x-0 top-0 z-50 border-b border-line bg-paper/95"
     >
       <div className="wrap flex items-center justify-between py-3.5">
         <a
           href="#top"
-          className="font-mono text-sm font-medium tracking-[0.08em] text-ink no-underline"
+          className="font-display text-[1.05rem] font-bold text-ink no-underline"
         >
-          GRIFFIN<span className="text-green">·</span>BRODIE
+          Griffin Brodie
         </a>
 
         <nav className="hidden items-center gap-6 sm:flex md:gap-8">
@@ -83,7 +57,7 @@ export default function Nav() {
             <a
               key={n.href}
               href={n.href}
-              className={`nav-link font-mono text-xs tracking-[0.08em] no-underline transition-colors ${
+              className={`nav-link text-sm no-underline transition-colors ${
                 active === n.href.slice(1)
                   ? "is-active text-green-deep"
                   : "text-ink-soft hover:text-green-deep"
@@ -93,9 +67,8 @@ export default function Nav() {
             </a>
           ))}
           <a
-            ref={ctaRef}
             href="#contact"
-            className="rounded-full bg-green px-4 py-2 font-mono text-[0.72rem] tracking-[0.06em] text-paper no-underline transition-colors hover:bg-green-deep"
+            className="rounded-full bg-green px-4 py-2 text-[0.82rem] font-medium text-paper no-underline transition-colors hover:bg-green-deep"
           >
             Get in touch
           </a>
@@ -103,11 +76,11 @@ export default function Nav() {
 
         <button
           onClick={() => setOpen((o) => !o)}
-          className="rounded-md border border-line px-3 py-1.5 font-mono text-xs text-ink sm:hidden"
+          className="rounded-md border border-line px-3 py-1.5 text-sm text-ink sm:hidden"
           aria-expanded={open}
           aria-label="Toggle menu"
         >
-          {open ? "CLOSE" : "MENU"}
+          {open ? "Close" : "Menu"}
         </button>
       </div>
 
@@ -121,7 +94,7 @@ export default function Nav() {
             key={n.href}
             href={n.href}
             onClick={() => setOpen(false)}
-            className="font-mono text-sm tracking-[0.06em] text-ink-soft no-underline"
+            className="text-[0.95rem] text-ink-soft no-underline"
           >
             {n.label}
           </a>
@@ -129,7 +102,7 @@ export default function Nav() {
         <a
           href="#contact"
           onClick={() => setOpen(false)}
-          className="w-fit rounded-full bg-green px-4 py-2 font-mono text-xs text-paper no-underline"
+          className="w-fit rounded-full bg-green px-4 py-2 text-sm text-paper no-underline"
         >
           Get in touch
         </a>

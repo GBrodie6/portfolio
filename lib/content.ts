@@ -6,14 +6,13 @@ export const NAV = [
 ] as const;
 
 export const HERO = {
-  eyebrow: "MADISON, CT · CLASS OF 2027",
   headline: "I'm applying to study civil engineering. This is what I've built.",
   lede:
     "I captain the Daniel Hand robotics team and started GolfTradr LLC. I also build websites for local businesses.",
+  line: "Madison, CT, class of 2027",
 };
 
 export const ENGINEERING_HEAD = {
-  eyebrow: "ENGINEERING",
   heading: "Engineering work",
 };
 
@@ -44,7 +43,6 @@ export type Project = {
 };
 
 export const WORK_HEAD = {
-  eyebrow: "SELECTED WORK",
   heading: "Projects",
 };
 
@@ -100,7 +98,6 @@ export const WORK: Project[] = [
 ];
 
 export const MILESTONES_HEAD = {
-  eyebrow: "HIGHLIGHTS",
   heading: "Highlights",
 };
 
@@ -127,7 +124,6 @@ export const MILESTONES: Milestone[] = [
 ];
 
 export const LEADERSHIP_HEAD = {
-  eyebrow: "LEADERSHIP",
   heading: "Leadership and service",
 };
 
@@ -187,19 +183,11 @@ export const ABOUT = {
   ],
 };
 
-export type Stat = {
-  label: string;
-  count?: { to: number; decimals: number; prefix?: string; suffix: string };
-};
-
-export const STATS: Stat[] = [
-  { label: "ROBOTICS CAPTAIN · TEAM 1695A" },
-  { label: "FOUNDER · GOLFTRADR LLC" },
-  {
-    label: "$15,000+ RAISED BY CHARITY TOURNAMENTS",
-    count: { to: 15000, decimals: 0, prefix: "$", suffix: "+ RAISED BY CHARITY TOURNAMENTS" },
-  },
-  { label: "CO-FOUNDER · SUPERCELL CLUB" },
+export const STATS = [
+  "Robotics captain, team 1695A",
+  "Founder, GolfTradr LLC",
+  "$15,000+ raised by charity tournaments",
+  "Co-founder, Supercell Club",
 ];
 
 export const CONTACT = {

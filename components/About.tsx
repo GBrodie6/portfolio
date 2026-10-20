@@ -1,96 +1,25 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
 import { ABOUT, STATS } from "@/lib/content";
-import { REDUCED } from "@/lib/env";
-import { revealGroup, observeOnce } from "@/components/anim";
-import SplitHeading from "@/components/SplitHeading";
 
 export default function About() {
-  const scope = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (REDUCED) return;
-    const el = scope.current;
-    if (!el) return;
-    const cleanups: Array<() => void> = [];
-    const head = el.querySelector(".section-head");
-    const body = el.querySelector(".about-body");
-    if (head) cleanups.push(revealGroup(head));
-    if (body) cleanups.push(revealGroup(body));
-
-    el.querySelectorAll<HTMLElement>("[data-count]").forEach((n) => {
-      cleanups.push(
-        observeOnce(n, () => {
-          const to = parseFloat(n.dataset.count || "0");
-          const dec = parseInt(n.dataset.decimals || "0", 10);
-          const prefix = n.dataset.prefix || "";
-          const suffix = n.dataset.suffix || "";
-          const obj = { v: 0 };
-          gsap.to(obj, {
-            v: to,
-            duration: 1.2,
-            ease: "power2.out",
-            onUpdate: () => {
-              n.textContent =
-                prefix +
-                obj.v.toLocaleString("en-US", {
-                  minimumFractionDigits: dec,
-                  maximumFractionDigits: dec,
-                }) +
-                suffix;
-            },
-          });
-        })
-      );
-    });
-    return () => cleanups.forEach((c) => c());
-  }, []);
-
   return (
-    <section
-      ref={scope}
-      id="about"
-      className="border-b border-line py-24 sm:py-32"
-    >
+    <section id="about" className="py-20 sm:py-28">
       <div className="wrap">
-        <div className="section-head mb-12 max-w-[640px] sm:mb-16">
-          <p className="eyebrow mb-4" data-reveal>
-            ABOUT
-          </p>
-          <SplitHeading
-            text={ABOUT.heading}
-            className="font-display text-[clamp(1.9rem,4vw,2.6rem)] font-bold leading-[1.05] tracking-[-0.01em]"
-          />
-        </div>
-        <div className="about-body grid gap-12 lg:grid-cols-[1.3fr_0.7fr] lg:items-start">
+        <div className="panel grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-start">
           <div>
+            <h2 className="section-title">{ABOUT.heading}</h2>
             {ABOUT.paragraphs.map((p, i) => (
-              <p
-                key={i}
-                className={`max-w-[58ch] text-ink-soft ${i > 0 ? "mt-4" : ""}`}
-                data-reveal
-              >
+              <p key={i} className={`max-w-[56ch] text-ink-soft ${i ? "mt-4" : "mt-8"}`}>
                 {p}
               </p>
             ))}
           </div>
-          <div className="flex flex-col gap-3">
+          <ul className="flex flex-col gap-3 lg:mt-[4.6rem]">
             {STATS.map((s) => (
-              <div key={s.label} className="stat" data-reveal>
-                <span
-                  className="font-mono text-[0.95rem] tracking-[0.02em] text-green-deep"
-                  data-count={s.count?.to}
-                  data-decimals={s.count?.decimals}
-                  data-prefix={s.count?.prefix}
-                  data-suffix={s.count?.suffix}
-                >
-                  {s.label}
-                </span>
-              </div>
+              <li key={s} className="stat text-[0.98rem] font-medium text-green-deep">
+                {s}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>

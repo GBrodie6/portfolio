@@ -3,8 +3,17 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { REDUCED } from "@/lib/env";
 
+const easeInOutCubic = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+/**
+ * Lenis is the only source of smoothing: it drives ScrollTrigger.update from
+ * the GSAP ticker, and the scene's timeline is scrubbed with no extra lag.
+ * Touch scrolling stays native. Reduced motion: no Lenis, native anchors.
+ */
 export default function SmoothScroll() {
   useEffect(() => {
     let lenis: Lenis | null = null;
@@ -14,36 +23,30 @@ export default function SmoothScroll() {
       const a = target?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
       if (!a) return;
       const hash = a.getAttribute("href") || "";
-      if (hash.length < 2) return;
-      const el = document.querySelector(hash);
+      const el = hash === "#top" ? document.body : document.querySelector(hash);
       if (!el) return;
       e.preventDefault();
       if (lenis) {
-        lenis.scrollTo(el as HTMLElement, { offset: -72 });
+        lenis.scrollTo(hash === "#top" ? 0 : (el as HTMLElement), {
+          offset: -72,
+          duration: 1.2,
+          easing: easeInOutCubic,
+        });
       } else {
         (el as HTMLElement).scrollIntoView({ block: "start" });
       }
+      history.replaceState(null, "", hash);
     };
+    document.addEventListener("click", onClick);
 
-    // Reduced motion: no smooth scroll, native anchor jumps only.
-    if (REDUCED) {
-      document.addEventListener("click", onClick);
-      return () => document.removeEventListener("click", onClick);
-    }
+    if (REDUCED) return () => document.removeEventListener("click", onClick);
 
-    lenis = new Lenis({
-      duration: 1.05,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      wheelMultiplier: 1,
-      touchMultiplier: 1.6,
-    });
-
-    const raf = (time: number) => {
-      lenis?.raf(time * 1000);
-    };
+    gsap.registerPlugin(ScrollTrigger);
+    lenis = new Lenis({ autoRaf: false, lerp: 0.1 });
+    lenis.on("scroll", ScrollTrigger.update);
+    const raf = (t: number) => lenis?.raf(t * 1000);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
-    document.addEventListener("click", onClick);
 
     return () => {
       document.removeEventListener("click", onClick);

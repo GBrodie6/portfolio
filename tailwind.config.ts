@@ -16,15 +16,11 @@ const config: Config = {
         line: "#CBD2C1",
       },
       fontFamily: {
-        display: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        display: ["var(--font-overpass)", "system-ui", "sans-serif"],
         sans: ["var(--font-plex-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-plex-mono)", "ui-monospace", "monospace"],
       },
       maxWidth: {
         content: "1120px",
-      },
-      letterSpacing: {
-        label: "0.14em",
       },
     },
   },
