@@ -33,7 +33,7 @@ Sources:
 | --- | --- | --- |
 | Team 1695A, Daniel Hand Tigers A, nicknamed Autobots, 2026-27 season | Notebook | sourced |
 | Captain and lead designer, builder and driver | Griffin | sourced |
-| State-qualifying, ranked first in our school | Griffin | sourced |
+| State-qualifying, ranked second in our school (corrected from "first" by Griffin) | Griffin | sourced |
 | Keeps the team's engineering notebook | Notebook | sourced |
 | Notebook first entries: 8/26/26 (brain port setup, controller port setup) and 10/14/26 (claw setup) | Notebook | sourced |
 | Six-motor drive: four 11W motors and two 5.5W center motors | Griffin | sourced |
@@ -50,7 +50,7 @@ Sources:
 Robot systems diagram labels, and only these: drivetrain (six motors, 36:60,
 2.75 inch wheels), sensing (inertial sensor), lift, claw (pitch and roll). No
 motor counts for the lift or claw, no broken parts, no results beyond
-"state-qualifying" and "ranked first in our school".
+"state-qualifying" and "ranked second in our school".
 
 ### Other engineering
 

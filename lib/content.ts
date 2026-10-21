@@ -3,8 +3,8 @@
 export const ROBOTICS = {
   title: "Robotics, team 1695A",
   team: "Daniel Hand Tigers A, nicknamed Autobots. 2026-27 season. This year's game is Pinnacle.",
-  role: "I'm captain and lead designer, builder and driver. We are state-qualifying and ranked first in our school.",
-  figures: [{ text: "1st", label: "ranked in our school, and state-qualifying" }] as {
+  role: "I'm captain and lead designer, builder and driver. We are state-qualifying and ranked second in our school.",
+  figures: [{ text: "2nd", label: "ranked in our school, and state-qualifying" }] as {
     value?: number;
     decimals?: number;
     unit?: string;
@@ -240,7 +240,7 @@ export const BANDS = {
   facts: [
     "Team 1695A",
     "Robotics captain",
-    "Ranked first in our school",
+    "Ranked second in our school",
     "$15,000+ raised for Smilow Cancer Hospital",
     "About 15 GolfTradr beta testers",
     "Class of 2027",
