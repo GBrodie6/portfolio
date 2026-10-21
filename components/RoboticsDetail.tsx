@@ -6,7 +6,7 @@ import RobotDiagram from "@/components/RobotDiagram";
 export default function RoboticsDetail() {
   return (
     <>
-      <ul className="figures col-text mt-8" aria-label="Drivetrain figures">
+      <ul className="figures col-text mt-8" aria-label="Team result">
         {ROBOTICS.figures.map((f) => (
           <li key={f.label} className="figure panel">
             <span className="display whitespace-nowrap text-figure">
@@ -34,7 +34,6 @@ export default function RoboticsDetail() {
               <li key={t}>{t}</li>
             ))}
           </ul>
-          <p className="mt-6 text-chalk-muted">{ROBOTICS.notebook}</p>
         </div>
         <div className="diagram-wrap">
           <RobotDiagram />

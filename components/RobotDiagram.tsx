@@ -10,8 +10,7 @@ export default function RobotDiagram() {
     <figure className="diagram">
       <svg viewBox="0 0 620 440" role="img" aria-labelledby="robot-diagram-title">
         <title id="robot-diagram-title">
-          Robot systems: drivetrain with six motors, 36:60 gearing and 2.75 inch wheels; an inertial
-          sensor; a lift; a claw with pitch and roll.
+          Robot systems: a six-motor drivetrain, an inertial sensor, a lift, and a claw with pitch and roll.
         </title>
 
         {/* Drivetrain */}
@@ -19,16 +18,11 @@ export default function RobotDiagram() {
           <path pathLength={1} d="M80 300H460V336H80Z" />
           <circle pathLength={1} cx="140" cy="352" r="30" />
           <circle pathLength={1} cx="400" cy="352" r="30" />
-          <circle pathLength={1} cx="214" cy="318" r="9" />
-          <circle pathLength={1} cx="246" cy="318" r="15" />
-          <path pathLength={1} d="M92 322V382M188 322V382M86 382H194" className="dim" />
         </g>
         <g className="label label-1">
           <path d="M246 336V398H286" className="leader" />
           <text x="292" y="398" className="t-head">Drivetrain</text>
-          <text x="292" y="422" className="t-sub">six motors, 36:60, 2.75 in wheels</text>
-          <text x="140" y="404" textAnchor="middle" className="t-dim">2.75 in</text>
-          <text x="230" y="290" textAnchor="middle" className="t-dim">36:60</text>
+          <text x="292" y="422" className="t-sub">six motors</text>
         </g>
 
         {/* Sensing */}

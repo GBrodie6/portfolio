@@ -115,6 +115,11 @@ motor counts for the lift or claw, no broken parts, no results beyond
 
 ## Decisions
 
+- Drivetrain detail stays sourced but is off the site, because it does not
+  matter to admissions readers (Griffin): the 36:60 gear ratio, 2.75 inch
+  wheels, the 11W and 5.5W motor split, and the notebook entry dates. The site
+  keeps the role, results, systems, code, notebook and work in progress.
+
 - House: the site says "designed a house in Architectural Design" and never
   says built (Griffin).
 - No robot or house photos exist. The site uses the drawn systems diagram and

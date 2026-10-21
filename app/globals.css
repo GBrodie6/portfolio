@@ -663,6 +663,7 @@ html.menu-open {
     padding-block: 0;
   }
   .strip.is-pinned .strip-stage {
+    overflow: hidden; /* the long card row never widens the page */
     height: 100vh;
     display: flex;
     flex-direction: column;

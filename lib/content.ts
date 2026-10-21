@@ -4,26 +4,23 @@ export const ROBOTICS = {
   title: "Robotics, team 1695A",
   team: "Daniel Hand Tigers A, nicknamed Autobots. 2026-27 season. This year's game is Pinnacle.",
   role: "I'm captain and lead designer, builder and driver. We are state-qualifying and ranked first in our school.",
-  figures: [
-    { value: 6, decimals: 0, unit: "", label: "motors in the drive: four 11W, two 5.5W in the center" },
-    { value: 2.75, decimals: 2, unit: " in", label: "wheels" },
-    { text: "36:60", label: "gear ratio" },
-  ] as { value?: number; decimals?: number; unit?: string; text?: string; label: string }[],
+  figures: [{ text: "1st", label: "ranked in our school, and state-qualifying" }] as {
+    value?: number;
+    decimals?: number;
+    unit?: string;
+    text?: string;
+    label: string;
+  }[],
   specs: [
-    { label: "Drive", value: "Six motors: four 11W and two 5.5W center motors" },
-    { label: "Wheels", value: "2.75 in" },
-    { label: "Gear ratio", value: "36:60" },
-    { label: "Sensing", value: "Inertial sensor, no tracking wheels" },
-    { label: "Lift", value: "Motor-driven lift" },
-    { label: "Claw", value: "Pneumatic, with pitch and roll" },
+    { label: "My role", value: "Captain, lead designer, builder and driver" },
+    { label: "The robot", value: "Six-motor drive, a lift, and a pneumatic claw with pitch and roll" },
     { label: "Code", value: "C++ in VEXcode V5" },
+    { label: "Notebook", value: "I keep the team's engineering notebook" },
   ],
   inProgress: [
     "A record-and-playback autonomous that saves a driven run to an SD card and replays it.",
     "A custom 3D-printed claw to replace the pneumatic one.",
   ],
-  notebook:
-    "I keep the team's engineering notebook. The first entries are dated 8/26/26 (brain and controller port setup) and 10/14/26 (claw setup).",
 };
 
 export const OTHER_ENGINEERING = [
@@ -242,8 +239,8 @@ export const BANDS = {
   projects: PROJECTS.map((p) => p.title),
   facts: [
     "Team 1695A",
-    "Six-motor drive",
-    "36:60 gear ratio",
+    "Robotics captain",
+    "Ranked first in our school",
     "$15,000+ raised for Smilow Cancer Hospital",
     "About 15 GolfTradr beta testers",
     "Class of 2027",
