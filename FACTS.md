@@ -73,7 +73,11 @@ motor counts for the lift or claw, no broken parts, no results beyond
 | GripFitr: grip fitting tool at gripfitr.com; a quiz feeds a deterministic recommendation engine covering seven major grip brands | Content brief | sourced |
 | SellDeck: pulls a seller's eBay inventory and orders into one dashboard and buys the shipping label in one click, writing tracking back to eBay | Repo `GBrodie6/selldeck` README | sourced |
 | SellDeck: Vite, React, Supabase (direct REST), Vercel serverless functions, Shippo; eBay tokens AES-256-GCM encrypted server side | Repo `GBrodie6/selldeck` README and CLAUDE.md | sourced |
-| SellDeck live at selldeck.vercel.app | Live: page title "SellDeck, one deck for every live sale" matches the README | sourced, please confirm it is yours |
+| SellDeck live at selldeck.vercel.app, and it is his | Griffin; Live page title matches the README | sourced |
+| SellDeck built in 2026 | Griffin | sourced |
+| Uphill Golf built in 2026 | Griffin | sourced |
+| Uphill Golf: drag back and let go to hit, climb to the pin at the top in as few strokes as you can | Live (game start screen) | sourced |
+| Paige's babysitting site built in 2026 | Griffin | sourced |
 | Triple G Landscaping: first paying client, built and deployed it, keeps revising it with the owner, triple-g-landscaping.com | Content brief; domain from the site's canonical URL | sourced |
 | Triple G stack: Next.js, TypeScript, Tailwind, Vercel | Content brief | sourced |
 | Paige's babysitting site: for a classmate's babysitting business, 3D hero elements and a GSAP animation layer, paigegrendi-babysitting.vercel.app | Content brief | sourced |
@@ -100,6 +104,7 @@ motor counts for the lift or claw, no broken parts, no results beyond
 | Claim | Source | Status |
 | --- | --- | --- |
 | Plays golf for Daniel Hand; team won the CT state championship; finished fourth individually with a 73 | Content brief | sourced |
+| The state championship was in 2026 | Griffin | sourced |
 | July 2026: shot 69 at the DeNicolo Memorial Junior Open, runner-up | Content brief | sourced |
 
 ## Timeline order
@@ -108,18 +113,20 @@ motor counts for the lift or claw, no broken parts, no results beyond
 | --- | --- | --- |
 | Order: bridge at Eli Whitney (about age 8), fencing (9th and 10th grade), Architectural Design house, started GolfTradr (junior year), GripFitr, robotics captain, Teeing Off Against Cancer, Triple G, WikiDash | Content brief (Highlights list, in your order) | sourced |
 
+## Decisions
+
+- House: the site says "designed a house in Architectural Design" and never
+  says built (Griffin).
+- No robot or house photos exist. The site uses the drawn systems diagram and
+  text only, and no generated images (Griffin).
+
 ## Unsourced, left off the site (confirm to add)
 
-- **House wording.** Your master prompt says you "designed and built a house"
-  in Architectural Design; your latest list says you "designed a house". The
-  site uses "designed a house" until you confirm "built".
-- House drawings or photos, and any house details (size, plan, software,
-  what "built" involved).
-- Robot photos.
 - Robot details beyond the list above: dimensions, weight, lift and claw
   motor counts, match results, scores, competition names, states ranking.
-- Dates for SellDeck, Uphill Golf and Paige's site, so they can be placed in
-  the numbered timeline.
+- Month or order of SellDeck, Uphill Golf and Paige's site within 2026, so
+  they can join the numbered timeline (the timeline keeps only items whose
+  order you gave).
 - Number of SellDeck users, if any (it runs Shippo in test mode).
-- Year of the CT state championship win.
-- Whether `selldeck.vercel.app` is the URL you want linked.
+- Year GolfTradr, GripFitr, Triple G and WikiDash were built, beyond
+  "junior year" for GolfTradr.

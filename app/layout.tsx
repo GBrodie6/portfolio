@@ -5,16 +5,18 @@ import Script from "next/script";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import BridgeScene from "@/components/BridgeScene";
+import Nav from "@/components/Nav";
+import RouteEvents from "@/components/RouteEvents";
 
 const display = Big_Shoulders_Display({
   subsets: ["latin"],
-  weight: ["800", "900"],
+  weight: ["800"],
   variable: "--font-big-shoulders",
   display: "swap",
 });
 const text = Public_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "600"],
   variable: "--font-public-sans",
   display: "swap",
 });
@@ -43,9 +45,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" className={`${display.variable} ${text.variable}`}>
       <body>
         <Script id="pre" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: PRE }} />
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <SmoothScroll />
+        <RouteEvents />
+        <div className="grain" aria-hidden="true" />
         <BridgeScene />
-        {children}
+        <Nav />
+        <div id="main-content">{children}</div>
       </body>
     </html>
   );

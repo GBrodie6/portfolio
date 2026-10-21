@@ -1,55 +1,36 @@
-// Dev-only: render public/og-image.png (1200x630) from an HTML template using
-// the site's design tokens and fonts. Run with: node scripts/og.mjs
+// Dev-only: render public/og-image.png (1200x630) in the site's brand (see
+// BRAND.md). Run with: PW_EXEC=/path/to/chromium node scripts/og.mjs
 import { chromium } from "playwright";
 
 const html = `<!doctype html>
 <html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@900&family=Public+Sans:wght@400&display=block" rel="stylesheet">
 <style>
+  :root { --concrete:#E2E0DA; --graphite:#17191C; --blue:#1D5A9E; --steel:#5B6168; }
   * { margin: 0; box-sizing: border-box; }
-  body {
-    width: 1200px; height: 630px; overflow: hidden; position: relative;
-    background: #F2F5EE; color: #16201A; font-family: "IBM Plex Sans", sans-serif;
-    background-image:
-      linear-gradient(rgba(51,96,127,0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(51,96,127,0.07) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  .frame { position: absolute; inset: 36px; border: 1px solid #CBD2C1; border-radius: 14px; }
-  .copy { position: absolute; left: 84px; top: 0; bottom: 0; width: 600px;
-    display: flex; flex-direction: column; justify-content: center; }
-  .badge { display: inline-block; align-self: flex-start; margin-bottom: 30px;
-    padding: 9px 16px; border: 1.5px solid #1F5D42; border-radius: 999px;
-    font: 500 15px "IBM Plex Mono", monospace; letter-spacing: 0.1em; color: #1F5D42; }
-  h1 { font: 700 104px/0.95 "Space Grotesk", sans-serif; letter-spacing: -0.03em; }
-  p { margin-top: 28px; max-width: 520px; font-size: 27px; line-height: 1.35; color: #3a463e; }
-  svg { position: absolute; right: 70px; top: 165px; width: 440px; height: 300px; overflow: visible; }
-  .l { fill: none; stroke: #1F5D42; stroke-width: 2.2; stroke-dasharray: 3 7; stroke-linecap: round; }
-  .t { font: 500 12px "IBM Plex Mono", monospace; fill: #3a463e; letter-spacing: 0.1em; }
+  body { width: 1200px; height: 630px; overflow: hidden; position: relative;
+    background: var(--concrete); color: var(--graphite); font-family: "Public Sans", sans-serif; }
+  h1 { position: absolute; left: 64px; top: 70px; font: 900 196px/0.86 "Big Shoulders Display", sans-serif;
+    text-transform: uppercase; letter-spacing: -0.01em; }
+  .rule { position: absolute; left: 66px; top: 440px; width: 136px; height: 3px; background: var(--blue); }
+  p { position: absolute; left: 64px; top: 462px; font-size: 30px; max-width: 600px; line-height: 1.35; }
+  svg { position: absolute; right: -120px; bottom: 0; width: 700px; height: 630px; }
 </style></head>
 <body>
-  <div class="frame"></div>
-  <div class="copy">
-    <span class="badge">ENGINEERING · ROBOTICS · SOFTWARE</span>
-    <h1>Griffin<br>Brodie</h1>
-    <p>Civil engineering applicant, class of 2027. Madison, CT.</p>
-  </div>
-  <svg viewBox="0 0 400 240">
-    <path class="l" d="M200,54 L64,186" />
-    <path class="l" d="M64,186 L336,186" />
-    <path class="l" d="M336,186 L200,54" />
-    <circle cx="200" cy="54" r="6" fill="#C97A2B" />
-    <circle cx="64" cy="186" r="6" fill="#16201A" />
-    <circle cx="336" cy="186" r="6" fill="#16201A" />
-    <text class="t" x="200" y="36" text-anchor="middle">CIVIL</text>
-    <text class="t" x="64" y="212" text-anchor="middle">ROBOTICS</text>
-    <text class="t" x="336" y="212" text-anchor="middle">SOFTWARE</text>
+  <h1>Griffin<br>Brodie</h1>
+  <span class="rule"></span>
+  <p>Madison, CT, class of 2027, applying to study civil engineering.</p>
+  <svg viewBox="0 0 700 630">
+    <g stroke="#1D5A9E" stroke-width="1.6" fill="none">
+      ${Array.from({ length: 9 }, (_, i) => `<path d="M498 ${120 + i * 14}L${520 + (i + 1) * 20} 520"/>`).join("")}
+      ${Array.from({ length: 6 }, (_, i) => `<path d="M490 ${120 + i * 20}L${480 - (i + 1) * 30} 520"/>`).join("")}
+    </g>
+    <path d="M486 600L490 108H502L506 600Z" fill="#17191C"/>
+    <rect x="290" y="520" width="410" height="10" fill="#17191C"/>
   </svg>
 </body></html>`;
 
-const browser = await chromium.launch(
-  process.env.PW_EXEC ? { executablePath: process.env.PW_EXEC } : {}
-);
+const browser = await chromium.launch(process.env.PW_EXEC ? { executablePath: process.env.PW_EXEC } : {});
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
 await page.setContent(html, { waitUntil: "networkidle" });
 await page.evaluate(() => document.fonts.ready);

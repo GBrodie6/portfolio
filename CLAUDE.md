@@ -20,23 +20,30 @@ I should never have to run git or deploy commands myself. Take it end to end.
 
 ## Project facts
 
-- Framework: Next.js App Router, TypeScript, Tailwind (Node 18+).
-- Animation: one fixed scroll-driven SVG scene (`components/Scene.tsx`, geometry
-  in `lib/scene.ts`): a single paused GSAP timeline scrubbed by one ScrollTrigger
-  over the whole document (`scrub: true`), smoothed only by Lenis
-  (`components/SmoothScroll.tsx`). Every scene state is a pure function of scroll;
-  animate only transform, opacity, stroke-dashoffset. Reduced motion = no Lenis,
-  no scrub, static finished bridge.
-- Design tokens (paper `#F2F5EE`, ink `#16201A`, pine green `#1F5D42`, amber
-  `#C97A2B`, cyanotype blue `#33607F`, line `#CBD2C1`) live in `app/globals.css`
-  and `tailwind.config.ts`. Fonts: Overpass 700 (display), IBM Plex Sans (body).
-  No tracked all-caps labels, middle-dot strings, or arrow glyphs.
-- Copy lives in `lib/content.ts`. Sections are in `components/`.
-- OG image: `public/og-image.png` — regenerate to match copy/visual changes.
-  Favicon: `app/icon.svg` (the pin-flag mark).
-- Vercel project: `GBrodie6/portfolio`, production `griffinbrodie.site` (canonical
-  in metadata; `griffinbrodie.vercel.app` also serves it).
-- Deliberately removed, keep removed: custom cursor, grain overlay, card tilt /
-  spotlight, magnetic buttons, contour rings, word-by-word heading reveals,
-  first-visit loader, IntersectionObserver reveals, the load-test model,
-  constellation / particle field, and click-triggered easter eggs.
+- Framework: Next.js App Router, TypeScript, Tailwind (Node 18+). Pages: `/`,
+  `/robotics`, and `/projects/[slug]` (one per project in `lib/content.ts`).
+- Design: see `BRAND.md` (palette, type, scales, signature, motion) and
+  `RESEARCH.md`. Every color, font, size and space is a CSS variable in
+  `app/globals.css`; `tailwind.config.ts` reads only those.
+- Facts: every claim on the site is listed in `FACTS.md` with its source. Do
+  not add a claim without adding it there. Never add an email address, GitHub
+  profile link, phone number or home address.
+- Copy lives in `lib/content.ts`. Plain and literal, no em dashes.
+- Background: `components/BridgeScene.tsx` (geometry in `lib/bridge.ts`), a
+  cable-stayed bridge built by balanced cantilever, scrubbed by one
+  ScrollTrigger over the page; Lenis is the only smoothing
+  (`components/SmoothScroll.tsx`). The Engineering chapter is Graphite
+  (`components/ChapterWipe.tsx`).
+- Page transitions: `components/TransitionLink.tsx` uses the View Transitions
+  API with matching `view-transition-name`s on the project screenshot and
+  title; plain navigation where unsupported or with reduced motion.
+- Reduced motion: no Lenis, no scrub, no pin, no text reveals; the finished
+  bridge shows as a still image.
+- Performance: non-critical animation setup runs in idle time (`lib/idle.ts`)
+  to keep Lighthouse mobile at 90 or higher.
+- Screenshots: `public/work/*.webp`, captured with `scripts/shots.mjs`
+  (blurs phone numbers). OG image: `public/og-image.png` from `scripts/og.mjs`.
+  Favicon: `app/icon.svg`.
+- Vercel project: `GBrodie6/portfolio`, production `griffinbrodie.site`.
+- Not allowed: custom cursors, constellation canvases, click easter eggs, an
+  interactive hero, or effects beyond the approved list in `BRAND.md`.

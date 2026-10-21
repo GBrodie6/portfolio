@@ -98,18 +98,24 @@ body {
   line-height: var(--lh-display);
   letter-spacing: var(--tr-display);
 }
+/* Text blocks sit on a solid surface matching their chapter, so the bridge
+   behind never touches their contrast. Phones add padding around it. */
+.panel {
+  background: var(--c-concrete);
+}
+.on-dark .panel {
+  background: var(--c-graphite);
+}
 @media (max-width: 767px) {
-  /* Text blocks sit on a Concrete surface on phones so the bridge never
-     touches their contrast. */
   .panel {
-    background: var(--c-veil);
     border-radius: var(--r-1);
     padding: var(--sp-4);
     margin-inline: calc(var(--sp-2) * -1);
   }
-  .on-dark .panel {
-    background: color-mix(in srgb, var(--c-graphite) 92%, transparent);
-  }
+}
+/* Long section titles get a size that fits one word per line at any width. */
+.heading-long {
+  font-size: clamp(2.5rem, 7.4vw, 7rem);
 }
 
 /* ==== Bridge scene ==== */
@@ -208,6 +214,11 @@ html:not(.js) .on-dark {
 }
 .hero {
   min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: var(--nav-h);
+  padding-bottom: var(--sp-8);
 }
 .mark {
   width: 40px;
@@ -404,7 +415,468 @@ html:not(.js) .on-dark {
   }
 }
 
+/* ==== Page tone (robotics page continues the Graphite chapter) ==== */
+html.page-dark body {
+  background: var(--c-graphite);
+  color: var(--c-chalk);
+}
+
+/* ==== Film grain on Concrete (static SVG noise tile, under everything) ==== */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html.page-dark .grain {
+  display: none;
+}
+
+/* ==== Skip link ==== */
+.skip-link {
+  position: absolute;
+  left: var(--sp-4);
+  top: -100px;
+  z-index: 100;
+  background: var(--c-graphite);
+  color: var(--c-chalk);
+  padding: var(--sp-2) var(--sp-4);
+}
+.skip-link:focus {
+  top: var(--sp-4);
+}
+
+/* ==== Nav ==== */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  color: var(--c-graphite);
+  background: var(--c-veil);
+  transition: transform var(--dur-ui) var(--ease-out), color var(--dur-ui) var(--ease-out),
+    background-color var(--dur-ui) var(--ease-out);
+}
+.nav.is-hidden {
+  transform: translateY(-100%);
+}
+.nav.is-dark,
+html.page-dark .nav {
+  color: var(--c-chalk);
+  background: color-mix(in srgb, var(--c-graphite) 92%, transparent);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+}
+.nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-lead);
+  text-transform: uppercase;
+}
+.nav-links {
+  display: none;
+  gap: var(--sp-6);
+}
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+  }
+  .nav-menu-btn {
+    display: none;
+  }
+}
+.nav-link,
+.text-link {
+  position: relative;
+  text-decoration: none;
+}
+.nav-link::after,
+.text-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  background: var(--c-blue);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur-ui) var(--ease-out);
+}
+.text-link {
+  color: inherit;
+  font-weight: 600;
+}
+.text-link::after {
+  transform: scaleX(1);
+  opacity: 0.55;
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.text-link:hover::after,
+.text-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+  opacity: 1;
+}
+.on-dark .nav-link::after,
+.on-dark .text-link::after,
+.nav.is-dark .nav-link::after,
+html.page-dark .text-link::after {
+  background: var(--c-spillway);
+}
+.nav-menu-btn {
+  border: var(--rule) solid currentColor;
+  padding: var(--sp-2) var(--sp-4);
+  font-weight: 600;
+  min-height: 44px;
+}
+
+/* Full-screen phone menu: slides in, links follow in a short stagger. */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--c-graphite);
+  color: var(--c-chalk);
+  visibility: hidden;
+  transform: translateY(-100%);
+  transition: transform 250ms var(--ease-out), visibility 0s linear 250ms;
+}
+.menu.is-open {
+  visibility: visible;
+  transform: none;
+  transition: transform 250ms var(--ease-out), visibility 0s;
+}
+.menu-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+}
+.nav-brand-text {
+  font-size: var(--fs-lead);
+  text-transform: uppercase;
+}
+.menu-links {
+  margin-top: var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.menu-link {
+  font-size: clamp(3.5rem, 16vw, 6rem);
+  font-weight: 900;
+  display: inline-block;
+}
+.menu-links li {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+.menu.is-open .menu-links li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(80ms + var(--i) * 40ms);
+}
+html.menu-open {
+  overflow: hidden;
+}
+
+/* ==== Text band ==== */
+.band {
+  overflow: hidden;
+  padding-block: var(--sp-6);
+  position: relative;
+  z-index: 10;
+}
+.band-row {
+  display: flex;
+  white-space: nowrap;
+  font-size: clamp(3rem, 9vw, 8rem);
+  font-weight: 800;
+  color: var(--c-steel);
+}
+.band-item {
+  display: inline-flex;
+  align-items: center;
+}
+.band-sep {
+  display: inline-block;
+  width: 0.6em;
+  height: 0.08em;
+  margin-inline: 0.35em;
+  background: var(--c-blue);
+}
+
+/* ==== Dimension-line dividers (draw on scroll) ==== */
+.divider {
+  display: block;
+  width: 100%;
+  height: 24px;
+  fill: none;
+  stroke: var(--c-steel);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  view-timeline: --divider block;
+}
+.divider-ticks {
+  stroke: var(--c-blue);
+  stroke-width: 1.5;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .divider path {
+      stroke-dasharray: 1;
+      animation: draw linear both;
+      animation-timeline: --divider;
+      animation-range: entry 10% cover 45%;
+    }
+  }
+}
+
+/* ==== Projects strip ==== */
+.strip {
+  padding-block: var(--sp-9) var(--sp-8);
+  position: relative;
+}
+.strip-head {
+  padding-bottom: var(--sp-7);
+}
+.strip-track {
+  display: grid;
+  gap: var(--sp-8);
+}
+@media (min-width: 1024px) {
+  .strip-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-7);
+  }
+  /* Pinned mode (JS, desktop, motion allowed): one long horizontal row. */
+  .strip.is-pinned {
+    padding-block: 0;
+  }
+  .strip.is-pinned .strip-stage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: var(--nav-h);
+  }
+  .strip.is-pinned .strip-head {
+    padding-bottom: var(--sp-6);
+  }
+  .strip.is-pinned .strip-track {
+    display: flex;
+    gap: var(--sp-7);
+    width: max-content;
+    will-change: transform;
+  }
+  .strip.is-pinned .card {
+    width: clamp(480px, 46vw, 820px);
+  }
+}
+.card {
+  background: var(--c-concrete);
+  padding: var(--sp-4);
+  border: var(--rule) solid color-mix(in srgb, var(--c-graphite) 14%, transparent);
+}
+.card-shot-link {
+  display: block;
+}
+.card-shot {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--c-graphite);
+}
+.card-img {
+  object-fit: cover;
+  object-position: top;
+  scale: 1.08;
+  transition: scale var(--dur-ui) var(--ease-out);
+}
+.card-body {
+  padding-top: var(--sp-4);
+}
+.card-title {
+  font-size: clamp(2.75rem, 5.5vw, 5.5rem);
+  font-weight: 900;
+  line-height: var(--lh-display);
+  transition: transform var(--dur-ui) var(--ease-out);
+}
+.card-line {
+  margin-top: var(--sp-3);
+  max-width: 46ch;
+  color: var(--c-steel);
+}
+.card-live {
+  display: inline-block;
+  margin-top: var(--sp-3);
+  transition: opacity var(--dur-ui) var(--ease-out), transform var(--dur-ui) var(--ease-out);
+}
+@media (hover: hover) {
+  .card .card-live {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.card:hover .card-img,
+.card:focus-within .card-img,
+.card.is-touched .card-img {
+  scale: 1.14;
+}
+.card:hover .card-title,
+.card:focus-within .card-title,
+.card.is-touched .card-title {
+  transform: translateX(var(--sp-3));
+}
+.card:hover .card-live,
+.card:focus-within .card-live {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==== Leadership rows ==== */
+.lead-rows {
+  border-bottom: var(--rule) solid color-mix(in srgb, var(--c-graphite) 18%, transparent);
+}
+.lead-row {
+  display: grid;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+  border-top: var(--rule) solid color-mix(in srgb, var(--c-graphite) 18%, transparent);
+}
+@media (min-width: 768px) {
+  .lead-row {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+.lead-figure {
+  text-align: left;
+}
+
+/* ==== Timeline ==== */
+.tl-item {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+  border-top: var(--rule) solid color-mix(in srgb, var(--c-graphite) 18%, transparent);
+}
+.tl-num {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--c-blue);
+}
+
+/* ==== Footer ==== */
+.footer {
+  padding-block: var(--sp-9) var(--sp-6);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.footer > .wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.live-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-1) var(--sp-4);
+  padding-block: var(--sp-2);
+  font-size: var(--fs-lead);
+}
+.live-list .text-steel {
+  font-size: var(--fs-body);
+}
+.footer-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+  font-size: var(--fs-small);
+}
+
+/* ==== Project and robotics pages ==== */
+.page {
+  min-height: 100vh;
+}
+.page-top {
+  padding-top: calc(var(--nav-h) + var(--sp-7));
+  padding-bottom: var(--sp-9);
+}
+.project-hero {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--c-graphite);
+  max-width: 72rem;
+}
+.project-hero img {
+  object-fit: cover;
+  object-position: top;
+}
+.facts {
+  list-style: disc;
+  padding-left: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.meta div {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: var(--sp-4);
+  padding-block: var(--sp-3);
+  border-top: var(--rule) solid color-mix(in srgb, var(--c-graphite) 18%, transparent);
+}
+.meta dt {
+  color: var(--c-steel);
+}
+.page-next {
+  margin-top: var(--sp-9);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.next-link {
+  width: fit-content;
+}
+
+/* ==== View transitions (shared screenshot and title, about 450 ms) ==== */
+::view-transition-group(*) {
+  animation-duration: var(--dur-page);
+  animation-timing-function: var(--ease-out);
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 250ms;
+}
+
+/* ==== No JS or reduced motion ==== */
+html.reduce .hero,
+html:not(.js) .hero {
+  padding-bottom: 26vh;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
   *,
   *::before,
   *::after {

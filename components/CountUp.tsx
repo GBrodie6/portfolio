@@ -10,9 +10,21 @@ import { REDUCED } from "@/lib/env";
  * markup, so it reads correctly without JS, with reduced motion, and for
  * screen readers (the animated text is aria-hidden).
  */
-export default function CountUp({ value, decimals = 0, unit = "" }: { value: number; decimals?: number; unit?: string }) {
+export default function CountUp({
+  value,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+}: {
+  value: number;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
-  const final = value.toFixed(decimals) + unit;
+  const fmt = (v: number) =>
+    prefix + v.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+  const final = fmt(value);
 
   useEffect(() => {
     const el = ref.current;
@@ -29,13 +41,13 @@ export default function CountUp({ value, decimals = 0, unit = "" }: { value: num
           duration: 1.1,
           ease: "expo.out",
           onUpdate: () => {
-            el.textContent = obj.v.toFixed(decimals) + unit;
+            el.textContent = fmt(obj.v);
           },
         });
       },
     });
     return () => st.kill();
-  }, [value, decimals, unit]);
+  }, [value, decimals, prefix, suffix]);
 
   return (
     <>

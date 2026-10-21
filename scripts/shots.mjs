@@ -25,6 +25,8 @@ const sites = [
   },
   { name: "paige", url: "https://paigegrendi-babysitting.vercel.app" },
   { name: "wikidash", url: "https://wikidash3.higgsfield.app" },
+  { name: "selldeck", url: "https://selldeck.vercel.app" },
+  { name: "uphill", url: "https://gbrodie6.github.io/uphill-golf/" },
 ];
 const only = process.argv.slice(2);
 

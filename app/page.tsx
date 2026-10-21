@@ -1,57 +1,42 @@
-import BridgeMark from "@/components/BridgeMark";
+import { BANDS, HERO } from "@/lib/content";
 import ChapterWipe from "@/components/ChapterWipe";
-import SplitHeading from "@/components/SplitHeading";
 import Engineering from "@/components/Engineering";
+import ProjectsStrip from "@/components/ProjectsStrip";
+import Leadership from "@/components/Leadership";
+import Timeline from "@/components/Timeline";
+import About from "@/components/About";
+import Footer from "@/components/Footer";
+import TextBand from "@/components/TextBand";
+import Divider from "@/components/Divider";
 
-// Hero checkpoint: hero, bridge scene, split heading reveal and the Engineering
-// color wipe across a page of full length. Sections below the hero hold only
-// their headings until the rest is approved.
-const SECTIONS = [
-  { id: "projects", title: "Projects" },
-  { id: "leadership", title: "Leadership" },
-  { id: "timeline", title: "Timeline" },
-  { id: "about", title: "About" },
-];
-
+// Engineering leads, then projects, leadership, the timeline and about. The
+// bridge behind builds one segment at a time and closes at the footer.
 export default function Home() {
   return (
     <>
       <ChapterWipe target="#engineering" />
-      <header className="fixed inset-x-0 top-0 z-20">
-        <div className="wrap flex h-nav items-center gap-3">
-          <BridgeMark className="mark" />
-          <span className="display text-title uppercase">Griffin Brodie</span>
-        </div>
-      </header>
       <main className="relative z-10">
-        <section id="top" className="hero wrap flex flex-col justify-end pb-8 pt-nav">
+        <section id="top" className="hero wrap" aria-label="Introduction">
           <div className="panel">
-            <h1 className="hero-name display text-mega font-black uppercase">
+            <h1 className="hero-name display text-mega uppercase">
               <span className="block">Griffin</span>
               <span className="block">Brodie</span>
             </h1>
             <span className="hero-rule mt-5" aria-hidden="true" />
-            <p className="mt-4 max-w-measure text-lead">
-              Madison, CT, class of 2027, applying to study civil engineering.
-            </p>
+            <p className="mt-4 max-w-measure text-lead">{HERO.line}</p>
           </div>
         </section>
 
         <Engineering />
-
-        {SECTIONS.map((s) => (
-          <section key={s.id} id={s.id} className="wrap min-h-[120vh] py-9">
-            <div className="panel">
-              <SplitHeading>{s.title}</SplitHeading>
-            </div>
-          </section>
-        ))}
-
-        <footer className="wrap min-h-[100vh] py-9">
-          <div className="panel">
-            <SplitHeading>Live sites</SplitHeading>
-          </div>
-        </footer>
+        <TextBand items={BANDS.projects} />
+        <ProjectsStrip />
+        <Divider />
+        <Leadership />
+        <TextBand items={BANDS.facts} direction={1} />
+        <Timeline />
+        <Divider />
+        <About />
+        <Footer />
       </main>
     </>
   );

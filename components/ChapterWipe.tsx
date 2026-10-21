@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { REDUCED } from "@/lib/env";
+import { afterIdle } from "@/lib/idle";
 
 /**
  * Graphite ground for the Engineering chapter. A fixed layer behind the bridge
@@ -40,7 +41,9 @@ export default function ChapterWipe({ target }: { target: string }) {
 
     let H = 0;
     let vh = 0;
-    const ctx = gsap.context(() => {
+    let ctx: gsap.Context | undefined;
+    const cancel = afterIdle(() => {
+    ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: sec,
         start: "top bottom",
@@ -70,8 +73,10 @@ export default function ChapterWipe({ target }: { target: string }) {
         scrollTrigger: { trigger: sec, start: "bottom bottom", end: "bottom 55%", scrub: true },
       });
     });
+    });
     return () => {
-      ctx.revert();
+      cancel();
+      ctx?.revert();
       el.style.clipPath = "";
     };
   }, [target]);

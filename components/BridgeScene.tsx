@@ -1,12 +1,17 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { buildBridge, viewDims, TRAVEL, LAYER_W, type Line } from "@/lib/bridge";
 import { REDUCED } from "@/lib/env";
+import { afterIdle } from "@/lib/idle";
 
 const useIsoLayout = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+/** Share of the build replayed on the robotics and project pages. */
+const PARTIAL = 0.3;
 
 // Colors come only from the scene variables in app/globals.css. SVG
 // presentation attributes do not resolve var(), so they go through `style`.
@@ -38,6 +43,9 @@ function Draw({ l, cls, ...rest }: { l: Line; cls?: string } & React.SVGProps<SV
  */
 export default function BridgeScene() {
   const root = useRef<HTMLDivElement>(null);
+  // Home builds the whole bridge over the page. The robotics and project
+  // pages replay a short partial build tied to their own scroll.
+  const home = usePathname() === "/";
   const [view, setView] = useState({ VW: 1600, VH: 1000, k: 1600 / 1440, ready: false });
   const sc = useMemo(() => buildBridge(view.VW, view.VH), [view.VW, view.VH]);
 
@@ -77,42 +85,48 @@ export default function BridgeScene() {
     gsap.registerPlugin(ScrollTrigger);
     const { step } = sc.front;
 
-    const ctx = gsap.context(() => {
-      const q = gsap.utils.selector(el);
-      const tl = gsap.timeline({ paused: true, defaults: { ease: "none" } });
+    // Built in idle time after hydration: the deck and cables stay hidden
+    // (.scene-build) until then, and at the top of the page nothing is built.
+    let ctx: gsap.Context | undefined;
+    const cancel = afterIdle(() => {
+      ctx = gsap.context(() => {
+        const q = gsap.utils.selector(el);
+        const tl = gsap.timeline({ paused: true, defaults: { ease: "none" } });
 
-      tl.fromTo(q(".layer-back"), { xPercent: 0 }, { xPercent: TRAVEL.back, duration: 1 }, 0);
-      tl.fromTo(q(".layer-mid"), { xPercent: 0 }, { xPercent: TRAVEL.mid, duration: 1 }, 0);
-      tl.fromTo(q(".layer-front"), { xPercent: 0 }, { xPercent: TRAVEL.front, duration: 1 }, 0);
+        tl.fromTo(q(".layer-back"), { xPercent: 0 }, { xPercent: TRAVEL.back, duration: 1 }, 0);
+        tl.fromTo(q(".layer-mid"), { xPercent: 0 }, { xPercent: TRAVEL.mid, duration: 1 }, 0);
+        tl.fromTo(q(".layer-front"), { xPercent: 0 }, { xPercent: TRAVEL.front, duration: 1 }, 0);
 
-      // Each segment slides out from its joint, then its cable is drawn.
-      q(".b-seg").forEach((e) => {
-        const at = Number(e.getAttribute("data-at"));
-        const origin = e.getAttribute("data-origin") || "0 0";
-        tl.fromTo(e, { scaleX: 0, svgOrigin: origin }, { scaleX: 1, svgOrigin: origin, duration: step * 0.55 }, at);
-      });
-      q(".b-cable").forEach((e) => {
-        const at = Number(e.getAttribute("data-at"));
-        const len = Number(e.getAttribute("data-len"));
-        tl.fromTo(e, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: step * 0.5 }, at);
-      });
+        // Each segment slides out from its joint, then its cable is drawn.
+        q(".b-seg").forEach((e) => {
+          const at = Number(e.getAttribute("data-at"));
+          const origin = e.getAttribute("data-origin") || "0 0";
+          tl.fromTo(e, { scaleX: 0, svgOrigin: origin }, { scaleX: 1, svgOrigin: origin, duration: step * 0.55 }, at);
+        });
+        q(".b-cable").forEach((e) => {
+          const at = Number(e.getAttribute("data-at"));
+          const len = Number(e.getAttribute("data-len"));
+          tl.fromTo(e, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: step * 0.5 }, at);
+        });
 
-      tl.set({}, {}, 1); // timeline spans exactly 0..1
-      tl.progress(1).progress(0); // initialise every tween now, not mid-scroll
+        tl.set({}, {}, 1); // timeline spans exactly 0..1
 
-      ScrollTrigger.create({
-        trigger: document.documentElement,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: true,
-        animation: tl,
-      });
-    }, el);
+        ScrollTrigger.create({
+          trigger: document.documentElement,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+          animation: home ? tl : tl.tweenFromTo(0, PARTIAL, { paused: true, ease: "none" }),
+        });
+      }, el);
+      el.classList.add("is-live");
+    });
 
-    el.classList.add("is-live");
-    ScrollTrigger.refresh();
-    return () => ctx.revert();
-  }, [sc, view.ready]);
+    return () => {
+      cancel();
+      ctx?.revert();
+    };
+  }, [sc, view.ready, home]);
 
   const sw = 1.1 * view.k;
   const { front, mid, back, S, VH } = sc;
