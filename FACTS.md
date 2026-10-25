@@ -56,8 +56,9 @@ motor counts for the lift or claw, no broken parts, no results beyond
 
 | Claim | Source | Status |
 | --- | --- | --- |
-| Around age 8, at Eli Whitney summer camp, built a bridge strong enough to stand on | Griffin | sourced |
+| At age 8 (corrected from "around" by Griffin), at Eli Whitney summer camp, built a bridge strong enough to stand on | Griffin | sourced |
 | In Architectural Design, designed a house | Griffin | sourced |
+| The house was designed for the Madison Public Schools superintendent | Griffin | sourced |
 | Senior year: AP Calculus BC and AP Physics C (Mechanics and E&M) | Griffin | sourced |
 
 ## Projects
@@ -111,7 +112,7 @@ motor counts for the lift or claw, no broken parts, no results beyond
 
 | Claim | Source | Status |
 | --- | --- | --- |
-| Order: bridge at Eli Whitney (about age 8), fencing (9th and 10th grade), Architectural Design house, started GolfTradr (junior year), GripFitr, robotics captain, Teeing Off Against Cancer, Triple G, WikiDash | Content brief (Highlights list, in your order) | sourced |
+| Order: bridge at Eli Whitney (age 8), fencing (9th and 10th grade), Architectural Design house, started GolfTradr (junior year), GripFitr, robotics captain, Teeing Off Against Cancer, Triple G, WikiDash | Content brief (Highlights list, in your order) | sourced |
 
 ## Decisions
 
@@ -120,8 +121,9 @@ motor counts for the lift or claw, no broken parts, no results beyond
   wheels, the 11W and 5.5W motor split, and the notebook entry dates. The site
   keeps the role, results, systems, code, notebook and work in progress.
 
-- House: the site says "designed a house in Architectural Design" and never
-  says built (Griffin).
+- House: the site says he designed a house in Architectural Design, for the
+  Madison Public Schools superintendent, and never says built (Griffin).
+- The timeline has no item numbers (Griffin).
 - No robot or house photos exist. The site uses the drawn systems diagram and
   text only, and no generated images (Griffin).
 

@@ -24,10 +24,10 @@ export const ROBOTICS = {
 };
 
 export const OTHER_ENGINEERING = [
-  { title: "House design", body: "I designed a house in Architectural Design." },
+  { title: "House design", body: "In Architectural Design, I designed a house for the Madison Public Schools superintendent." },
   {
     title: "First bridge",
-    body: "Around age 8, at Eli Whitney summer camp, I built a bridge strong enough to stand on.",
+    body: "At age 8, at Eli Whitney summer camp, I built a bridge strong enough to stand on.",
   },
   {
     title: "Senior year courses",
@@ -219,9 +219,9 @@ export const LEADERSHIP = [
 
 /** In the order Griffin gave it. Undated items keep their place. */
 export const TIMELINE = [
-  { when: "Around age 8", text: "Built a bridge at Eli Whitney summer camp strong enough to stand on." },
+  { when: "Age 8", text: "Built a bridge at Eli Whitney summer camp strong enough to stand on." },
   { when: "9th and 10th grade", text: "Fenced foil for Daniel Hand, with a winning varsity record." },
-  { text: "Designed a house in Architectural Design." },
+  { text: "Designed a house for the Madison Public Schools superintendent in Architectural Design." },
   { when: "Junior year", text: "Started GolfTradr." },
   { text: "Built GripFitr, a grip fitting tool, and launched it at gripfitr.com." },
   { text: "Became captain of robotics team 1695A." },

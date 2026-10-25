@@ -791,16 +791,8 @@ html.menu-open {
 
 /* ==== Timeline ==== */
 .tl-item {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  gap: var(--sp-4);
   padding-block: var(--sp-5);
   border-top: var(--rule) solid color-mix(in srgb, var(--c-graphite) 18%, transparent);
-}
-.tl-num {
-  font-size: 3rem;
-  font-weight: 900;
-  color: var(--c-blue);
 }
 
 /* ==== Footer ==== */
