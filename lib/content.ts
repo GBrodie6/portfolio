@@ -138,13 +138,13 @@ export const PROJECTS: Project[] = [
   {
     slug: "shoreline-golf",
     title: "Shoreline Golf",
-    line: "A website for the golf shop in Westbrook where I work as head fitter and assistant manager.",
+    line: "A website for the golf shop in Westbrook where I work as assistant manager and head fitter.",
     url: "https://shoreline-golf.com",
     host: "shoreline-golf.com",
     shot: "/work/shoreline.webp",
     facts: [
       "The shop is in Westbrook.",
-      "I work there as head fitter and assistant manager.",
+      "I work there as assistant manager and head fitter.",
     ],
     stack: ["HTML", "CSS", "JavaScript"],
   },
@@ -202,11 +202,11 @@ export const LEADERSHIP = [
   },
   { name: "Make-A-Wish", role: "", detail: "Worked with Make-A-Wish to bring golf opportunities to kids." },
   { name: "Kleins Golf Range", role: "Manager", detail: "Managed the local driving range from 9th to 11th grade." },
-  { name: "Shoreline Golf", role: "Head fitter and assistant manager", detail: "The golf shop in Westbrook." },
+  { name: "Shoreline Golf", role: "Assistant manager and head fitter", detail: "The golf shop in Westbrook." },
   {
     name: "Fencing",
     role: "Daniel Hand, foil",
-    detail: "9th and 10th grade, with a winning varsity record. Helped younger fencers.",
+    detail: "9th and 10th grade, with a winning varsity record. Mentored younger fencers.",
   },
   { name: "National Honor Society", role: "Member", detail: "" },
 ] as {

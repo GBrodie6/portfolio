@@ -81,7 +81,7 @@ motor counts for the lift or claw, no broken parts, no results beyond
 | Triple G Landscaping: first paying client, built and deployed it, keeps revising it with the owner, triple-g-landscaping.com | Content brief; domain from the site's canonical URL | sourced |
 | Triple G stack: Next.js, TypeScript, Tailwind, Vercel | Content brief | sourced |
 | Paige's babysitting site: for a classmate's babysitting business, 3D hero elements and a GSAP animation layer, paigegrendi-babysitting.vercel.app | Content brief | sourced |
-| Shoreline Golf: site for the golf shop in Westbrook where you work as head fitter and assistant manager, shoreline-golf.com | Content brief | sourced |
+| Shoreline Golf: site for the golf shop in Westbrook where you work as assistant manager and head fitter, shoreline-golf.com | Content brief | sourced |
 | Uphill Golf: a vertical physics golf game, 8 holes (pars 3 to 10), playable at gbrodie6.github.io/uphill-golf | Repo `GBrodie6/uphill-golf` README and `index.html`; Live | sourced |
 | WikiDash: multiplayer Wikipedia race game; host sets start and target and can turn off the back button, Ctrl+F, and leaving the tab; wikidash3.higgsfield.app | Content brief | sourced |
 
@@ -95,9 +95,9 @@ motor counts for the lift or claw, no broken parts, no results beyond
 | MYFS Peer Advocate (Madison Youth & Family Services), at Daniel Hand High School | Content brief | sourced |
 | Worked with Make-A-Wish to bring golf opportunities to kids | Content brief | sourced |
 | Kleins Golf Range: managed it from 9th to 11th grade | Content brief | sourced |
-| Shoreline Golf: head fitter and assistant manager | Content brief | sourced |
+| Shoreline Golf: assistant manager and head fitter | Content brief | sourced |
 | Fencing: foil for Daniel Hand in 9th and 10th grade, winning varsity record | Griffin | sourced |
-| Fencing: helped younger fencers | Content brief | sourced |
+| Fencing: mentored younger fencers (corrected from "helped" by Griffin) | Griffin | sourced |
 
 ## Golf (supporting detail)
 
