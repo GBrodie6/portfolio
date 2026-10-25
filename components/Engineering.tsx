@@ -9,7 +9,7 @@ export default function Engineering() {
   return (
     <section id="engineering" className="on-dark section" aria-labelledby="engineering-h">
       <div className="wrap">
-        <div className="panel">
+        <div className="panel panel-fit">
           <SplitHeading id="engineering-h">Engineering</SplitHeading>
         </div>
 

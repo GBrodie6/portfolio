@@ -113,6 +113,18 @@ body {
     margin-inline: calc(var(--sp-2) * -1);
   }
 }
+/* Heading and hero panels hug their text, so they never cover the bridge
+   tower beside them. */
+.panel-fit {
+  width: fit-content;
+  max-width: 100%;
+}
+/* Phones: the hero line stops short of the tower at 80% of the width. */
+@media (max-width: 767px) {
+  .hero-line {
+    max-width: 62vw;
+  }
+}
 /* Long section titles get a size that fits one word per line at any width. */
 .heading-long {
   font-size: clamp(2.5rem, 7.4vw, 7rem);

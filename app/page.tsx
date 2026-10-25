@@ -17,13 +17,13 @@ export default function Home() {
       <ChapterWipe target="#engineering" />
       <main className="relative z-10">
         <section id="top" className="hero wrap" aria-label="Introduction">
-          <div className="panel">
+          <div className="panel panel-fit">
             <h1 className="hero-name display text-mega uppercase">
               <span className="block">Griffin</span>
               <span className="block">Brodie</span>
             </h1>
             <span className="hero-rule mt-5" aria-hidden="true" />
-            <p className="mt-4 max-w-measure text-lead">{HERO.line}</p>
+            <p className="hero-line mt-4 max-w-measure text-lead">{HERO.line}</p>
           </div>
         </section>
 

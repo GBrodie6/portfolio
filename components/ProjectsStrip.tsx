@@ -103,7 +103,7 @@ export default function ProjectsStrip() {
     <section ref={root} id="projects" className="strip" aria-labelledby="projects-h">
       <div className="strip-stage">
         <div className="wrap strip-head">
-          <div className="panel">
+          <div className="panel panel-fit">
             <SplitHeading id="projects-h">Projects</SplitHeading>
           </div>
         </div>

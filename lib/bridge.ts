@@ -105,13 +105,14 @@ export function buildBridge(VW: number, VH: number): Bridge {
   // ---- Ground: banks at deck level, river valley between ----
   const ease = (t: number) => 0.5 - 0.5 * Math.cos(Math.PI * t);
   const groundY = (x: number) => {
-    if (x <= xLB) return deckY + dt;
-    if (x < xLB + slope) return deckY + dt + (bedY - deckY - dt) * ease((x - xLB) / slope);
+    if (x <= xLB) return deckY;
+    if (x < xLB + slope) return deckY + (bedY - deckY) * ease((x - xLB) / slope);
     if (x <= xRB - slope) return bedY + 5 * S * Math.sin((x - xLB) / (80 * S));
-    if (x < xRB) return bedY + (deckY + dt - bedY) * ease((x - (xRB - slope)) / slope);
-    return deckY + dt;
+    if (x < xRB) return bedY + (deckY - bedY) * ease((x - (xRB - slope)) / slope);
+    return deckY;
   };
-  const gpts: P[] = [[-20, deckY + dt], ...sample(xLB, xRB, 150, groundY), [W + 20, deckY + dt]];
+  // Bank tops are level with the deck surface, so the road runs straight on.
+  const gpts: P[] = [[-20, deckY], ...sample(xLB, xRB, 150, groundY), [W + 20, deckY]];
   const ground = line(gpts);
   const groundFill =
     gpts.map(([x, y], i) => (i ? "L" : "M") + f(x) + "," + f(y)).join("") +
