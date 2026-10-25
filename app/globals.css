@@ -775,6 +775,19 @@ html.menu-open {
 .lead-figure {
   text-align: left;
 }
+.lead-figure-num {
+  display: block;
+  line-height: 1;
+}
+.lead-figure-label {
+  display: block;
+  margin-top: var(--sp-2);
+}
+@media (min-width: 768px) {
+  .lead-figure {
+    text-align: right;
+  }
+}
 
 /* ==== Timeline ==== */
 .tl-item {

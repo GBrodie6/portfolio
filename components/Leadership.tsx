@@ -25,10 +25,10 @@ export default function Leadership() {
               </div>
               {l.figure && (
                 <p className="lead-figure">
-                  <span className="display text-figure">
+                  <span className="lead-figure-num display text-figure">
                     <CountUp value={l.figure.value} prefix={l.figure.prefix} suffix={l.figure.suffix} />
                   </span>
-                  <span className="block text-steel">{l.figure.label}</span>
+                  <span className="lead-figure-label text-steel">{l.figure.label}</span>
                 </p>
               )}
             </li>
