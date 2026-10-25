@@ -10,6 +10,19 @@
 export type Line = { d: string; len: number };
 export type Segment = { d: string; origin: string; at: number };
 export type Cable = Line & { at: number };
+export type Car = {
+  body: string;
+  wheels: { cx: number; cy: number; r: number; spoke: string }[];
+  y: number;
+  from: number;
+  to: number;
+};
+
+/**
+ * Share of page progress spent building. The span closes here, as the footer
+ * arrives; the camera then holds and the car crosses over the rest.
+ */
+export const BUILD_END = 0.93;
 
 export type Bridge = {
   VW: number;
@@ -25,6 +38,7 @@ export type Bridge = {
     segments: Segment[];
     cables: Cable[];
     closureAt: number;
+    car: Car;
     step: number;
   };
   mid: { W: number; ridges: Line[]; water: Line[] };
@@ -125,7 +139,7 @@ export function buildBridge(VW: number, VH: number): Bridge {
   const slM = (xRB - xT) / Nm;
   const Nb = Math.max(4, Math.round((xT - xLB) / slM));
   const slB = (xT - xLB) / Nb;
-  const step = 1 / Nm;
+  const step = BUILD_END / Nm;
   const segments: Segment[] = [];
   const cables: Cable[] = [];
   const anchorY = (k: number, n: number) => topY + 12 * S + (1 - k / n) * 0.36 * Ht;
@@ -143,6 +157,26 @@ export function buildBridge(VW: number, VH: number): Bridge {
       cables.push({ ...line([[xT - wt * 0.6, anchorY(i + 1, Nb)], [b1 + 2 * S, deckY]]), at: at + step * 0.45 });
     }
   }
+
+  // ---- The car: crosses the finished main span after closure. Drawn about
+  // a center at x = 0, y = 0 on the deck top, then moved along the deck.
+  const u = S * 1.2;
+  const car: Car = {
+    body:
+      `M${f(-30 * u)},${f(-8 * u)}V${f(-17 * u)}Q${f(-30 * u)},${f(-20 * u)} ${f(-27 * u)},${f(-20 * u)}` +
+      `H${f(-16 * u)}L${f(-9 * u)},${f(-30 * u)}H${f(12 * u)}L${f(19 * u)},${f(-20 * u)}` +
+      `H${f(27 * u)}Q${f(30 * u)},${f(-20 * u)} ${f(30 * u)},${f(-17 * u)}V${f(-8 * u)}Z`,
+    wheels: [-19, 19].map((x) => ({
+      cx: x * u,
+      cy: -5.5 * u,
+      r: 5.5 * u,
+      spoke: `M${f(x * u - 3.5 * u)},${f(-5.5 * u)}H${f(x * u + 3.5 * u)}`,
+    })),
+    y: deckY,
+    // From just off the left edge of the held view to the far bank.
+    from: 1.5 * VW - 40 * u,
+    to: xRB + 0.08 * VW,
+  };
 
   // ---- Middle layer: distant valley ridges and water lines ----
   const Wm = 1.75 * VW;
@@ -178,6 +212,7 @@ export function buildBridge(VW: number, VH: number): Bridge {
       segments,
       cables,
       closureAt: (Nm - 1) * step,
+      car,
       step,
     },
     mid: { W: Wm, ridges, water },

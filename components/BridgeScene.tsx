@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { buildBridge, viewDims, TRAVEL, LAYER_W, type Line } from "@/lib/bridge";
+import { buildBridge, viewDims, TRAVEL, LAYER_W, BUILD_END, type Line } from "@/lib/bridge";
 import { REDUCED } from "@/lib/env";
 import { afterIdle } from "@/lib/idle";
 
@@ -93,9 +93,10 @@ export default function BridgeScene() {
         const q = gsap.utils.selector(el);
         const tl = gsap.timeline({ paused: true, defaults: { ease: "none" } });
 
-        tl.fromTo(q(".layer-back"), { xPercent: 0 }, { xPercent: TRAVEL.back, duration: 1 }, 0);
-        tl.fromTo(q(".layer-mid"), { xPercent: 0 }, { xPercent: TRAVEL.mid, duration: 1 }, 0);
-        tl.fromTo(q(".layer-front"), { xPercent: 0 }, { xPercent: TRAVEL.front, duration: 1 }, 0);
+        // Camera follows the build, then holds once the span closes.
+        tl.fromTo(q(".layer-back"), { xPercent: 0 }, { xPercent: TRAVEL.back, duration: BUILD_END }, 0);
+        tl.fromTo(q(".layer-mid"), { xPercent: 0 }, { xPercent: TRAVEL.mid, duration: BUILD_END }, 0);
+        tl.fromTo(q(".layer-front"), { xPercent: 0 }, { xPercent: TRAVEL.front, duration: BUILD_END }, 0);
 
         // Each segment slides out from its joint, then its cable is drawn.
         q(".b-seg").forEach((e) => {
@@ -108,6 +109,15 @@ export default function BridgeScene() {
           const len = Number(e.getAttribute("data-len"));
           tl.fromTo(e, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: step * 0.5 }, at);
         });
+
+        // The car enters off-screen once the span is closed, then drives to
+        // the far bank; its wheels turn with the distance covered.
+        const { car } = sc.front;
+        const drive = 1 - BUILD_END;
+        tl.fromTo(q(".b-car"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.001 }, BUILD_END);
+        tl.fromTo(q(".b-car"), { x: car.from, y: car.y }, { x: car.to, y: car.y, duration: drive }, BUILD_END);
+        const turns = ((car.to - car.from) / car.wheels[0].r) * (180 / Math.PI);
+        tl.fromTo(q(".b-wheel"), { rotation: 0, transformOrigin: "50% 50%" }, { rotation: turns, transformOrigin: "50% 50%", duration: drive }, BUILD_END);
 
         tl.set({}, {}, 1); // timeline spans exactly 0..1
 
@@ -171,6 +181,16 @@ export default function BridgeScene() {
           <path d={front.towerFooting} style={{ fill: STRUCTURE }} fillOpacity="0.85" />
 
           <g className="scene-build">
+            {/* Car (behind the cable plane). The still frame shows it parked on the far bank. */}
+            <g className="b-car" transform={`translate(${front.car.to} ${front.car.y})`} style={{ fill: STRUCTURE }}>
+              <path d={front.car.body} />
+              {front.car.wheels.map((w, i) => (
+                <g key={i} className="b-wheel">
+                  <circle cx={w.cx} cy={w.cy} r={w.r} />
+                  <path d={w.spoke} style={{ stroke: GROUND }} strokeWidth={sw * 1.4} />
+                </g>
+              ))}
+            </g>
             <g style={{ stroke: CABLE }} strokeWidth={sw * 1.1} strokeLinecap="round">
               {front.cables.map((c, i) => (
                 <path

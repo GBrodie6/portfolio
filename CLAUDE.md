@@ -31,7 +31,8 @@ I should never have to run git or deploy commands myself. Take it end to end.
 - Copy lives in `lib/content.ts`. Plain and literal, no em dashes.
 - Background: `components/BridgeScene.tsx` (geometry in `lib/bridge.ts`), a
   cable-stayed bridge built by balanced cantilever, scrubbed by one
-  ScrollTrigger over the page; Lenis is the only smoothing
+  ScrollTrigger over the page; the span closes at `BUILD_END` (93% of the page)
+  and one car then crosses to the far bank; Lenis is the only smoothing
   (`components/SmoothScroll.tsx`). The Engineering chapter is Graphite
   (`components/ChapterWipe.tsx`).
 - Page transitions: `components/TransitionLink.tsx` uses the View Transitions

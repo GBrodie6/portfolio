@@ -87,7 +87,8 @@ A cable-stayed bridge is built outward from its tower one deck segment at a
 time, each segment held by a new stay cable, until the arms reach the far
 abutment and the span closes. The fixed background scene builds that way as
 the page scrolls: the tower stands up in the hero, each section adds segments
-and Water Main Blue cables, and the span closes at the footer. The bridge also
+and Water Main Blue cables, and the span closes as the footer arrives. Then the camera holds and one car
+drives across the finished span to the far bank, tied to scroll like the rest. The bridge also
 appears small and static as the logo mark, opens the robotics and project
 pages with a short partial build, and nowhere else.
 
